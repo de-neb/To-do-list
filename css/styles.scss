@@ -4,12 +4,22 @@
 // variables
 $main-color: #ff926b;
 $side-color: #222831;
-$side-text-color: #ff926b;
-$task-name-color: #ffe8d5;
+$light-color: #fff3cd;
+$task-name-color: #ffc38b;
 $main-font: "Fjalla One", sans-serif;
 $time-font: "Barlow Condensed", sans-serif;
 $task-font: "Barlow", sans-serif;
+$side-width: 30%;
+$main-width: 100%;
 // variables-end
+
+// functions
+@mixin flex($align, $justify) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+}
+// functions-end
 
 body {
   margin: 0;
@@ -21,7 +31,7 @@ body {
 }
 .main {
   background: $main-color;
-  width: 80vw;
+  width: $main-width;
   min-height: 100vh;
   padding: 100px 0;
   box-sizing: border-box;
@@ -35,6 +45,7 @@ body {
     color: $side-color;
     margin: 0 20px;
     font-weight: bold;
+    text-transform: uppercase;
   }
   hr {
     border: none;
@@ -42,7 +53,7 @@ body {
     margin: 3px 0 0 20px;
   }
 
-  .list-corner {
+  .no-items {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -56,22 +67,19 @@ body {
 }
 // side clock
 .side-clock {
-  width: 25vw;
   min-height: 100vh;
   background: $side-color;
   padding: 100px 0;
-  color: $side-text-color;
+  color: $main-color;
   font-family: $time-font;
   box-sizing: border-box;
   position: relative;
   .time-container {
-    text-align: center;
     padding: 0 10px;
-
+    @include flex(flex-end, flex-end);
+    flex-direction: column;
     .time {
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-end;
+      @include flex(inherit, inherit);
       h1 {
         display: inline-block;
         font-size: 10rem;
@@ -81,6 +89,7 @@ body {
         font-weight: 300;
       }
       span {
+        align-self: flex-start;
         display: inline-block;
         font-size: 5rem;
         line-height: 5rem;
@@ -109,9 +118,8 @@ body {
   right: 0;
   ul {
     text-align: right;
-    display: flex;
+    @include flex(flex-end, initial);
     flex-direction: column;
-    align-items: flex-end;
     li {
       list-style-type: none;
       width: 100%;
@@ -126,6 +134,15 @@ body {
         }
       }
 
+      &:first-child {
+        font-size: 3.5rem;
+        font-weight: bold;
+
+        &:hover {
+          color: $side-color;
+        }
+      }
+
       a {
         text-decoration: none;
         font-size: 3.5rem;
@@ -133,27 +150,60 @@ body {
         font-weight: bold;
       }
     }
+
     .task-list-cont {
       input[type="text"] {
-        font-size: 1.7rem;
-        width: 15vw;
+        font-size: 1.5rem;
+        width: 23vw;
         outline: none;
         border: none;
         border-bottom: 2px solid $main-color;
         background: none;
-        color: $main-color;
-        margin-bottom: 20px;
+        color: $task-name-color;
+        margin: 15px 0 20px 0;
+
+        &::placeholder {
+          color: $light-color;
+          opacity: 0.7;
+        }
       }
       .task-list {
         p {
           margin: 0;
           font-size: 1.7rem;
-          padding: 0 15px 0 0;
           font-family: $task-font;
           font-weight: light;
           color: $task-name-color;
+          a {
+            text-decoration: none;
+            color: $task-name-color;
+            padding: 0 15px 0 0;
+            &:hover {
+              background: $task-name-color;
+              color: $side-color;
+
+              span.fas {
+                visibility: visible;
+                margin: 0 30px 0 10px;
+                opacity: 0.5;
+
+                &:hover {
+                  opacity: 1;
+                }
+              }
+            }
+            span.fas {
+              visibility: hidden;
+            }
+          }
         }
       }
     }
   }
+}
+
+.active {
+  background: $task-name-color;
+  color: $side-color;
+  padding: 0 15px 0 0;
 }

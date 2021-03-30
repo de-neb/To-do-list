@@ -1,6 +1,7 @@
 const app = Vue.createApp({
   data() {
     return {
+      title: "TO-DO LIST",
       weekday: null,
       weekDayArr: [
         "Sunday",
@@ -32,8 +33,10 @@ const app = Vue.createApp({
       minutes: null,
       seconds: null,
       period: null,
-      taskList: [],
-      taskListName: "My Task",
+      taskListName: "",
+      taskList: ["My Task"],
+      taskListId: 0,
+      isActive: false,
     };
   },
   methods: {
@@ -41,14 +44,33 @@ const app = Vue.createApp({
       return num < 10 ? String(num).padStart(2, "0") : num;
     },
     setPeriod(hour) {
-      return hour < 13 ? "AM" : "PM";
+      return hour < 12 ? "AM" : "PM";
     },
     addTask() {
-      if (!this.taskList.includes(this.taskListName)) {
+      if (!this.taskList.includes(this.taskListName) && this.taskListName) {
         this.taskList.push(this.taskListName);
+        this.taskListId = this.taskList.indexOf(this.taskListName);
+        this.taskListName = "";
       }
+      this.saveLocally();
+    },
+    changeList(id) {
+      this.taskListId = id;
+      this.isActive = !this.isActive;
+    },
+    deleteList(id) {
+      this.taskList = this.taskList.filter((item, index) => index !== id);
+      this.saveLocally();
+      this.taskListId = id - 1;
+      console.log("current id: " + this.taskListId);
+    },
+    saveLocally() {
+      const parsed = JSON.stringify(this.taskList);
+      localStorage.setItem("taskList", parsed);
+      console.log(parsed);
     },
   },
+
   mounted() {
     setInterval(() => {
       const d = new Date();
@@ -60,7 +82,19 @@ const app = Vue.createApp({
       this.minutes = this.padZero(d.getMinutes());
       this.period = this.setPeriod(d.getHours());
     }, 900);
+
+    // save data locally
+    if (localStorage.getItem("taskList")) {
+      try {
+        this.taskList = JSON.parse(localStorage.getItem("taskList"));
+        console.log("taskLit from storage: " + this.taskList);
+      } catch (error) {
+        console.log("errorblock:" + error);
+        console.log(this.taskList);
+      }
+    }
   },
+  watch: {},
 });
 
 app.mount("#app");

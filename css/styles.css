@@ -13,7 +13,7 @@ body {
 
 .main {
   background: #ff926b;
-  width: 80vw;
+  width: 100%;
   min-height: 100vh;
   padding: 100px 0;
   -webkit-box-sizing: border-box;
@@ -30,6 +30,7 @@ body {
   color: #222831;
   margin: 0 20px;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 .main hr {
@@ -38,7 +39,7 @@ body {
   margin: 3px 0 0 20px;
 }
 
-.main .list-corner {
+.main .no-items {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -46,14 +47,13 @@ body {
           transform: translate(-50%, -50%);
 }
 
-.main .list-corner h2 {
+.main .no-items h2 {
   font-weight: 300;
   font-size: 2.3rem;
   opacity: 0.5;
 }
 
 .side-clock {
-  width: 25vw;
   min-height: 100vh;
   background: #222831;
   padding: 100px 0;
@@ -65,20 +65,32 @@ body {
 }
 
 .side-clock .time-container {
-  text-align: right;
   padding: 0 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .side-clock .time-container .time {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -webkit-box-align: inherit;
+      -ms-flex-align: inherit;
+          align-items: inherit;
+  -webkit-box-pack: inherit;
+      -ms-flex-pack: inherit;
+          justify-content: inherit;
 }
 
 .side-clock .time-container .time h1 {
@@ -91,6 +103,8 @@ body {
 }
 
 .side-clock .time-container .time span {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
   display: inline-block;
   font-size: 5rem;
   line-height: 5rem;
@@ -123,13 +137,16 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: initial;
+      -ms-flex-pack: initial;
+          justify-content: initial;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
 }
 
 .side-nav ul li {
@@ -148,6 +165,15 @@ body {
   color: #222831;
 }
 
+.side-nav ul li:first-child {
+  font-size: 3.5rem;
+  font-weight: bold;
+}
+
+.side-nav ul li:first-child:hover {
+  color: #222831;
+}
+
 .side-nav ul li a {
   text-decoration: none;
   font-size: 3.5rem;
@@ -156,22 +182,72 @@ body {
 }
 
 .side-nav ul .task-list-cont input[type="text"] {
-  font-size: 1.7rem;
-  width: 15vw;
+  font-size: 1.5rem;
+  width: 23vw;
   outline: none;
   border: none;
   border-bottom: 2px solid #ff926b;
   background: none;
-  color: #ff926b;
-  margin-bottom: 20px;
+  color: #ffc38b;
+  margin: 15px 0 20px 0;
+}
+
+.side-nav ul .task-list-cont input[type="text"]::-webkit-input-placeholder {
+  color: #fff3cd;
+  opacity: 0.7;
+}
+
+.side-nav ul .task-list-cont input[type="text"]:-ms-input-placeholder {
+  color: #fff3cd;
+  opacity: 0.7;
+}
+
+.side-nav ul .task-list-cont input[type="text"]::-ms-input-placeholder {
+  color: #fff3cd;
+  opacity: 0.7;
+}
+
+.side-nav ul .task-list-cont input[type="text"]::placeholder {
+  color: #fff3cd;
+  opacity: 0.7;
 }
 
 .side-nav ul .task-list-cont .task-list p {
   margin: 0;
   font-size: 1.7rem;
-  padding: 0 15px 0 0;
   font-family: "Barlow", sans-serif;
   font-weight: light;
-  color: #ffe8d5;
+  color: #ffc38b;
+}
+
+.side-nav ul .task-list-cont .task-list p a {
+  text-decoration: none;
+  color: #ffc38b;
+  padding: 0 15px 0 0;
+}
+
+.side-nav ul .task-list-cont .task-list p a:hover {
+  background: #ffc38b;
+  color: #222831;
+}
+
+.side-nav ul .task-list-cont .task-list p a:hover span.fas {
+  visibility: visible;
+  margin: 0 30px 0 10px;
+  opacity: 0.5;
+}
+
+.side-nav ul .task-list-cont .task-list p a:hover span.fas:hover {
+  opacity: 1;
+}
+
+.side-nav ul .task-list-cont .task-list p a span.fas {
+  visibility: hidden;
+}
+
+.active {
+  background: #ffc38b;
+  color: #222831;
+  padding: 0 15px 0 0;
 }
 /*# sourceMappingURL=styles.css.map */

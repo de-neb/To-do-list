@@ -27,14 +27,32 @@
         </div>
         <nav class="side-nav">
           <ul>
-            <li><a href="#tasks-list">MY TASK LISTS</a></li>
+            <li>MY TASK LISTS</li>
             <div class="task-list-cont">
-              <div v-for="task in taskList" :key="task" class="task-list">
-                <p>{{task}}</p>
+              <div
+                v-for="listName,index in taskList"
+                :key="listName"
+                class="task-list"
+              >
+                <p>
+                  <a
+                    :href="'#list'+taskListId"
+                    @click.self="changeList(index)"
+                    :class="{ active:isActive }"
+                  >
+                    <span
+                      type="button"
+                      @click="deleteList(index)"
+                      class="fas fa-times"
+                    ></span>
+                    {{listName}}</a
+                  >
+                </p>
               </div>
               <input
                 type="text"
                 name="list-name"
+                placeholder="Enter name for task list"
                 v-model="taskListName"
                 @keydown.enter="addTask"
               />
@@ -44,15 +62,20 @@
         </nav>
       </div>
 
-      <div class="main">
-        <h1 class="title">{{taskListName.toUpperCase()}}</h1>
+      <div class="main" :id="'#list'+taskListId">
+        <h1 class="title">
+          {{taskList.length !== 0 ?taskList[taskListId]:title}}
+        </h1>
         <hr />
-        <div v-if="!taskList.length" class="list-corner">
+        <div v-if="!taskList.length" class="no-items">
           <h2>:(</h2>
           <h2>
             You don't have any tasks added to your {{taskListName}}, click to
             create one!
           </h2>
+        </div>
+        <div v-else class="">
+          <button>Click to add a task item</button>
         </div>
       </div>
     </div>

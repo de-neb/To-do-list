@@ -1,0 +1,177 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@200;400;600&family=Barlow:wght@300;500&family=Fira+Sans:ital,wght@0,400;1,700&family=Fjalla+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@400&display=swap");
+body {
+  margin: 0;
+  text-align: center;
+}
+
+#app {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main {
+  background: #ff926b;
+  width: 80vw;
+  min-height: 100vh;
+  padding: 100px 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: "Barlow", sans-serif;
+  position: relative;
+}
+
+.main .title {
+  font-family: "Fjalla One", sans-serif !important;
+  font-size: 5rem;
+  line-height: 7rem;
+  text-align: left;
+  color: #222831;
+  margin: 0 20px;
+  font-weight: bold;
+}
+
+.main hr {
+  border: none;
+  border-bottom: 1px solid #222831;
+  margin: 3px 0 0 20px;
+}
+
+.main .list-corner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.main .list-corner h2 {
+  font-weight: 300;
+  font-size: 2.3rem;
+  opacity: 0.5;
+}
+
+.side-clock {
+  width: 25vw;
+  min-height: 100vh;
+  background: #222831;
+  padding: 100px 0;
+  color: #ff926b;
+  font-family: "Barlow Condensed", sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position: relative;
+}
+
+.side-clock .time-container {
+  text-align: right;
+  padding: 0 10px;
+}
+
+.side-clock .time-container .time {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.side-clock .time-container .time h1 {
+  display: inline-block;
+  font-size: 10rem;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 8rem;
+  font-weight: 300;
+}
+
+.side-clock .time-container .time span {
+  display: inline-block;
+  font-size: 5rem;
+  line-height: 5rem;
+}
+
+.side-clock .time-container h2 {
+  font-size: 4rem;
+  line-height: 4rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.side-clock .time-container h3 {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 3rem;
+  margin: 0;
+}
+
+.side-nav {
+  margin: 50px 0 0 0;
+  position: relative;
+  right: 0;
+}
+
+.side-nav ul {
+  text-align: right;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.side-nav ul li {
+  list-style-type: none;
+  width: 100%;
+  margin: 0 0 20px 0;
+  text-align: right;
+  padding: 5px 10px 5px 20px;
+}
+
+.side-nav ul li:hover {
+  background: #ff926b;
+}
+
+.side-nav ul li:hover a {
+  color: #222831;
+}
+
+.side-nav ul li a {
+  text-decoration: none;
+  font-size: 3.5rem;
+  color: #ff926b;
+  font-weight: bold;
+}
+
+.side-nav ul .task-list-cont input[type="text"] {
+  font-size: 1.7rem;
+  width: 15vw;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #ff926b;
+  background: none;
+  color: #ff926b;
+  margin-bottom: 20px;
+}
+
+.side-nav ul .task-list-cont .task-list p {
+  margin: 0;
+  font-size: 1.7rem;
+  padding: 0 15px 0 0;
+  font-family: "Barlow", sans-serif;
+  font-weight: light;
+  color: #ffe8d5;
+}
+/*# sourceMappingURL=styles.css.map */

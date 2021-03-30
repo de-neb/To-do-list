@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+      integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="side-clock">
+        <div class="time-container">
+          <div class="time">
+            <h1>{{hours}}:{{minutes}}</h1>
+            <span>{{period}}</span>
+          </div>
+          <h2>{{month}} {{date}} {{year}}</h2>
+          <h3>{{weekday}}</h3>
+        </div>
+        <nav class="side-nav">
+          <ul>
+            <li><a href="#tasks-list">MY TASK LISTS</a></li>
+            <div class="task-list-cont">
+              <div v-for="task in taskList" :key="task" class="task-list">
+                <p>{{task}}</p>
+              </div>
+              <input
+                type="text"
+                name="list-name"
+                v-model="taskListName"
+                @keydown.enter="addTask"
+              />
+            </div>
+            <li><a href="#NOTES">NOTES</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="main">
+        <h1 class="title">{{taskListName.toUpperCase()}}</h1>
+        <hr />
+        <div v-if="!taskList.length" class="list-corner">
+          <h2>:(</h2>
+          <h2>
+            You don't have any tasks added to your {{taskListName}}, click to
+            create one!
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

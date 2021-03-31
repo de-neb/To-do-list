@@ -1,14 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@200;400;600&family=Barlow:wght@300;500&family=Fira+Sans:ital,wght@0,400;1,700&family=Fjalla+One&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400&family=Saira+Extra+Condensed:wght@200;300&family=Spartan:wght@100;200;300;400&display=swap");
 
 // variables
-$main-color: #ff926b;
-$side-color: #222831;
-$light-color: #fff3cd;
-$task-name-color: #ffc38b;
-$main-font: "Fjalla One", sans-serif;
-$time-font: "Barlow Condensed", sans-serif;
-$task-font: "Barlow", sans-serif;
+$main-color: #fdcb9e;
+$side-color: #3f3f44;
+$light-color: #f6f6f6;
+$task-name-color: #f6f6f6;
+$success: #61b15a;
+$bar: #f6f6f6;
+$todo: $side-color;
+$danger: #e7305b;
+$main-font: "Spartan", sans-serif;
+$time-font: "Saira Extra Condensed", sans-serif;
+$task-font: "Nunito", sans-serif;
 $side-width: 30%;
 $main-width: 100%;
 // variables-end
@@ -24,6 +27,7 @@ $main-width: 100%;
 body {
   margin: 0;
   text-align: center;
+  overflow-x: hidden;
 }
 
 #app {
@@ -33,10 +37,11 @@ body {
   background: $main-color;
   width: $main-width;
   min-height: 100vh;
-  padding: 100px 0;
+  padding: 20px 0;
   box-sizing: border-box;
   font-family: $task-font;
   position: relative;
+  right: 0;
   .title {
     font-family: $main-font !important;
     font-size: 5rem;
@@ -44,7 +49,7 @@ body {
     text-align: left;
     color: $side-color;
     margin: 0 20px;
-    font-weight: bold;
+    font-weight: 200;
     text-transform: uppercase;
   }
   hr {
@@ -53,23 +58,221 @@ body {
     margin: 3px 0 0 20px;
   }
 
-  .no-items {
+  .no-task-items {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     h2 {
-      font-weight: 300;
-      font-size: 2.3rem;
+      font-weight: bold;
+      font-size: 2.5rem;
+    }
+  }
+  .no-todo-item {
+    @extend .no-task-items;
+    h4 {
+      font-size: 1.3rem;
+      margin: 0;
       opacity: 0.5;
     }
+    .create-todo {
+      padding: 15px 20px;
+      border-width: 2px;
+      border-color: $side-color;
+      border-radius: 2px;
+      background: none;
+      outline: none;
+      color: $side-color;
+      font-size: 1.2rem;
+      font-family: $task-font;
+      text-transform: uppercase;
+      cursor: pointer;
+      &:hover {
+        background: $side-color;
+        color: $task-name-color;
+      }
+    }
+  }
+  .todos-cont {
+    font-family: $task-font;
+    .item-cont {
+      .top {
+        @extend .add-item-cont;
+        margin-bottom: 0 !important;
+        border-radius: 3px 3px 0 0 !important;
+        justify-content: flex-start !important;
+        label {
+          width: 18px;
+          height: 18px;
+          position: relative;
+          z-index: 2;
+          cursor: pointer;
+          margin-right: 10px;
+        }
+        .checkbox {
+          position: absolute;
+          opacity: 0;
+          z-index: -1;
+          &:not(:checked) ~ .check {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid $success;
+            border-radius: 3px;
+            box-sizing: border-box;
+          }
+          &:checked ~ .check {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            box-sizing: border-box;
+            background: $success;
+            @include flex(center, center);
+            &::after {
+              content: "✔";
+              font-size: 1.5rem;
+              color: $light-color;
+            }
+          }
+          &:checked ~ .check ~ .item {
+            text-decoration: line-through;
+          }
+        }
+        .item {
+          margin: 0;
+          font-size: 1.3rem;
+          color: $todo;
+          font-weight: 400;
+        }
+        button.expand {
+          margin-left: auto;
+          background: none;
+          outline: none;
+          border: none;
+          height: 30px;
+          @include flex(center, center);
+          border-radius: 3px;
+          &:hover {
+            background: $main-color;
+          }
+        }
+      }
+      .expanded-cont {
+        @extend .add-item-cont;
+        align-items: flex-start !important;
+        margin-top: 0 !important;
+        border-radius: 0 0 3px 3px !important;
+        border-top: 1px solid #bbbb;
+        flex-flow: wrap;
+        height: auto;
+
+        .date-priority-cont {
+          @include flex(flex-start, flex-start);
+          flex-direction: column;
+
+          width: 300px;
+          .date-cont {
+            width: 100%;
+            @include flex(flex-start, flex-start);
+            flex-direction: column;
+            label {
+              font-size: 1.2rem;
+              font-weight: bold;
+            }
+            #date {
+              width: 100%;
+              height: 30px;
+              border: 1px solid $side-color;
+              border-radius: 3px;
+              background: none;
+              outline: none;
+              padding: 10px;
+              box-sizing: border-box;
+              font-size: 1.3rem;
+              color: $side-color;
+              margin-bottom: 20px;
+            }
+          }
+          .priority-cont {
+            @extend .date-cont;
+            select {
+              @extend #date;
+              height: auto !important;
+              padding: 1.5px 10px !important;
+            }
+          }
+        }
+        .details-cont {
+          @include flex(flex-start, center);
+          flex-direction: column;
+
+          label {
+            font-size: 1.2rem;
+            font-weight: bold;
+          }
+        }
+        .btn-save-del {
+          flex: 0 1 100%;
+          margin-top: 20px;
+          @include flex(center, flex-end);
+          .del {
+            @include flex(center, center);
+            padding: 7px 15px;
+            margin-right: 10px;
+            background: none;
+            border: 1px solid $danger;
+            outline: none;
+            font-family: inherit;
+            border-radius: 3px;
+            color: $danger;
+            order: 2;
+            &:hover {
+              background: $danger;
+              color: $task-name-color;
+            }
+            span {
+              font-size: 18px;
+            }
+          }
+          .save {
+            @extend .del;
+            order: 1;
+            border-color: $success !important;
+            background: $success !important;
+            color: $task-name-color;
+
+            &:hover {
+              background: rgb(87, 161, 80) !important;
+            }
+          }
+        }
+      }
+    }
+    .add-item-cont {
+      margin: 20px 100px;
+      background: $bar;
+      padding: 15px;
+      border-radius: 5px;
+      color: $todo;
+      @include flex(center, space-around);
+      input[type="text"] {
+        font-family: inherit;
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        outline: none;
+        flex-grow: 12;
+      }
+    }
+    // expanded
   }
 }
 // side clock
 .side-clock {
   min-height: 100vh;
   background: $side-color;
-  padding: 100px 0;
+  padding: 20px 0;
   color: $main-color;
   font-family: $time-font;
   box-sizing: border-box;
@@ -98,13 +301,13 @@ body {
     h2 {
       font-size: 4rem;
       line-height: 4rem;
-      font-weight: 400;
+      font-weight: 200;
       text-transform: uppercase;
       margin: 0;
     }
     h3 {
       text-transform: uppercase;
-      font-weight: 400;
+      font-weight: 200;
       font-size: 3rem;
       line-height: 3rem;
       margin: 0;
@@ -125,7 +328,8 @@ body {
       width: 100%;
       margin: 0 0 20px 0;
       text-align: right;
-      padding: 5px 10px 5px 20px;
+      padding: 3px 10px 0 20px;
+
       &:hover {
         background: $main-color;
 
@@ -135,7 +339,8 @@ body {
       }
 
       &:first-child {
-        font-size: 3.5rem;
+        font-size: 3rem;
+        line-height: 3rem;
         font-weight: bold;
 
         &:hover {
@@ -145,9 +350,10 @@ body {
 
       a {
         text-decoration: none;
-        font-size: 3.5rem;
+        font-size: 3rem;
         color: $main-color;
         font-weight: bold;
+        line-height: 3rem;
       }
     }
 
@@ -174,22 +380,33 @@ body {
           font-family: $task-font;
           font-weight: light;
           color: $task-name-color;
+          margin-bottom: 5px;
           a {
             text-decoration: none;
             color: $task-name-color;
             padding: 0 15px 0 0;
+            display: inline-block;
+            width: 300px;
+            position: relative;
             &:hover {
               background: $task-name-color;
               color: $side-color;
 
-              span.fas {
+              span.fa-times {
+                position: absolute;
+                top: 50%;
+                left: 5%;
                 visibility: visible;
-                margin: 0 30px 0 10px;
+                transform: translate(0, -50%);
                 opacity: 0.5;
 
                 &:hover {
                   opacity: 1;
                 }
+              }
+              span.fa-pencil-alt {
+                @extend span.fa-times;
+                left: 15%;
               }
             }
             span.fas {
@@ -203,7 +420,30 @@ body {
 }
 
 .active {
-  background: $task-name-color;
-  color: $side-color;
+  background: $main-color;
+  color: $side-color !important;
   padding: 0 15px 0 0;
 }
+
+//modal
+.modal-cont {
+  background: rgb(34, 40, 49);
+}
+.hide-todo {
+  visibility: hidden;
+  position: absolute;
+  background: $side-color;
+}
+.show-todo {
+  visibility: visible;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 60%;
+  background: $light-color;
+  @include flex(center, center);
+}
+
+// classes with animations

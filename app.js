@@ -40,9 +40,11 @@ const app = Vue.createApp({
       taskListName: "",
       taskList: ["My Task"],
       taskListId: 0,
-      isActive: false,
-
+      itemName: "default",
+      todoList: ["dummy"],
       collection: [{ name: "My Task", id: 0 }],
+      isShow: false,
+      check: false,
     };
   },
   methods: {
@@ -66,11 +68,26 @@ const app = Vue.createApp({
       // console.log("list: " + this.taskList);
     },
     changeList(id) {
-      this.taskListId = id;
-      this.isActive = !this.isActive;
-      const [current] = this.collection.filter((item) => item.id === id);
-      current.isActive = true;
-      console.log(current.isActive, current.id);
+      //set active item to true and rest inactive item false
+      this.collection = this.collection.map((item) => {
+        let isActive = false;
+        if (item.id === id) {
+          isActive = true;
+        } else {
+          isActive = false;
+        }
+        return {
+          name: item.name,
+          id: item.id,
+          isActive: isActive,
+        };
+      });
+
+      [{ id: this.taskListId }] = this.collection.filter(
+        (item) => item.id === id
+      );
+
+      this.saveLocally();
     },
     deleteList(id) {
       this.taskList = this.taskList.filter((item, index) => index !== id);
@@ -79,8 +96,26 @@ const app = Vue.createApp({
         .map((item, index) => {
           return { name: item.name, id: index };
         });
+      //if list is deleted set the previous or next item as active
+      if (id === 0) {
+        this.taskListId = 0;
+      } else {
+        this.taskListId = id - 1;
+      }
+      this.collection.forEach((item) => {
+        if (this.taskListId === item.id) {
+          item.isActive = true;
+        } else {
+          item.isActive = false;
+        }
+      });
       this.saveLocally();
-      this.taskListId = id - 1;
+    },
+    addTodoItem() {
+      const todoItem = new TodoList(this.itemName);
+      this.todoList.push(todoItem);
+      console.log(JSON.stringify(todoItem));
+      console.log(JSON.stringify(this.todoList));
     },
     saveLocally() {
       const parsedList = JSON.stringify(this.collection);
@@ -90,6 +125,8 @@ const app = Vue.createApp({
   },
 
   mounted() {
+    const todoItem = document.querySelector("#todo");
+    todoItem.focus();
     setInterval(() => {
       const d = new Date();
       this.weekday = this.weekDayArr[d.getDay()];
@@ -106,6 +143,9 @@ const app = Vue.createApp({
       try {
         this.collection = JSON.parse(localStorage.getItem("collection"));
         this.taskList = this.collection.map((item) => item.name);
+        [{ id: this.taskListId }] = this.collection.filter(
+          (item) => item.isActive
+        );
       } catch (error) {
         localStorage.removeItem("collection");
         console.log("errorblock:" + error);

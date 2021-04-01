@@ -12,8 +12,9 @@ $danger: #e7305b;
 $main-font: "Spartan", sans-serif;
 $time-font: "Saira Extra Condensed", sans-serif;
 $task-font: "Nunito", sans-serif;
-$side-width: 30%;
-$main-width: 100%;
+$side-width: 20vw;
+$main-width: 80vw;
+$todo-width: 60%;
 // variables-end
 
 // functions
@@ -30,6 +31,10 @@ body {
   overflow-x: hidden;
 }
 
+div {
+  box-sizing: border-box;
+}
+
 #app {
   display: flex;
 }
@@ -42,6 +47,7 @@ body {
   font-family: $task-font;
   position: relative;
   right: 0;
+
   .title {
     font-family: $main-font !important;
     font-size: 5rem;
@@ -95,12 +101,16 @@ body {
   }
   .todos-cont {
     font-family: $task-font;
+    @include flex(center, center);
+    flex-direction: column;
     .item-cont {
+      width: $todo-width;
       .top {
+        width: 100% !important;
         @extend .add-item-cont;
+        justify-content: space-between !important;
         margin-bottom: 0 !important;
         border-radius: 3px 3px 0 0 !important;
-        justify-content: flex-start !important;
         label {
           width: 18px;
           height: 18px;
@@ -153,27 +163,41 @@ body {
           height: 30px;
           @include flex(center, center);
           border-radius: 3px;
+
           &:hover {
             background: $main-color;
+          }
+          div {
+            width: 24px;
+            height: 24px;
+            transform: rotate(0);
+            transition: transform 0.5s;
           }
         }
       }
       .expanded-cont {
-        @extend .add-item-cont;
-        align-items: flex-start !important;
-        margin-top: 0 !important;
-        border-radius: 0 0 3px 3px !important;
+        width: 100%;
+        display: grid;
+        grid-template-rows: 5% 70% 20%;
+        grid-template-columns: 2.5% 30% 5% 60% 2.5%;
+        background: $bar;
+        color: $todo;
+        border-radius: 0 0 3px 3px;
         border-top: 1px solid #bbbb;
-        flex-flow: wrap;
-        height: auto;
+        opacity: 0;
+        height: 0;
+        visibility: hidden;
+        transition: opacity 0.3s 0.26s, visibility 0.3s 0.26s, height 0.3s 0.25s;
 
         .date-priority-cont {
+          grid-column: 2/3;
+          grid-row: 2/3;
           @include flex(flex-start, flex-start);
           flex-direction: column;
-
-          width: 300px;
+          width: 100%;
           .date-cont {
             width: 100%;
+            height: 100%;
             @include flex(flex-start, flex-start);
             flex-direction: column;
             label {
@@ -196,6 +220,7 @@ body {
           }
           .priority-cont {
             @extend .date-cont;
+
             select {
               @extend #date;
               height: auto !important;
@@ -204,6 +229,9 @@ body {
           }
         }
         .details-cont {
+          grid-column: 4/5;
+          grid-row: 2/3;
+          width: 100%;
           @include flex(flex-start, center);
           flex-direction: column;
 
@@ -211,15 +239,21 @@ body {
             font-size: 1.2rem;
             font-weight: bold;
           }
+          textarea {
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+          }
         }
         .btn-save-del {
+          grid-column: 2/5;
+          grid-row: 3/4;
           flex: 0 1 100%;
-          margin-top: 20px;
           @include flex(center, flex-end);
           .del {
             @include flex(center, center);
             padding: 7px 15px;
-            margin-right: 10px;
+            margin-right: 0;
             background: none;
             border: 1px solid $danger;
             outline: none;
@@ -241,7 +275,7 @@ body {
             border-color: $success !important;
             background: $success !important;
             color: $task-name-color;
-
+            margin-right: 10px;
             &:hover {
               background: rgb(87, 161, 80) !important;
             }
@@ -250,11 +284,12 @@ body {
       }
     }
     .add-item-cont {
-      margin: 20px 100px;
+      width: $todo-width;
       background: $bar;
       padding: 15px;
       border-radius: 5px;
       color: $todo;
+      margin-top: 20px;
       @include flex(center, space-around);
       input[type="text"] {
         font-family: inherit;
@@ -277,6 +312,7 @@ body {
   font-family: $time-font;
   box-sizing: border-box;
   position: relative;
+  width: $side-width;
   .time-container {
     padding: 0 10px;
     @include flex(flex-end, flex-end);
@@ -360,7 +396,7 @@ body {
     .task-list-cont {
       input[type="text"] {
         font-size: 1.5rem;
-        width: 23vw;
+        width: 80%;
         outline: none;
         border: none;
         border-bottom: 2px solid $main-color;
@@ -425,7 +461,7 @@ body {
   padding: 0 15px 0 0;
 }
 
-//modal
+//modal to be deleted
 .modal-cont {
   background: rgb(34, 40, 49);
 }
@@ -446,4 +482,37 @@ body {
   @include flex(center, center);
 }
 
-// classes with animations
+//animations
+
+.expanding {
+  opacity: 1 !important;
+  visibility: visible !important;
+  height: 267px !important;
+}
+
+.rotating {
+  transform: rotate(180deg) !important;
+}
+
+// media queries
+@media (max-width: 1330px) {
+  .main {
+    .todos-cont {
+      .item-cont,
+      .add-item-cont {
+        width: 70%;
+      }
+    }
+  }
+}
+
+@media (max-width: 1145px) {
+  .main {
+    .todos-cont {
+      .item-cont,
+      .add-item-cont {
+        width: 80%;
+      }
+    }
+  }
+}

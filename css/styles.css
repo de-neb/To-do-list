@@ -6,6 +6,11 @@ body {
   overflow-x: hidden;
 }
 
+div {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
 #app {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -14,7 +19,7 @@ body {
 
 .main {
   background: #fdcb9e;
-  width: 100%;
+  width: 80vw;
   min-height: 100vh;
   padding: 20px 0;
   -webkit-box-sizing: border-box;
@@ -81,14 +86,32 @@ body {
 
 .main .todos-cont {
   font-family: "Nunito", sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.main .todos-cont .item-cont {
+  width: 60%;
 }
 
 .main .todos-cont .item-cont .top {
+  width: 100% !important;
+  -webkit-box-pack: justify !important;
+      -ms-flex-pack: justify !important;
+          justify-content: space-between !important;
   margin-bottom: 0 !important;
   border-radius: 3px 3px 0 0 !important;
-  -webkit-box-pack: start !important;
-      -ms-flex-pack: start !important;
-          justify-content: flex-start !important;
 }
 
 .main .todos-cont .item-cont .top label {
@@ -174,19 +197,43 @@ body {
   background: #fdcb9e;
 }
 
+.main .todos-cont .item-cont .top button.expand div {
+  width: 24px;
+  height: 24px;
+  -webkit-transform: rotate(0);
+          transform: rotate(0);
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
+}
+
 .main .todos-cont .item-cont .expanded-cont {
-  -webkit-box-align: start !important;
-      -ms-flex-align: start !important;
-          align-items: flex-start !important;
-  margin-top: 0 !important;
-  border-radius: 0 0 3px 3px !important;
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 5% 70% 20%;
+      grid-template-rows: 5% 70% 20%;
+  -ms-grid-columns: 2.5% 30% 5% 60% 2.5%;
+      grid-template-columns: 2.5% 30% 5% 60% 2.5%;
+  background: #f6f6f6;
+  color: #3f3f44;
+  border-radius: 0 0 3px 3px;
   border-top: 1px solid #bbbb;
-  -ms-flex-flow: wrap;
-      flex-flow: wrap;
-  height: auto;
+  opacity: 0;
+  height: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s 0.26s, visibility 0.3s 0.26s, height 0.3s 0.25s;
+  transition: opacity 0.3s 0.26s, visibility 0.3s 0.26s, height 0.3s 0.25s;
 }
 
 .main .todos-cont .item-cont .expanded-cont .date-priority-cont {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-column: 2/3;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 1;
+  grid-row: 2/3;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -200,11 +247,12 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 300px;
+  width: 100%;
 }
 
 .main .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont, .main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont {
   width: 100%;
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -246,6 +294,13 @@ body {
 }
 
 .main .todos-cont .item-cont .expanded-cont .details-cont {
+  -ms-grid-column: 4;
+  -ms-grid-column-span: 1;
+  grid-column: 4/5;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 1;
+  grid-row: 2/3;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -266,11 +321,23 @@ body {
   font-weight: bold;
 }
 
+.main .todos-cont .item-cont .expanded-cont .details-cont textarea {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+
 .main .todos-cont .item-cont .expanded-cont .btn-save-del {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 3;
+  grid-column: 2/5;
+  -ms-grid-row: 3;
+  -ms-grid-row-span: 1;
+  grid-row: 3/4;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 100%;
           flex: 0 1 100%;
-  margin-top: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -293,7 +360,7 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   padding: 7px 15px;
-  margin-right: 10px;
+  margin-right: 0;
   background: none;
   border: 1px solid #e7305b;
   outline: none;
@@ -321,18 +388,20 @@ body {
   border-color: #61b15a !important;
   background: #61b15a !important;
   color: #f6f6f6;
+  margin-right: 10px;
 }
 
 .main .todos-cont .item-cont .expanded-cont .btn-save-del .save:hover {
   background: #57a150 !important;
 }
 
-.main .todos-cont .add-item-cont, .main .todos-cont .item-cont .top, .main .todos-cont .item-cont .expanded-cont {
-  margin: 20px 100px;
+.main .todos-cont .add-item-cont, .main .todos-cont .item-cont .top {
+  width: 60%;
   background: #f6f6f6;
   padding: 15px;
   border-radius: 5px;
   color: #3f3f44;
+  margin-top: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -343,7 +412,7 @@ body {
       justify-content: space-around;
 }
 
-.main .todos-cont .add-item-cont input[type="text"], .main .todos-cont .item-cont .top input[type="text"], .main .todos-cont .item-cont .expanded-cont input[type="text"] {
+.main .todos-cont .add-item-cont input[type="text"], .main .todos-cont .item-cont .top input[type="text"] {
   font-family: inherit;
   background: none;
   border: none;
@@ -363,6 +432,7 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   position: relative;
+  width: 20vw;
 }
 
 .side-clock .time-container {
@@ -486,7 +556,7 @@ body {
 
 .side-nav ul .task-list-cont input[type="text"] {
   font-size: 1.5rem;
-  width: 23vw;
+  width: 80%;
   outline: none;
   border: none;
   border-bottom: 2px solid #fdcb9e;
@@ -595,5 +665,28 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+.expanding {
+  opacity: 1 !important;
+  visibility: visible !important;
+  height: 267px !important;
+}
+
+.rotating {
+  -webkit-transform: rotate(180deg) !important;
+          transform: rotate(180deg) !important;
+}
+
+@media (max-width: 1330px) {
+  .main .todos-cont .item-cont, .main .todos-cont .add-item-cont, .main .todos-cont .item-cont .top {
+    width: 70%;
+  }
+}
+
+@media (max-width: 1145px) {
+  .main .todos-cont .item-cont, .main .todos-cont .add-item-cont, .main .todos-cont .item-cont .top {
+    width: 80%;
+  }
 }
 /*# sourceMappingURL=styles.css.map */

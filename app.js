@@ -40,10 +40,12 @@ const app = Vue.createApp({
       taskListName: "",
       taskList: ["My Task"],
       taskListId: 0,
-      itemName: "default",
-      todoList: ["dummy"],
+      itemName: "",
+      todoList: ["pay meralco"],
+      todoCollection: [{ title: "pay meralco", id: 0 }],
       collection: [{ name: "My Task", id: 0 }],
       isShow: false,
+      isExpand: false,
       check: false,
     };
   },
@@ -112,21 +114,41 @@ const app = Vue.createApp({
       this.saveLocally();
     },
     addTodoItem() {
-      const todoItem = new TodoList(this.itemName);
-      this.todoList.push(todoItem);
-      console.log(JSON.stringify(todoItem));
-      console.log(JSON.stringify(this.todoList));
+      if (this.itemName && !this.todoList.includes(this.itemName)) {
+        this.todoList.push(this.itemName); // track if todo already exisits
+        const todoItem = new TodoList(this.itemName);
+        todoItem.id = this.todoList.indexOf(this.itemName);
+        this.todoCollection.push(todoItem);
+        this.itemName = "";
+        // console.log(JSON.stringify(this.todoCollection));
+      } else {
+        alert("else block triggered while adding todo item");
+      }
+      this.saveLocally();
+    },
+    expandItem(itemIndex) {
+      this.todoCollection.forEach((obj) => {
+        if (obj.id === itemIndex && !obj.isExpandItem) {
+          obj.isExpandItem = !this.isExpand;
+          console.log(obj.id, obj.isExpandItem);
+        } else {
+          obj.isExpandItem = this.isExpand;
+        }
+      });
+
+      console.log(this.todoCollection);
     },
     saveLocally() {
-      const parsedList = JSON.stringify(this.collection);
-      localStorage.setItem("collection", parsedList);
-      // console.log(parsedList);
+      const parsedCollection = JSON.stringify(this.collection);
+      const parsedTodoCollection = JSON.stringify(this.todoCollection);
+      localStorage.setItem("collection", parsedCollection);
+      localStorage.setItem("todoCollection", parsedTodoCollection);
+      // console.log(parsedTodoCollection);
     },
   },
 
   mounted() {
-    const todoItem = document.querySelector("#todo");
-    todoItem.focus();
+    document.querySelector("#todo").focus();
     setInterval(() => {
       const d = new Date();
       this.weekday = this.weekDayArr[d.getDay()];
@@ -138,18 +160,25 @@ const app = Vue.createApp({
       this.period = this.setPeriod(d.getHours());
     }, 900);
 
-    // save data locally
+    // get saved data from local storage
     if (localStorage.getItem("collection")) {
       try {
+        //task list
         this.collection = JSON.parse(localStorage.getItem("collection"));
         this.taskList = this.collection.map((item) => item.name);
-        [{ id: this.taskListId }] = this.collection.filter(
-          (item) => item.isActive
+        // [{ id: this.taskListId }] = this.collection.filter(
+        //   (item) => item.isActive
+        // );
+        //todoList
+        this.todoCollection = JSON.parse(
+          localStorage.getItem("todoCollection")
         );
+        this.todoList = this.todoCollection.map((item) => item.title);
       } catch (error) {
         localStorage.removeItem("collection");
+        localStorage.removeItem("todoCollection");
         console.log("errorblock:" + error);
-        console.log(JSON.stringify(this.collection));
+        console.log(JSON.stringify(this.todoCollection));
       }
     }
   },

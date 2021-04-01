@@ -77,7 +77,11 @@
         <hr />
 
         <div class="todos-cont">
-          <div class="item-cont">
+          <div
+            class="item-cont"
+            v-for="todoItem,itemIndex in todoCollection"
+            :key="itemIndex"
+          >
             <div class="top">
               <label for="checkbox"></label>
               <input
@@ -87,14 +91,20 @@
                 v-model="check"
               />
               <span class="check"></span>
-              <h3 class="item">{{itemName}}</h3>
-              <button class="expand">
-                <span class="material-icons material-icons-outlined">
-                  expand_more
-                </span>
+              <h3 class="item">{{todoItem.title}}</h3>
+              <button class="expand" @click="expandItem(itemIndex)">
+                <div :class="{rotating:todoItem.isExpandItem}">
+                  <span class="material-icons material-icons-outlined">
+                    expand_more
+                  </span>
+                </div>
               </button>
             </div>
-            <div class="expanded-cont">
+            <div
+              class="expanded-cont"
+              id="expanded-cont"
+              :class="{expanding:todoItem.isExpandItem}"
+            >
               <div class="date-priority-cont">
                 <div class="date-cont">
                   <label for="date"> Due Date </label>
@@ -111,12 +121,7 @@
               </div>
               <div class="details-cont">
                 <label for="details">Details</label>
-                <textarea
-                  name="details"
-                  id="details"
-                  cols="50"
-                  rows="10"
-                ></textarea>
+                <textarea name="details" id="details"></textarea>
               </div>
 
               <div class="btn-save-del">

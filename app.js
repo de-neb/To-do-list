@@ -42,11 +42,11 @@ const app = Vue.createApp({
       taskListId: 0,
       itemName: "",
       todoList: ["pay meralco"],
-      todoCollection: [{ title: "pay meralco", id: 0 }],
+      todoCollection: [{ title: "pay meralco", id: 0, isDone: false }],
       collection: [{ name: "My Task", id: 0 }],
       isShow: false,
       isExpand: false,
-      check: false,
+      doneItemsList: [],
     };
   },
   methods: {
@@ -118,6 +118,7 @@ const app = Vue.createApp({
         this.todoList.push(this.itemName); // track if todo already exisits
         const todoItem = new TodoList(this.itemName);
         todoItem.id = this.todoList.indexOf(this.itemName);
+        todoItem.isDone = false;
         this.todoCollection.push(todoItem);
         this.itemName = "";
         // console.log(JSON.stringify(this.todoCollection));
@@ -130,13 +131,17 @@ const app = Vue.createApp({
       this.todoCollection.forEach((obj) => {
         if (obj.id === itemIndex && !obj.isExpandItem) {
           obj.isExpandItem = !this.isExpand;
-          console.log(obj.id, obj.isExpandItem);
         } else {
           obj.isExpandItem = this.isExpand;
         }
       });
-
-      console.log(this.todoCollection);
+    },
+    todoDone(itemIndex) {
+      //by default when box is unchecked , the isDone value is true instead of false
+      this.todoCollection[itemIndex].isDone = !this.todoCollection[itemIndex]
+        .isDone;
+      console.log(this.todoCollection.map((item) => item.isDone));
+      this.saveLocally();
     },
     saveLocally() {
       const parsedCollection = JSON.stringify(this.collection);
@@ -173,6 +178,7 @@ const app = Vue.createApp({
         this.todoCollection = JSON.parse(
           localStorage.getItem("todoCollection")
         );
+
         this.todoList = this.todoCollection.map((item) => item.title);
       } catch (error) {
         localStorage.removeItem("collection");

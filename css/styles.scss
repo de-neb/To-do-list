@@ -123,7 +123,7 @@ div {
           position: absolute;
           opacity: 0;
           z-index: -1;
-          &:not(:checked) ~ .check {
+          &:not(:checked) ~ .no-check {
             position: absolute;
             width: 20px;
             height: 20px;

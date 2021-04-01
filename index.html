@@ -83,14 +83,15 @@
             :key="itemIndex"
           >
             <div class="top">
-              <label for="checkbox"></label>
+              <label :for="itemIndex"></label>
               <input
                 type="checkbox"
-                id="checkbox"
+                :id="itemIndex"
                 class="checkbox"
-                v-model="check"
+                v-model="todoItem.isDone"
+                @click="todoDone(itemIndex)"
               />
-              <span class="check"></span>
+              <span :class="{check:todoItem.isDone}" class="no-check"></span>
               <h3 class="item">{{todoItem.title}}</h3>
               <button class="expand" @click="expandItem(itemIndex)">
                 <div :class="{rotating:todoItem.isExpandItem}">

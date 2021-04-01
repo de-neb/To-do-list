@@ -129,7 +129,7 @@ div {
   z-index: -1;
 }
 
-.main .todos-cont .item-cont .top .checkbox:not(:checked) ~ .check {
+.main .todos-cont .item-cont .top .checkbox:not(:checked) ~ .no-check {
   position: absolute;
   width: 20px;
   height: 20px;

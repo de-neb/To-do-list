@@ -78,22 +78,23 @@
 
         <div class="todos-cont">
           <div
-            class="item-cont"
             v-for="todoItem,itemIndex in todoCollection"
-            :key="itemIndex"
+            :key="todoItem"
+            class="item-cont"
+            :id="'item-cont-'+todoItem.title"
           >
-            <div class="top">
-              <label :for="itemIndex"></label>
+            <div class="top" :id="'todo-'+todoItem.title">
+              <label :for="'check-'+todoItem.title"></label>
               <input
                 type="checkbox"
-                :id="itemIndex"
+                :id="'check-'+todoItem.title"
                 class="checkbox"
                 v-model="todoItem.isDone"
                 @click="todoDone(itemIndex)"
               />
               <span :class="{check:todoItem.isDone}" class="no-check"></span>
               <h3 class="item">{{todoItem.title}}</h3>
-              <button class="expand" @click="expandItem(itemIndex)">
+              <button class="expand" @click="expandItem(todoItem.title)">
                 <div :class="{rotating:todoItem.isExpandItem}">
                   <span class="material-icons material-icons-outlined">
                     expand_more
@@ -103,30 +104,45 @@
             </div>
             <div
               class="expanded-cont"
-              id="expanded-cont"
+              :id="'expanded-cont-'+todoItem.title"
               :class="{expanding:todoItem.isExpandItem}"
             >
               <div class="date-priority-cont">
                 <div class="date-cont">
-                  <label for="date"> Due Date </label>
-                  <input type="date" id="date" />
+                  <label :for="'date-'+todoItem.title"> Due Date </label>
+                  <input
+                    type="date"
+                    :id="'date'+todoItem.title"
+                    v-model="todoItem.date"
+                  />
                 </div>
                 <div class="priority-cont">
-                  <label for="priority">Priority</label>
-                  <select name="priority" id="priority">
-                    <option value="Low">Low</option>
+                  <label :for="'priority-'+todoItem.title">Priority</label>
+                  <select
+                    name="priority"
+                    :id="'priority-'+todoItem.title"
+                    v-model="todoItem.priority"
+                  >
+                    <option value="Low" selected="selected">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
                   </select>
                 </div>
               </div>
               <div class="details-cont">
-                <label for="details">Details</label>
-                <textarea name="details" id="details"></textarea>
+                <label :for="'details-'+todoItem.title">Details</label>
+                <textarea
+                  name="details"
+                  :id="'details-'+todoItem.title"
+                  v-model="todoItem.details"
+                ></textarea>
               </div>
 
               <div class="btn-save-del">
-                <button class="del">
+                <button
+                  class="del"
+                  @click="deleteTodoItem(todoItem.title, itemIndex)"
+                >
                   <span class="material-icons material-icons-outlined">
                     delete
                   </span>
@@ -149,9 +165,9 @@
               name="todo-item"
               autofocus
               id="todo"
-              maxlength="80"
+              maxlength="55"
               v-model="itemName"
-              @keydown.enter="addTodoItem"
+              @keydown.enter="addTodoItem(); appearItem()"
             />
           </div>
         </div>
@@ -166,15 +182,6 @@
         <div v-else-if="!todoList.length" class="no-todo-item">
           <h2>This task list is empty</h2>
           <h4>You can add a to-do item using + above</h4>
-        </div>
-      </div>
-      <!-- todo-modal -->
-      <div class="modal-cont">
-        <div
-          id="todo-modal"
-          :class="{ 'show-todo':isShow, 'hide-todo':!isShow }"
-        >
-          <h1>HELLO THERE :)</h1>
         </div>
       </div>
     </div>

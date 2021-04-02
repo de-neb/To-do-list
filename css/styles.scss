@@ -103,10 +103,12 @@ div {
     font-family: $task-font;
     @include flex(center, center);
     flex-direction: column;
+    min-height: 81px;
     .item-cont {
       width: $todo-width;
       .top {
         width: 100% !important;
+        height: 60px !important;
         @extend .add-item-cont;
         justify-content: space-between !important;
         margin-bottom: 0 !important;
@@ -461,28 +463,7 @@ div {
   padding: 0 15px 0 0;
 }
 
-//modal to be deleted
-.modal-cont {
-  background: rgb(34, 40, 49);
-}
-.hide-todo {
-  visibility: hidden;
-  position: absolute;
-  background: $side-color;
-}
-.show-todo {
-  visibility: visible;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-  height: 60%;
-  background: $light-color;
-  @include flex(center, center);
-}
-
-//animations
+//animation classes
 
 .expanding {
   opacity: 1 !important;
@@ -492,6 +473,41 @@ div {
 
 .rotating {
   transform: rotate(180deg) !important;
+}
+
+.deleting {
+  animation: deleting 0.5s ease-in-out forwards !important;
+}
+
+.appear {
+  animation: appear 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards !important;
+}
+
+// keyframes
+@keyframes appear {
+  from {
+    transform: translate(0, 30px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes deleting {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  10% {
+    transform: translate(0, 30px);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, -30px);
+    opacity: 0;
+  }
 }
 
 // media queries

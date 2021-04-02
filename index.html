@@ -84,6 +84,7 @@
             :id="'item-cont-'+todoItem.title"
           >
             <div class="top" :id="'todo-'+todoItem.title">
+              <div class="priority-flag" :class="todoItem.priority"></div>
               <label :for="'check-'+todoItem.title"></label>
               <input
                 type="checkbox"
@@ -112,7 +113,8 @@
                   <label :for="'date-'+todoItem.title"> Due Date </label>
                   <input
                     type="date"
-                    :id="'date'+todoItem.title"
+                    class=".date"
+                    :id="'date-'+todoItem.title"
                     v-model="todoItem.date"
                   />
                 </div>
@@ -148,12 +150,12 @@
                   </span>
                   &nbsp; Delete
                 </button>
-                <button class="save">
+                <!-- <button class="save">
                   <span class="material-icons material-icons-outlined">
                     add_task
                   </span>
                   &nbsp; Save
-                </button>
+                </button> -->
               </div>
             </div>
           </div>
@@ -170,6 +172,14 @@
               @keydown.enter="addTodoItem(); appearItem()"
             />
           </div>
+        </div>
+
+        <div class="clear" v-if="todoList.length">
+          <button @click="clearDoneItems">
+            <span class="material-icons material-icons-outlined">
+              cleaning_services
+            </span>
+          </button>
         </div>
 
         <div v-if="!taskList.length" class="no-task-item">

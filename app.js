@@ -48,6 +48,7 @@ const app = Vue.createApp({
       isExpand: false,
       toDelete: false,
       toAdd: false,
+      setPriority: false,
       doneItemsList: [],
     };
   },
@@ -68,7 +69,7 @@ const app = Vue.createApp({
         this.taskListName = "";
       }
 
-      this.saveLocally();
+      // this.saveLocally();
       // console.log("list: " + this.taskList);
     },
     changeList(id) {
@@ -91,7 +92,7 @@ const app = Vue.createApp({
         (item) => item.id === id
       );
 
-      this.saveLocally();
+      // this.saveLocally();
     },
     deleteList(id) {
       this.taskList = this.taskList.filter((item, index) => index !== id);
@@ -113,7 +114,7 @@ const app = Vue.createApp({
           item.isActive = false;
         }
       });
-      this.saveLocally();
+      // this.saveLocally();
     },
     addTodoItem() {
       if (this.itemName && !this.todoList.includes(this.itemName)) {
@@ -126,7 +127,7 @@ const app = Vue.createApp({
         this.toAdd = true;
         // console.log(JSON.stringify(this.todoCollection));
       }
-      this.saveLocally();
+      // this.saveLocally();
     },
     expandItem(title) {
       this.todoCollection.forEach((obj, i) => {
@@ -140,17 +141,15 @@ const app = Vue.createApp({
     },
     deleteTodoItem(title, index) {
       this.animationDelete(title);
-      console.log(title);
       setTimeout(() => {
         this.todoList.splice(index, 1);
-        console.log("todoList: " + this.todoList);
         this.todoCollection = this.todoCollection.filter((obj) => {
           return obj.title !== title;
         });
         this.todoCollection.forEach((obj, i) => {
           obj.id = i;
         });
-        this.saveLocally();
+        // this.saveLocally();
         console.log(this.todoCollection.map((el) => el.title));
       }, 505);
     },
@@ -174,8 +173,25 @@ const app = Vue.createApp({
       //by default when box is unchecked , the isDone value is true instead of false
       this.todoCollection[itemIndex].isDone = !this.todoCollection[itemIndex]
         .isDone;
-      this.saveLocally();
+      // this.saveLocally();
     },
+
+    clearDoneItems() {
+      this.todoCollection.forEach((obj) => {
+        if (obj.isDone) {
+          const item = document.getElementById("item-cont-" + obj.title);
+          item.classList.add("done");
+          setTimeout(() => {
+            item.classList.add("hidden");
+            this.todoCollection = this.todoCollection.filter(
+              (el) => !el.isDone
+            );
+          }, 502);
+        }
+      });
+      console.log(JSON.stringify(this.todoCollection));
+    },
+
     saveLocally() {
       const parsedCollection = JSON.stringify(this.collection);
       const parsedTodoCollection = JSON.stringify(this.todoCollection);
@@ -185,8 +201,7 @@ const app = Vue.createApp({
     },
   },
   updated() {
-    let x = this.todoCollection.map((el) => [el.details, el.priority, el.date]);
-    console.log(x);
+    this.saveLocally();
   },
   mounted() {
     document.querySelector("#todo").focus();
@@ -213,7 +228,7 @@ const app = Vue.createApp({
         this.todoCollection = JSON.parse(
           localStorage.getItem("todoCollection")
         );
-        // console.log(JSON.stringify(this.todoCollection));
+        console.log(JSON.stringify(this.todoCollection));
         this.todoList = this.todoCollection.map((item) => item.title);
       } catch (error) {
         localStorage.removeItem("collection");

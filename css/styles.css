@@ -114,6 +114,15 @@ div {
           justify-content: space-between !important;
   margin-bottom: 0 !important;
   border-radius: 3px 3px 0 0 !important;
+  position: relative;
+}
+
+.main .todos-cont .item-cont .top .priority-flag {
+  height: 60px;
+  width: 10px;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .main .todos-cont .item-cont .top label {
@@ -275,7 +284,12 @@ div {
   font-weight: bold;
 }
 
-.main .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont #date, .main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont #date, .main .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont .priority-cont select, .main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont .date-cont select, .main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont select {
+.main .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont input[type="date"], .main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont input[type="date"],
+.main .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont .date,
+.main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont .date,
+.main .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont .priority-cont select,
+.main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont .date-cont select,
+.main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont select {
   width: 100%;
   height: 30px;
   border: 1px solid #3f3f44;
@@ -328,6 +342,7 @@ div {
           box-sizing: border-box;
   width: 100%;
   height: 100%;
+  resize: none;
 }
 
 .main .todos-cont .item-cont .expanded-cont .btn-save-del {
@@ -367,7 +382,7 @@ div {
   border: 1px solid #e7305b;
   outline: none;
   font-family: inherit;
-  border-radius: 3px;
+  border-radius: 100px;
   color: #e7305b;
   -webkit-box-ordinal-group: 3;
       -ms-flex-order: 2;
@@ -404,6 +419,7 @@ div {
   border-radius: 5px;
   color: #3f3f44;
   margin-top: 20px;
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -423,6 +439,37 @@ div {
   -webkit-box-flex: 12;
       -ms-flex-positive: 12;
           flex-grow: 12;
+}
+
+.main .clear {
+  margin: 30px 0 0 0;
+}
+
+.main .clear button {
+  padding: 7px 50px;
+  border-radius: 100px;
+  border: 1px solid #726a95;
+  background: none;
+  color: #726a95;
+  outline: none;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  -webkit-transition: -webkit-transform 0.5s ease;
+  transition: -webkit-transform 0.5s ease;
+  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+  cursor: pointer;
+}
+
+.main .clear button:hover {
+  background: #726a95;
+  color: #fdcb9e;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition: -webkit-transform 0.5s ease;
+  transition: -webkit-transform 0.5s ease;
+  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
 }
 
 .side-clock {
@@ -638,6 +685,18 @@ div {
   padding: 0 15px 0 0;
 }
 
+.Low {
+  background: #0278ae;
+}
+
+.Medium {
+  background: #f57b51;
+}
+
+.High {
+  background: #e7305b;
+}
+
 .expanding {
   opacity: 1 !important;
   visibility: visible !important;
@@ -657,6 +716,15 @@ div {
 .appear {
   -webkit-animation: appear 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards !important;
           animation: appear 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards !important;
+}
+
+.done {
+  -webkit-animation: done 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards !important;
+          animation: done 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards !important;
+}
+
+.hidden {
+  display: none;
 }
 
 @-webkit-keyframes appear {
@@ -718,6 +786,24 @@ div {
     -webkit-transform: translate(0, -30px);
             transform: translate(0, -30px);
     opacity: 0;
+  }
+}
+
+@-webkit-keyframes done {
+  0% {
+    height: 81px;
+  }
+  100% {
+    height: 0px;
+  }
+}
+
+@keyframes done {
+  0% {
+    height: 81px;
+  }
+  100% {
+    height: 0px;
   }
 }
 

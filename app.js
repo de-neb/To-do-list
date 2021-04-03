@@ -38,18 +38,20 @@ const app = Vue.createApp({
       seconds: null,
       period: null,
       taskListName: "",
-      taskList: ["My Task"],
       taskListId: 0,
       itemName: "",
-      todoList: ["pay meralco"],
-      todoCollection: [{ title: "pay meralco", id: 0, isDone: false }],
-      collection: [{ name: "My Task", id: 0 }],
+      taskList: ["My Task"],
+      todoList: [],
+      todoCollection: [],
+      collection: [
+        { name: "My Task", id: 0, isActive: true, todos: [], isDone: false },
+      ],
       isShow: false,
       isExpand: false,
       toDelete: false,
       toAdd: false,
       setPriority: false,
-      doneItemsList: [],
+      deletedTodos: [],
     };
   },
   methods: {
@@ -59,137 +61,156 @@ const app = Vue.createApp({
     setPeriod(hour) {
       return hour < 12 ? "AM" : "PM";
     },
+
     addTask() {
       //not yet on the list and tasklistname is not empty
       if (this.taskListName && !this.taskList.includes(this.taskListName)) {
-        this.taskList.push(this.taskListName);
-        this.taskListId = this.taskList.indexOf(this.taskListName);
-        const task = new TaskCollection(this.taskListName, this.taskListId);
+        const task = new TaskCollection(this.taskListName, null, []);
         this.collection.push(task);
+        this.taskList = this.collection.map((el) => el.name);
+        this.taskListId = this.taskList.indexOf(this.taskListName);
+        this.collection.forEach((obj) => {
+          obj.id = this.taskList.indexOf(obj.name);
+          if (this.taskListName === obj.name) {
+            obj.isActive = true;
+          } else {
+            obj.isActive = false;
+          }
+        });
         this.taskListName = "";
       }
-
-      // this.saveLocally();
-      // console.log("list: " + this.taskList);
     },
+
     changeList(id) {
       //set active item to true and rest inactive item false
-      this.collection = this.collection.map((item) => {
+      this.collection.forEach((obj) => {
         let isActive = false;
-        if (item.id === id) {
+        if (obj.id === id) {
           isActive = true;
         } else {
           isActive = false;
         }
-        return {
-          name: item.name,
-          id: item.id,
-          isActive: isActive,
-        };
+        obj.isActive = isActive;
       });
-
-      [{ id: this.taskListId }] = this.collection.filter(
-        (item) => item.id === id
-      );
-
-      // this.saveLocally();
+      this.taskListId = id;
     },
+
     deleteList(id) {
       this.taskList = this.taskList.filter((item, index) => index !== id);
-      this.collection = this.collection
-        .filter((item) => item.id !== id)
-        .map((item, index) => {
-          return { name: item.name, id: index };
-        });
+      this.collection = this.collection.filter((obj) => obj.id !== id);
+      this.collection.forEach((obj, index) => {
+        obj.id = index;
+      });
+
       //if list is deleted set the previous or next item as active
       if (id === 0) {
         this.taskListId = 0;
       } else {
         this.taskListId = id - 1;
       }
-      this.collection.forEach((item) => {
-        if (this.taskListId === item.id) {
-          item.isActive = true;
+      this.collection.forEach((obj) => {
+        if (this.taskListId == obj.id) {
+          obj.isActive = true;
         } else {
-          item.isActive = false;
+          obj.isActive = false;
         }
       });
-      // this.saveLocally();
     },
+
     addTodoItem() {
-      if (this.itemName && !this.todoList.includes(this.itemName)) {
-        this.todoList.push(this.itemName); // track if todo already exisits
-        const todoItem = new TodoList(this.itemName);
-        todoItem.id = this.todoList.indexOf(this.itemName);
-        todoItem.isDone = false;
-        this.todoCollection.push(todoItem);
-        this.itemName = "";
-        this.toAdd = true;
-        // console.log(JSON.stringify(this.todoCollection));
-      }
-      // this.saveLocally();
-    },
-    expandItem(title) {
-      this.todoCollection.forEach((obj, i) => {
-        if (obj.title == title && !obj.isExpandItem) {
-          obj.isExpandItem = !this.isExpand;
-        } else {
-          obj.isExpandItem = this.isExpand;
+      this.todoList = this.todoTitles;
+      this.todoCollection = this.activeTaskTodos;
+      this.collection.forEach((list) => {
+        if (list.isActive) {
+          if (this.itemName && !this.todoList.includes(this.itemName)) {
+            this.todoList.push(this.itemName); // track if todo already exisits
+            const todoItem = new TodoList(this.itemName);
+            todoItem.id =
+              this.itemName + "-" + this.todoList.indexOf(this.itemName);
+            todoItem.isDone = false;
+            todoItem.deleted = false;
+            list.todos.push(todoItem);
+            this.itemName = "";
+            this.toAdd = true;
+          }
         }
       });
-      // console.log(itemIndex, JSON.stringify(this.todoCollection));
     },
-    deleteTodoItem(title, index) {
+
+    expandItem(title) {
+      this.activeTaskTodos.forEach((todo, i) => {
+        if (todo.title == title && !todo.isExpandItem) {
+          todo.isExpandItem = !this.isExpand;
+        } else {
+          todo.isExpandItem = this.isExpand;
+        }
+      });
+    },
+
+    deleteTodoItem(title) {
       this.animationDelete(title);
       setTimeout(() => {
-        this.todoList.splice(index, 1);
-        this.todoCollection = this.todoCollection.filter((obj) => {
+        this.todoCollection = this.activeTaskTodos.filter((obj) => {
           return obj.title !== title;
         });
-        this.todoCollection.forEach((obj, i) => {
-          obj.id = i;
+        this.todoList = this.todoCollection.map((todo) => todo.title);
+        this.collection.forEach((task) => {
+          if (task.isActive) {
+            task.todos.forEach((todo) => {
+              if (todo.title === title) {
+                todo.deleted = true;
+              }
+            });
+          }
         });
-        // this.saveLocally();
-        console.log(this.todoCollection.map((el) => el.title));
-      }, 505);
+      }, 300);
+      //timing set to 300 for smoother transition
     },
+
     animationDelete(title) {
       const idBar = "todo-" + title;
       const idDet = "expanded-cont-" + title;
       const itemBar = document.getElementById(idBar);
       const itemDet = document.getElementById(idDet);
+      const itemCont = document.getElementById("item-cont-" + title);
       itemBar.classList.add("deleting");
       itemDet.classList.add("deleting");
-    },
-    appearItem() {
-      setTimeout(() => {
-        const addedItem = this.todoList[this.todoList.length - 1];
-        const itemCont = document.getElementById("item-cont-" + addedItem);
-        itemCont.classList.add("appear");
-      }, 10);
+      itemCont.classList.add("shrink");
     },
 
-    todoDone(itemIndex) {
-      //by default when box is unchecked , the isDone value is true instead of false
-      this.todoCollection[itemIndex].isDone = !this.todoCollection[itemIndex]
-        .isDone;
-      // this.saveLocally();
+    appearItem() {
+      //to make sure that the animation will only play when adding a unique todo item
+      if (!this.todoList.includes(this.itemName))
+        setTimeout(() => {
+          const addedItem = this.todoList[this.todoList.length - 1];
+          const itemCont = document.getElementById("item-cont-" + addedItem);
+          itemCont.classList.add("appear");
+          console.log(addedItem);
+        }, 10);
     },
 
     clearDoneItems() {
-      this.todoCollection.forEach((obj) => {
-        if (obj.isDone) {
-          const item = document.getElementById("item-cont-" + obj.title);
-          item.classList.add("done");
-          setTimeout(() => {
-            item.classList.add("hidden");
-            this.todoCollection = this.todoCollection.filter(
-              (el) => !el.isDone
-            );
-          }, 502);
+      this.collection.forEach((task) => {
+        if (task.isActive) {
+          task.todos.forEach((todo) => {
+            if (todo.isDone && !todo.deleted) {
+              const item = document.getElementById("item-cont-" + todo.title);
+              item.classList.add("done");
+              setTimeout(() => {
+                item.classList.add("hidden");
+                this.todoCollection = this.todoCollection.filter(
+                  (el) => !el.isDone
+                );
+                todo.deleted = true;
+                const index = this.todoList.indexOf(todo.title);
+                this.todoList.splice(index, 1);
+              }, 502);
+            }
+          });
         }
       });
-      console.log(JSON.stringify(this.todoCollection));
+      console.log(this.collection);
+      console.log(this.todoCollection);
     },
 
     saveLocally() {
@@ -200,11 +221,28 @@ const app = Vue.createApp({
       // console.log(parsedTodoCollection);
     },
   },
+  computed: {
+    //returns todo items // todoCollection
+    activeTaskTodos: function () {
+      try {
+        let [{ todos: todos }] = this.collection.filter((obj) => obj.isActive);
+        return todos.filter((obj) => !obj.deleted);
+      } catch (error) {
+        console.log("empty collection: " + this.todoCollection);
+        return [];
+      }
+    },
+
+    //todoList
+    todoTitles: function () {
+      return this.activeTaskTodos.map((todo) => todo.title);
+    },
+  },
   updated() {
     this.saveLocally();
   },
   mounted() {
-    document.querySelector("#todo").focus();
+    console.log(this.collection);
     setInterval(() => {
       const d = new Date();
       this.weekday = this.weekDayArr[d.getDay()];
@@ -216,20 +254,22 @@ const app = Vue.createApp({
       this.period = this.setPeriod(d.getHours());
     }, 900);
     // get saved data from local storage
+  },
+  created() {
     if (localStorage.getItem("collection")) {
       try {
         //task list
         this.collection = JSON.parse(localStorage.getItem("collection"));
         this.taskList = this.collection.map((item) => item.name);
-        // [{ id: this.taskListId }] = this.collection.filter(
-        //   (item) => item.isActive
-        // );
-        //todoList
         this.todoCollection = JSON.parse(
           localStorage.getItem("todoCollection")
         );
-        console.log(JSON.stringify(this.todoCollection));
         this.todoList = this.todoCollection.map((item) => item.title);
+
+        let [{ isActive: active, name: list }] = this.collection.filter(
+          (obj) => obj.isActive
+        );
+        console.log("list: " + list + " active:" + active);
       } catch (error) {
         localStorage.removeItem("collection");
         localStorage.removeItem("todoCollection");

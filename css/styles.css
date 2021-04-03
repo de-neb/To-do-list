@@ -236,6 +236,8 @@ div {
   visibility: hidden;
   -webkit-transition: opacity 0.3s 0.26s, visibility 0.3s 0.26s, height 0.3s 0.25s;
   transition: opacity 0.3s 0.26s, visibility 0.3s 0.26s, height 0.3s 0.25s;
+  -webkit-transition-timing-function: cubic-bezier(0.39, 0.97, 0, 0.97);
+          transition-timing-function: cubic-bezier(0.39, 0.97, 0, 0.97);
 }
 
 .main .todos-cont .item-cont .expanded-cont .date-priority-cont {
@@ -709,8 +711,8 @@ div {
 }
 
 .deleting {
-  -webkit-animation: deleting 0.5s ease-in-out forwards !important;
-          animation: deleting 0.5s ease-in-out forwards !important;
+  -webkit-animation: deleting 0.3s cubic-bezier(0.39, 0.97, 0, 0.97) forwards !important;
+          animation: deleting 0.3s cubic-bezier(0.39, 0.97, 0, 0.97) forwards !important;
 }
 
 .appear {
@@ -723,8 +725,31 @@ div {
           animation: done 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards !important;
 }
 
+.shrink {
+  -webkit-animation: shrink 0.3s cubic-bezier(0.39, 0.97, 0, 0.97) forwards !important;
+          animation: shrink 0.3s cubic-bezier(0.39, 0.97, 0, 0.97) forwards !important;
+}
+
 .hidden {
   display: none;
+}
+
+@-webkit-keyframes shrink {
+  from {
+    height: 347px;
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes shrink {
+  from {
+    height: 347px;
+  }
+  to {
+    height: 0;
+  }
 }
 
 @-webkit-keyframes appear {
@@ -754,37 +779,19 @@ div {
 }
 
 @-webkit-keyframes deleting {
-  0% {
-    -webkit-transform: translate(0, 0);
-            transform: translate(0, 0);
+  from {
     opacity: 1;
   }
-  10% {
-    -webkit-transform: translate(0, 30px);
-            transform: translate(0, 30px);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: translate(0, -30px);
-            transform: translate(0, -30px);
+  to {
     opacity: 0;
   }
 }
 
 @keyframes deleting {
-  0% {
-    -webkit-transform: translate(0, 0);
-            transform: translate(0, 0);
+  from {
     opacity: 1;
   }
-  10% {
-    -webkit-transform: translate(0, 30px);
-            transform: translate(0, 30px);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: translate(0, -30px);
-            transform: translate(0, -30px);
+  to {
     opacity: 0;
   }
 }

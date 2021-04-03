@@ -1,7 +1,7 @@
 export default class TaskCollection {
   name = "My First Task";
   id = 0;
-  todos = null;
+  todos = [];
 
   constructor(taskName, taskId, todosObj) {
     this.name = taskName;

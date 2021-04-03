@@ -70,128 +70,125 @@
         </nav>
       </div>
 
-      <div class="main" :id="'#list'+taskListId">
-        <h1 class="title" id="title">
-          {{taskList.length > 0?taskList[taskListId]:title}}
-        </h1>
-        <hr />
+      <div>
+        <div class="main" :id="'#list'+taskListId">
+          <h1 class="title" id="title">
+            {{taskList.length > 0?taskList[taskListId]:title}}
+          </h1>
+          <hr />
 
-        <div class="todos-cont">
-          <div
-            v-for="todoItem,itemIndex in todoCollection"
-            :key="todoItem"
-            class="item-cont"
-            :id="'item-cont-'+todoItem.title"
-          >
-            <div class="top" :id="'todo-'+todoItem.title">
-              <div class="priority-flag" :class="todoItem.priority"></div>
-              <label :for="'check-'+todoItem.title"></label>
-              <input
-                type="checkbox"
-                :id="'check-'+todoItem.title"
-                class="checkbox"
-                v-model="todoItem.isDone"
-                @click="todoDone(itemIndex)"
-              />
-              <span :class="{check:todoItem.isDone}" class="no-check"></span>
-              <h3 class="item">{{todoItem.title}}</h3>
-              <button class="expand" @click="expandItem(todoItem.title)">
-                <div :class="{rotating:todoItem.isExpandItem}">
-                  <span class="material-icons material-icons-outlined">
-                    expand_more
-                  </span>
-                </div>
-              </button>
-            </div>
+          <div class="todos-cont">
             <div
-              class="expanded-cont"
-              :id="'expanded-cont-'+todoItem.title"
-              :class="{expanding:todoItem.isExpandItem}"
+              v-for="todoItem,itemIndex in activeTaskTodos"
+              :key="todoItem"
+              class="item-cont"
+              :id="'item-cont-'+todoItem.title"
             >
-              <div class="date-priority-cont">
-                <div class="date-cont">
-                  <label :for="'date-'+todoItem.title"> Due Date </label>
-                  <input
-                    type="date"
-                    class=".date"
-                    :id="'date-'+todoItem.title"
-                    v-model="todoItem.date"
-                  />
-                </div>
-                <div class="priority-cont">
-                  <label :for="'priority-'+todoItem.title">Priority</label>
-                  <select
-                    name="priority"
-                    :id="'priority-'+todoItem.title"
-                    v-model="todoItem.priority"
-                  >
-                    <option value="Low" selected="selected">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                  </select>
-                </div>
-              </div>
-              <div class="details-cont">
-                <label :for="'details-'+todoItem.title">Details</label>
-                <textarea
-                  name="details"
-                  :id="'details-'+todoItem.title"
-                  v-model="todoItem.details"
-                ></textarea>
-              </div>
-
-              <div class="btn-save-del">
-                <button
-                  class="del"
-                  @click="deleteTodoItem(todoItem.title, itemIndex)"
-                >
-                  <span class="material-icons material-icons-outlined">
-                    delete
-                  </span>
-                  &nbsp; Delete
+              <div class="top" :id="'todo-'+todoItem.title">
+                <div class="priority-flag" :class="todoItem.priority"></div>
+                <label :for="'check-'+todoItem.title"></label>
+                <input
+                  type="checkbox"
+                  :id="'check-'+todoItem.title"
+                  class="checkbox"
+                  v-model="todoItem.isDone"
+                />
+                <span :class="{check:todoItem.isDone}" class="no-check"></span>
+                <h3 class="item">{{todoItem.title}}</h3>
+                <button class="expand" @click="expandItem(todoItem.title)">
+                  <div :class="{rotating:todoItem.isExpandItem}">
+                    <span class="material-icons material-icons-outlined">
+                      expand_more
+                    </span>
+                  </div>
                 </button>
-                <!-- <button class="save">
+              </div>
+              <div
+                class="expanded-cont"
+                :id="'expanded-cont-'+todoItem.title"
+                :class="{expanding:todoItem.isExpandItem}"
+              >
+                <div class="date-priority-cont">
+                  <div class="date-cont">
+                    <label :for="'date-'+todoItem.title"> Due Date </label>
+                    <input
+                      type="date"
+                      class=".date"
+                      :id="'date-'+todoItem.title"
+                      v-model="todoItem.date"
+                    />
+                  </div>
+                  <div class="priority-cont">
+                    <label :for="'priority-'+todoItem.title">Priority</label>
+                    <select
+                      name="priority"
+                      :id="'priority-'+todoItem.title"
+                      v-model="todoItem.priority"
+                    >
+                      <option value="Low" selected="selected">Low</option>
+                      <option value="Medium">Medium</option>
+                      <option value="High">High</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="details-cont">
+                  <label :for="'details-'+todoItem.title">Details</label>
+                  <textarea
+                    name="details"
+                    :id="'details-'+todoItem.title"
+                    v-model="todoItem.details"
+                  ></textarea>
+                </div>
+
+                <div class="btn-save-del">
+                  <button class="del" @click="deleteTodoItem(todoItem.title)">
+                    <span class="material-icons material-icons-outlined">
+                      delete
+                    </span>
+                    &nbsp; Delete
+                  </button>
+                  <!-- <button class="save">
                   <span class="material-icons material-icons-outlined">
                     add_task
                   </span>
                   &nbsp; Save
                 </button> -->
+                </div>
               </div>
+            </div>
+
+            <div class="add-item-cont">
+              <span class="material-icons material-icons-outlined">add</span>
+              <input
+                type="text"
+                name="todo-item"
+                :id="'todo-'+taskList[taskListId]"
+                maxlength="55"
+                v-model="itemName"
+                @keydown.enter="addTodoItem(); appearItem()"
+              />
             </div>
           </div>
 
-          <div class="add-item-cont">
-            <span class="material-icons material-icons-outlined">add</span>
-            <input
-              type="text"
-              name="todo-item"
-              autofocus
-              id="todo"
-              maxlength="55"
-              v-model="itemName"
-              @keydown.enter="addTodoItem(); appearItem()"
-            />
+          <div class="clear" v-if="todoTitles.length">
+            <button @click="clearDoneItems">
+              <span class="material-icons material-icons-outlined">
+                cleaning_services
+              </span>
+            </button>
           </div>
-        </div>
 
-        <div class="clear" v-if="todoList.length">
-          <button @click="clearDoneItems">
-            <span class="material-icons material-icons-outlined">
-              cleaning_services
-            </span>
-          </button>
-        </div>
-
-        <div v-if="!taskList.length" class="no-task-item">
-          <h2>:(</h2>
-          <h2>
-            You don't have any tasks added to your {{taskListName}}, click to
-            create one!
-          </h2>
-        </div>
-        <div v-else-if="!todoList.length" class="no-todo-item">
-          <h2>This task list is empty</h2>
-          <h4>You can add a to-do item using + above</h4>
+          <div v-if="!taskList.length" class="no-task-item">
+            <h2>:(</h2>
+            <h2>
+              You don't have any tasks added to your {{taskListName}}, click to
+              create one!
+            </h2>
+          </div>
+          <div v-else-if="!todoTitles.length" class="no-todo-item">
+            <h2>This task list seems to be empty :(</h2>
+            <h4>To add an item, type a to-do then hit enter!</h4>
+          </div>
         </div>
       </div>
     </div>

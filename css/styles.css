@@ -17,7 +17,7 @@ div {
   display: flex;
 }
 
-.main {
+.main, .notes {
   background: #fdcb9e;
   width: 80vw;
   min-height: 100vh;
@@ -29,7 +29,7 @@ div {
   right: 0;
 }
 
-.main .title {
+.main .title, .notes .title {
   font-family: "Spartan", sans-serif !important;
   font-size: 5rem;
   line-height: 7rem;
@@ -40,13 +40,13 @@ div {
   text-transform: uppercase;
 }
 
-.main hr {
+.main hr, .notes hr {
   border: none;
   border-bottom: 1px solid #3f3f44;
   margin: 3px 0 0 20px;
 }
 
-.main .no-task-items, .main .no-todo-item {
+.main .no-task-items, .notes .no-task-items, .main .no-todo-item, .notes .no-todo-item {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -54,18 +54,19 @@ div {
           transform: translate(-50%, -50%);
 }
 
-.main .no-task-items h2, .main .no-todo-item h2 {
+.main .no-task-items h2, .notes .no-task-items h2, .main .no-todo-item h2, .notes .no-todo-item h2 {
   font-weight: bold;
   font-size: 2.5rem;
+  color: #3f3f44;
 }
 
-.main .no-todo-item h4 {
+.main .no-todo-item h4, .notes .no-todo-item h4 {
   font-size: 1.3rem;
   margin: 0;
   opacity: 0.5;
 }
 
-.main .no-todo-item .create-todo {
+.main .no-todo-item .create-todo, .notes .no-todo-item .create-todo {
   padding: 15px 20px;
   border-width: 2px;
   border-color: #3f3f44;
@@ -79,12 +80,12 @@ div {
   cursor: pointer;
 }
 
-.main .no-todo-item .create-todo:hover {
+.main .no-todo-item .create-todo:hover, .notes .no-todo-item .create-todo:hover {
   background: #3f3f44;
   color: #f6f6f6;
 }
 
-.main .todos-cont {
+.main .todos-cont, .notes .todos-cont {
   font-family: "Nunito", sans-serif;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -100,24 +101,67 @@ div {
       -ms-flex-direction: column;
           flex-direction: column;
   min-height: 81px;
+  margin-top: 30px;
 }
 
-.main .todos-cont .item-cont {
+.main .todos-cont .add-item-cont, .notes .todos-cont .add-item-cont, .main .todos-cont .item-cont .top, .notes .todos-cont .item-cont .top {
+  width: 60%;
+  background: #f6f6f6;
+  padding: 15px;
+  border-radius: 5px;
+  color: #3f3f44;
+  margin-top: 20px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.main .todos-cont .add-item-cont input[type="text"], .notes .todos-cont .add-item-cont input[type="text"], .main .todos-cont .item-cont .top input[type="text"], .notes .todos-cont .item-cont .top input[type="text"] {
+  font-family: inherit;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  outline: none;
+  -webkit-box-flex: 12;
+      -ms-flex-positive: 12;
+          flex-grow: 12;
+}
+
+.main .todos-cont .item-cont, .notes .todos-cont .item-cont {
   width: 60%;
 }
 
-.main .todos-cont .item-cont .top {
+.main .todos-cont .item-cont:hover .top, .notes .todos-cont .item-cont:hover .top,
+.main .todos-cont .item-cont:hover .expanded-cont,
+.notes .todos-cont .item-cont:hover .expanded-cont {
+  -webkit-box-shadow: 5px 5px 0 rgba(63, 63, 68, 0.3);
+          box-shadow: 5px 5px 0 rgba(63, 63, 68, 0.3);
+  -webkit-transform: scale(1.01);
+          transform: scale(1.01);
+  -webkit-transition: 0.5s ease;
+  transition: 0.5s ease;
+}
+
+.main .todos-cont .item-cont .top, .notes .todos-cont .item-cont .top {
+  -webkit-box-shadow: none;
+          box-shadow: none;
   width: 100% !important;
-  height: 60px !important;
-  -webkit-box-pack: justify !important;
-      -ms-flex-pack: justify !important;
-          justify-content: space-between !important;
-  margin-bottom: 0 !important;
-  border-radius: 3px 3px 0 0 !important;
+  height: 60px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 0;
+  border-radius: 3px 3px 0 0;
   position: relative;
 }
 
-.main .todos-cont .item-cont .top .priority-flag {
+.main .todos-cont .item-cont .top .priority-flag, .notes .todos-cont .item-cont .top .priority-flag {
   height: 60px;
   width: 10px;
   position: absolute;
@@ -125,7 +169,7 @@ div {
   top: 0;
 }
 
-.main .todos-cont .item-cont .top label {
+.main .todos-cont .item-cont .top label, .notes .todos-cont .item-cont .top label {
   width: 18px;
   height: 18px;
   position: relative;
@@ -134,13 +178,13 @@ div {
   margin-right: 10px;
 }
 
-.main .todos-cont .item-cont .top .checkbox {
+.main .todos-cont .item-cont .top .checkbox, .notes .todos-cont .item-cont .top .checkbox {
   position: absolute;
   opacity: 0;
   z-index: -1;
 }
 
-.main .todos-cont .item-cont .top .checkbox:not(:checked) ~ .no-check {
+.main .todos-cont .item-cont .top .checkbox:not(:checked) ~ .no-check, .notes .todos-cont .item-cont .top .checkbox:not(:checked) ~ .no-check {
   position: absolute;
   width: 20px;
   height: 20px;
@@ -150,7 +194,7 @@ div {
           box-sizing: border-box;
 }
 
-.main .todos-cont .item-cont .top .checkbox:checked ~ .check {
+.main .todos-cont .item-cont .top .checkbox:checked ~ .check, .notes .todos-cont .item-cont .top .checkbox:checked ~ .check {
   position: absolute;
   width: 20px;
   height: 20px;
@@ -169,24 +213,24 @@ div {
           justify-content: center;
 }
 
-.main .todos-cont .item-cont .top .checkbox:checked ~ .check::after {
+.main .todos-cont .item-cont .top .checkbox:checked ~ .check::after, .notes .todos-cont .item-cont .top .checkbox:checked ~ .check::after {
   content: "✔";
   font-size: 1.5rem;
   color: #f6f6f6;
 }
 
-.main .todos-cont .item-cont .top .checkbox:checked ~ .check ~ .item {
+.main .todos-cont .item-cont .top .checkbox:checked ~ .check ~ .item, .notes .todos-cont .item-cont .top .checkbox:checked ~ .check ~ .item {
   text-decoration: line-through;
 }
 
-.main .todos-cont .item-cont .top .item {
+.main .todos-cont .item-cont .top .item, .notes .todos-cont .item-cont .top .item {
   margin: 0;
   font-size: 1.3rem;
   color: #3f3f44;
   font-weight: 400;
 }
 
-.main .todos-cont .item-cont .top button.expand {
+.main .todos-cont .item-cont .top button.expand, .notes .todos-cont .item-cont .top button.expand {
   margin-left: auto;
   background: none;
   outline: none;
@@ -204,11 +248,11 @@ div {
   border-radius: 3px;
 }
 
-.main .todos-cont .item-cont .top button.expand:hover {
+.main .todos-cont .item-cont .top button.expand:hover, .notes .todos-cont .item-cont .top button.expand:hover {
   background: #fdcb9e;
 }
 
-.main .todos-cont .item-cont .top button.expand div {
+.main .todos-cont .item-cont .top button.expand div, .notes .todos-cont .item-cont .top button.expand div {
   width: 24px;
   height: 24px;
   -webkit-transform: rotate(0);
@@ -219,7 +263,7 @@ div {
   transition: transform 0.5s, -webkit-transform 0.5s;
 }
 
-.main .todos-cont .item-cont .expanded-cont {
+.main .todos-cont .item-cont .expanded-cont, .notes .todos-cont .item-cont .expanded-cont {
   width: 100%;
   display: -ms-grid;
   display: grid;
@@ -227,6 +271,7 @@ div {
       grid-template-rows: 5% 70% 20%;
   -ms-grid-columns: 2.5% 30% 5% 60% 2.5%;
       grid-template-columns: 2.5% 30% 5% 60% 2.5%;
+  position: relative;
   background: #f6f6f6;
   color: #3f3f44;
   border-radius: 0 0 3px 3px;
@@ -240,7 +285,7 @@ div {
           transition-timing-function: cubic-bezier(0.39, 0.97, 0, 0.97);
 }
 
-.main .todos-cont .item-cont .expanded-cont .date-priority-cont {
+.main .todos-cont .item-cont .expanded-cont .date-priority-cont, .notes .todos-cont .item-cont .expanded-cont .date-priority-cont {
   -ms-grid-column: 2;
   -ms-grid-column-span: 1;
   grid-column: 2/3;
@@ -263,7 +308,7 @@ div {
   width: 100%;
 }
 
-.main .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont, .main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont {
+.main .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont, .notes .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont, .main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont, .notes .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont {
   width: 100%;
   height: 100%;
   display: -webkit-box;
@@ -281,17 +326,24 @@ div {
           flex-direction: column;
 }
 
-.main .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont label, .main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont label {
+.main .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont label, .notes .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont label, .main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont label, .notes .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont label {
   font-size: 1.2rem;
   font-weight: bold;
 }
 
-.main .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont input[type="date"], .main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont input[type="date"],
+.main .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont input[type="date"], .notes .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont input[type="date"], .main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont input[type="date"], .notes .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont input[type="date"],
 .main .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont .date,
+.notes .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont .date,
 .main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont .date,
+.notes .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont .date,
 .main .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont .priority-cont select,
 .main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont .date-cont select,
-.main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont select {
+.main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont select,
+.notes .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont .priority-cont select,
+.notes .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont .date-cont select,
+.main .notes .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont select,
+.notes .main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont select,
+.notes .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont select {
   width: 100%;
   height: 30px;
   border: 1px solid #3f3f44;
@@ -306,12 +358,12 @@ div {
   margin-bottom: 20px;
 }
 
-.main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont select {
+.main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont select, .notes .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont select {
   height: auto !important;
   padding: 1.5px 10px !important;
 }
 
-.main .todos-cont .item-cont .expanded-cont .details-cont {
+.main .todos-cont .item-cont .expanded-cont .details-cont, .notes .todos-cont .item-cont .expanded-cont .details-cont {
   -ms-grid-column: 4;
   -ms-grid-column-span: 1;
   grid-column: 4/5;
@@ -334,20 +386,23 @@ div {
           flex-direction: column;
 }
 
-.main .todos-cont .item-cont .expanded-cont .details-cont label {
+.main .todos-cont .item-cont .expanded-cont .details-cont label, .notes .todos-cont .item-cont .expanded-cont .details-cont label {
   font-size: 1.2rem;
   font-weight: bold;
 }
 
-.main .todos-cont .item-cont .expanded-cont .details-cont textarea {
+.main .todos-cont .item-cont .expanded-cont .details-cont textarea, .notes .todos-cont .item-cont .expanded-cont .details-cont textarea {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   width: 100%;
   height: 100%;
   resize: none;
+  background: #f6f6f6;
+  padding: 10px;
+  font-size: 1.2rem;
 }
 
-.main .todos-cont .item-cont .expanded-cont .btn-save-del {
+.main .todos-cont .item-cont .expanded-cont .btn-save-del, .notes .todos-cont .item-cont .expanded-cont .btn-save-del {
   -ms-grid-column: 2;
   -ms-grid-column-span: 3;
   grid-column: 2/5;
@@ -368,7 +423,9 @@ div {
           justify-content: flex-end;
 }
 
-.main .todos-cont .item-cont .expanded-cont .btn-save-del .del, .main .todos-cont .item-cont .expanded-cont .btn-save-del .save {
+.main .todos-cont .item-cont .expanded-cont .btn-save-del .del, .notes .todos-cont .item-cont .expanded-cont .btn-save-del .del {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -391,68 +448,25 @@ div {
           order: 2;
 }
 
-.main .todos-cont .item-cont .expanded-cont .btn-save-del .del:hover, .main .todos-cont .item-cont .expanded-cont .btn-save-del .save:hover {
+.main .todos-cont .item-cont .expanded-cont .btn-save-del .del:hover, .notes .todos-cont .item-cont .expanded-cont .btn-save-del .del:hover {
   background: #e7305b;
   color: #f6f6f6;
 }
 
-.main .todos-cont .item-cont .expanded-cont .btn-save-del .del span, .main .todos-cont .item-cont .expanded-cont .btn-save-del .save span {
+.main .todos-cont .item-cont .expanded-cont .btn-save-del .del span, .notes .todos-cont .item-cont .expanded-cont .btn-save-del .del span {
   font-size: 18px;
 }
 
-.main .todos-cont .item-cont .expanded-cont .btn-save-del .save {
-  -webkit-box-ordinal-group: 2;
-      -ms-flex-order: 1;
-          order: 1;
-  border-color: #61b15a !important;
-  background: #61b15a !important;
-  color: #f6f6f6;
-  margin-right: 10px;
-}
-
-.main .todos-cont .item-cont .expanded-cont .btn-save-del .save:hover {
-  background: #57a150 !important;
-}
-
-.main .todos-cont .add-item-cont, .main .todos-cont .item-cont .top {
-  width: 60%;
-  background: #f6f6f6;
-  padding: 15px;
-  border-radius: 5px;
-  color: #3f3f44;
-  margin-top: 20px;
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-}
-
-.main .todos-cont .add-item-cont input[type="text"], .main .todos-cont .item-cont .top input[type="text"] {
-  font-family: inherit;
-  background: none;
-  border: none;
-  font-size: 1.3rem;
-  outline: none;
-  -webkit-box-flex: 12;
-      -ms-flex-positive: 12;
-          flex-grow: 12;
-}
-
-.main .clear {
+.main .clear, .notes .clear {
   margin: 30px 0 0 0;
 }
 
-.main .clear button {
+.main .clear .clear-done, .notes .clear .clear-done, .main .clear .delete-all, .notes .clear .delete-all {
   padding: 7px 50px;
   border-radius: 100px;
-  border: 1px solid #726a95;
+  border: 1px solid #07689f;
   background: none;
-  color: #726a95;
+  color: #07689f;
   outline: none;
   -webkit-transform: scale(1);
           transform: scale(1);
@@ -460,11 +474,36 @@ div {
   transition: -webkit-transform 0.5s ease;
   transition: transform 0.5s ease;
   transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+  position: relative;
   cursor: pointer;
 }
 
-.main .clear button:hover {
-  background: #726a95;
+.main .clear .clear-done .tooltip-text, .notes .clear .clear-done .tooltip-text, .main .clear .delete-all .tooltip-text, .notes .clear .delete-all .tooltip-text {
+  visibility: hidden;
+  background: #3f3f44;
+  padding: 5px;
+  border-radius: 3px;
+  width: 100%;
+  position: absolute;
+  top: 125%;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+}
+
+.main .clear .clear-done .tooltip-text::after, .notes .clear .clear-done .tooltip-text::after, .main .clear .delete-all .tooltip-text::after, .notes .clear .delete-all .tooltip-text::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent #3f3f44 transparent;
+}
+
+.main .clear .clear-done:hover, .notes .clear .clear-done:hover, .main .clear .delete-all:hover, .notes .clear .delete-all:hover {
+  background: #07689f;
   color: #fdcb9e;
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
@@ -472,6 +511,20 @@ div {
   transition: -webkit-transform 0.5s ease;
   transition: transform 0.5s ease;
   transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+}
+
+.main .clear .clear-done:hover .tooltip-text, .notes .clear .clear-done:hover .tooltip-text, .main .clear .delete-all:hover .tooltip-text, .notes .clear .delete-all:hover .tooltip-text {
+  visibility: visible;
+}
+
+.main .clear .delete-all, .notes .clear .delete-all {
+  margin-left: 20px;
+  border-color: #e7305b;
+  color: #e7305b;
+}
+
+.main .clear .delete-all:hover, .notes .clear .delete-all:hover {
+  background: #e7305b;
 }
 
 .side-clock {
@@ -607,7 +660,7 @@ div {
 
 .side-nav ul .task-list-cont input[type="text"] {
   font-size: 1.5rem;
-  width: 80%;
+  width: 100%;
   outline: none;
   border: none;
   border-bottom: 2px solid #fdcb9e;
@@ -650,8 +703,9 @@ div {
   color: #f6f6f6;
   padding: 0 15px 0 0;
   display: inline-block;
-  width: 300px;
+  width: 95%;
   position: relative;
+  left: 0;
 }
 
 .side-nav ul .task-list-cont .task-list p a:hover {
@@ -659,7 +713,7 @@ div {
   color: #3f3f44;
 }
 
-.side-nav ul .task-list-cont .task-list p a:hover span.fa-times, .side-nav ul .task-list-cont .task-list p a:hover span.fa-pencil-alt {
+.side-nav ul .task-list-cont .task-list p a:hover span.x-icon, .side-nav ul .task-list-cont .task-list p a:hover span.fa-pencil-alt {
   position: absolute;
   top: 50%;
   left: 5%;
@@ -667,9 +721,10 @@ div {
   -webkit-transform: translate(0, -50%);
           transform: translate(0, -50%);
   opacity: 0.5;
+  font-weight: bold;
 }
 
-.side-nav ul .task-list-cont .task-list p a:hover span.fa-times:hover, .side-nav ul .task-list-cont .task-list p a:hover span.fa-pencil-alt:hover {
+.side-nav ul .task-list-cont .task-list p a:hover span.x-icon:hover, .side-nav ul .task-list-cont .task-list p a:hover span.fa-pencil-alt:hover {
   opacity: 1;
 }
 
@@ -677,8 +732,193 @@ div {
   left: 15%;
 }
 
-.side-nav ul .task-list-cont .task-list p a span.fas {
+.side-nav ul .task-list-cont .task-list p a span.x-icon, .side-nav ul .task-list-cont .task-list p a:hover span.fa-pencil-alt {
   visibility: hidden;
+}
+
+.notes {
+  position: absolute;
+  top: 0;
+  z-index: 15;
+}
+
+.notes .create-note, .notes .bg-modal .modal .save, .bg-modal .modal .notes .save {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 50px;
+}
+
+.notes .create-note button, .notes .bg-modal .modal .save button, .bg-modal .modal .notes .save button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 7px 15px;
+  border-radius: 100px;
+  border: 1px solid #428b46;
+  background: none;
+  color: #428b46;
+  outline: none;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  -webkit-transition: -webkit-transform 0.5s ease;
+  transition: -webkit-transform 0.5s ease;
+  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.notes .create-note button:hover, .notes .bg-modal .modal .save button:hover, .bg-modal .modal .notes .save button:hover {
+  background: #428b46;
+  color: #fdcb9e;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition: -webkit-transform 0.5s ease;
+  transition: -webkit-transform 0.5s ease;
+  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+}
+
+.bg-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  z-index: 50;
+  background: rgba(63, 63, 68, 0.5);
+}
+
+.bg-modal .modal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 50%;
+  border-radius: 5px;
+  background: #f6f6f6;
+  margin: auto;
+  padding: 45px 45px 20px 45px;
+  position: relative;
+}
+
+.bg-modal .modal .exit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+}
+
+.bg-modal .modal .exit button {
+  border: none;
+  background: none;
+  font-weight: bold;
+  color: #e7305b;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  outline: none;
+  cursor: pointer;
+}
+
+.bg-modal .modal .exit button:hover span {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition: -webkit-transform 0.5s ease;
+  transition: -webkit-transform 0.5s ease;
+  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+}
+
+.bg-modal .modal .save {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.bg-modal .modal .save button {
+  margin: auto;
+  background: none;
+  border: 1px solid #07689f;
+  color: #07689f;
+  border-radius: 100px;
+  padding: 5px 10px;
+}
+
+.bg-modal .modal .save button:hover {
+  background: #07689f;
+  color: #f6f6f6;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.bg-modal .modal .note-title {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background: #fdcb9e;
+  border-radius: 100px;
+}
+
+.bg-modal .modal .note-title input[type="text"] {
+  width: 100%;
+  outline: none;
+  border: none;
+  background: none;
+  font-family: "Nunito", sans-serif;
+  font-size: 1.2rem;
+  padding: 5px 15px;
+}
+
+.bg-modal .modal .note-details {
+  width: 100%;
+  background: #fdcb9e;
+  border-radius: 5px;
+}
+
+.bg-modal .modal .note-details textarea {
+  width: 100%;
+  resize: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: none;
+  outline: none;
+  font-family: "Nunito", sans-serif;
+  font-size: 1.2rem;
+  border: none;
+  padding: 5px 10px;
 }
 
 .active {
@@ -687,8 +927,12 @@ div {
   padding: 0 15px 0 0;
 }
 
+.notes-tag {
+  color: #3f3f44 !important;
+}
+
 .Low {
-  background: #0278ae;
+  background: #ffcc00;
 }
 
 .Medium {
@@ -731,7 +975,7 @@ div {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 @-webkit-keyframes shrink {
@@ -815,13 +1059,13 @@ div {
 }
 
 @media (max-width: 1330px) {
-  .main .todos-cont .item-cont, .main .todos-cont .add-item-cont, .main .todos-cont .item-cont .top {
+  .main .todos-cont .item-cont, .notes .todos-cont .item-cont, .main .todos-cont .add-item-cont, .notes .todos-cont .add-item-cont, .main .todos-cont .item-cont .top, .notes .todos-cont .item-cont .top {
     width: 70%;
   }
 }
 
 @media (max-width: 1145px) {
-  .main .todos-cont .item-cont, .main .todos-cont .add-item-cont, .main .todos-cont .item-cont .top {
+  .main .todos-cont .item-cont, .notes .todos-cont .item-cont, .main .todos-cont .add-item-cont, .notes .todos-cont .add-item-cont, .main .todos-cont .item-cont .top, .notes .todos-cont .item-cont .top {
     width: 80%;
   }
 }

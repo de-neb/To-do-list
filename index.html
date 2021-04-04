@@ -49,8 +49,9 @@
                     <span
                       type="button"
                       @click.self="deleteList(index)"
-                      class="fas fa-times"
-                    ></span>
+                      class="material-icons material-icons-outlined x-icon"
+                      >clear</span
+                    >
 
                     {{taskObj.name}}</a
                   >
@@ -65,7 +66,11 @@
                 @keydown.enter="addTask"
               />
             </div>
-            <li><a href="#NOTES">NOTES</a></li>
+            <li id="notes-list" class="">
+              <a href="#NOTES" @click="showNotes" id="notes-tag" class=""
+                >NOTES</a
+              >
+            </li>
           </ul>
         </nav>
       </div>
@@ -147,12 +152,6 @@
                     </span>
                     &nbsp; Delete
                   </button>
-                  <!-- <button class="save">
-                  <span class="material-icons material-icons-outlined">
-                    add_task
-                  </span>
-                  &nbsp; Save
-                </button> -->
                 </div>
               </div>
             </div>
@@ -166,15 +165,23 @@
                 maxlength="55"
                 v-model="itemName"
                 @keydown.enter="addTodoItem(); appearItem()"
+                placeholder="Type your 'to-do' here"
               />
             </div>
           </div>
 
           <div class="clear" v-if="todoTitles.length">
-            <button @click="clearDoneItems">
+            <button class="clear-done" @click="clearDoneItems">
               <span class="material-icons material-icons-outlined">
                 cleaning_services
               </span>
+              <span class="tooltip-text">Clear finished items</span>
+            </button>
+            <button class="delete-all" @click="deleteAllItems">
+              <span class="material-icons material-icons-outlined">
+                delete_sweep
+              </span>
+              <span class="tooltip-text">Delete all items</span>
             </button>
           </div>
 
@@ -188,6 +195,57 @@
           <div v-else-if="!todoTitles.length" class="no-todo-item">
             <h2>This task list seems to be empty :(</h2>
             <h4>To add an item, type a to-do then hit enter!</h4>
+          </div>
+        </div>
+        <div class="notes hidden" id="notes">
+          <h1 class="title">NOTES</h1>
+          <hr />
+          <div class="create-note">
+            <button @click="addNote">
+              <span class="material-icons material-icons-outlined">
+                create
+              </span>
+              &nbsp;Create note
+            </button>
+          </div>
+          <div class="container">
+            <div v-if="!notes.length" class="no-todo-item">
+              <h2>You don't have any notes added yet :(</h2>
+              <h4>Click button above to create one!</h4>
+            </div>
+            <div v-else class="notes-cont">
+              <h1>notepad</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-modal hidden" id="modal-bg">
+        <div class="modal" id="modal">
+          <div class="exit">
+            <button>
+              <span class="material-icons material-icons-outlined">
+                close
+              </span>
+            </button>
+          </div>
+          <div class="note-title">
+            <input type="text" name="title" id="" placeholder="Title" />
+          </div>
+
+          <div class="note-details">
+            <textarea
+              name="note-details"
+              id=""
+              cols="30"
+              rows="15"
+              placeholder="Details"
+            ></textarea>
+          </div>
+          <div class="save">
+            <button>
+              <span class="material-icons material-icons"> check </span>
+              &nbsp;Save
+            </button>
           </div>
         </div>
       </div>

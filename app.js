@@ -51,7 +51,7 @@ const app = Vue.createApp({
       toDelete: false,
       toAdd: false,
       setPriority: false,
-      deletedTodos: [],
+      notes: [{}],
     };
   },
   methods: {
@@ -93,6 +93,14 @@ const app = Vue.createApp({
         obj.isActive = isActive;
       });
       this.taskListId = id;
+
+      //hides notes
+      const notes = document.getElementById("notes");
+      const list = document.getElementById("notes-list");
+      const tag = document.getElementById("notes-tag");
+      notes.classList.add("hidden");
+      list.classList.remove("active");
+      tag.classList.remove("notes-tag");
     },
 
     deleteList(id) {
@@ -168,10 +176,8 @@ const app = Vue.createApp({
     },
 
     animationDelete(title) {
-      const idBar = "todo-" + title;
-      const idDet = "expanded-cont-" + title;
-      const itemBar = document.getElementById(idBar);
-      const itemDet = document.getElementById(idDet);
+      const itemBar = document.getElementById("todo-" + title);
+      const itemDet = document.getElementById("expanded-cont-" + title);
       const itemCont = document.getElementById("item-cont-" + title);
       itemBar.classList.add("deleting");
       itemDet.classList.add("deleting");
@@ -209,8 +215,38 @@ const app = Vue.createApp({
           });
         }
       });
+    },
+
+    deleteAllItems() {
+      this.collection.forEach((task) => {
+        if (task.isActive)
+          task.todos.forEach((todo) => {
+            if (!todo.deleted) {
+              this.animationDelete(todo.title);
+              setTimeout(() => {
+                todo.deleted = true;
+              }, 400);
+            }
+          });
+      });
       console.log(this.collection);
-      console.log(this.todoCollection);
+    },
+
+    //notes
+    showNotes() {
+      const notes = document.getElementById("notes");
+      const list = document.getElementById("notes-list");
+      const tag = document.getElementById("notes-tag");
+      notes.classList.remove("hidden");
+      list.classList.add("active");
+      tag.classList.add("notes-tag");
+      this.collection.forEach((task) => {
+        if (task.isActive) task.isActive = false;
+      });
+    },
+    addNote() {
+      const modal = document.getElementById("modal-bg");
+      modal.classList.remove("hidden");
     },
 
     saveLocally() {

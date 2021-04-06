@@ -51,7 +51,16 @@ const app = Vue.createApp({
       toDelete: false,
       toAdd: false,
       setPriority: false,
-      notes: [{}],
+      noteTitle: "",
+      noteDetails: "",
+      notes: [
+        [{ title: "1st note", details: "" }],
+        [{ title: "2nd note", details: "" }],
+        [{ title: "3rd note", details: "" }],
+      ],
+      temp: [],
+      noteTitleEdit: "",
+      noteDetailsEdit: "",
     };
   },
   methods: {
@@ -98,9 +107,11 @@ const app = Vue.createApp({
       const notes = document.getElementById("notes");
       const list = document.getElementById("notes-list");
       const tag = document.getElementById("notes-tag");
+      const main = document.querySelector(".main");
       notes.classList.add("hidden");
       list.classList.remove("active");
       tag.classList.remove("notes-tag");
+      main.classList.remove("hidden");
     },
 
     deleteList(id) {
@@ -237,24 +248,65 @@ const app = Vue.createApp({
       const notes = document.getElementById("notes");
       const list = document.getElementById("notes-list");
       const tag = document.getElementById("notes-tag");
+      const main = document.querySelector(".main");
       notes.classList.remove("hidden");
       list.classList.add("active");
       tag.classList.add("notes-tag");
+      main.classList.add("hidden");
       this.collection.forEach((task) => {
         if (task.isActive) task.isActive = false;
       });
     },
+    createNote() {
+      // const noteId = document.querySelector(".note-cont");
+      // noteId.classList.add("show-note");
+      // setTimeout(() => {
+      //   note.classList.remove("show-note");
+      // }, 505);
+      this.addNote();
+    },
+
     addNote() {
-      const modal = document.getElementById("modal-bg");
-      modal.classList.remove("hidden");
+      const colNum = this.temp.length % 3;
+      const note = {
+        title: this.noteTitle,
+        details: this.noteDetails,
+        group: colNum,
+      };
+      this.temp.push(note);
+
+      if (colNum === 0) {
+        this.notes[0].push(note);
+      } else if (colNum === 1) {
+        this.notes[1].push(note);
+      } else if (colNum === 2) {
+        this.notes[2].push(note);
+      }
+
+      this.noteTitle = "";
+      this.noteDetails = "";
+    },
+
+    deleteNote(index, group) {
+      this.notes[group].splice(index, 1);
+      console.log(
+        `index ${index} deleted at notes group ${JSON.stringify(
+          this.notes[group]
+        )}`
+      );
+    },
+
+    handleInput(event, index, group, prop) {
+      this.notes[group][index][prop] = event.target.innerHTML;
     },
 
     saveLocally() {
       const parsedCollection = JSON.stringify(this.collection);
       const parsedTodoCollection = JSON.stringify(this.todoCollection);
+      const parsedNotes = JSON.stringify(this.notes);
       localStorage.setItem("collection", parsedCollection);
       localStorage.setItem("todoCollection", parsedTodoCollection);
-      // console.log(parsedTodoCollection);
+      localStorage.setItem("notes", parsedNotes);
     },
   },
   computed: {
@@ -264,11 +316,9 @@ const app = Vue.createApp({
         let [{ todos: todos }] = this.collection.filter((obj) => obj.isActive);
         return todos.filter((obj) => !obj.deleted);
       } catch (error) {
-        console.log("empty collection: " + this.todoCollection);
         return [];
       }
     },
-
     //todoList
     todoTitles: function () {
       return this.activeTaskTodos.map((todo) => todo.title);
@@ -278,7 +328,6 @@ const app = Vue.createApp({
     this.saveLocally();
   },
   mounted() {
-    console.log(this.collection);
     setInterval(() => {
       const d = new Date();
       this.weekday = this.weekDayArr[d.getDay()];
@@ -311,6 +360,15 @@ const app = Vue.createApp({
         localStorage.removeItem("todoCollection");
         console.log("errorblock:" + error);
         console.log(JSON.stringify(this.todoCollection));
+      }
+    }
+
+    if (localStorage.getItem("notes")) {
+      try {
+        this.notes = JSON.parse(localStorage.getItem("notes"));
+      } catch (error) {
+        localStorage.removeItem("notes");
+        console.log("problem in getting notes from localStorage");
       }
     }
   },

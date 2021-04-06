@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400&family=Saira+Extra+Condensed:wght@200;300&family=Spartan:wght@100;200;300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400&family=Saira+Condensed:wght@100;200;300;400;500&family=Saira+Extra+Condensed:wght@100;200;300;400&display=swap");
 
 // variables
 $main-color: #fdcb9e;
@@ -13,7 +13,8 @@ $low: #ffcc00;
 $warning: #f57b51;
 $clear: #07689f;
 $add: #428b46;
-$main-font: "Spartan", sans-serif;
+$notepad: #ffe268;
+$main-font: "Saira Condensed", sans-serif;
 $time-font: "Saira Extra Condensed", sans-serif;
 $task-font: "Nunito", sans-serif;
 $side-width: 20vw;
@@ -34,6 +35,12 @@ body {
   margin: 0;
   text-align: center;
   overflow-x: hidden;
+  min-height: 100%;
+}
+
+html {
+  margin: 0;
+  min-height: 100%;
 }
 
 div {
@@ -41,26 +48,25 @@ div {
 }
 
 #app {
-  display: flex;
+  @include flex(stretch, stretch);
+  height: 100%;
 }
 .main {
   background: $main-color;
   width: $main-width;
-  min-height: 100vh;
-  padding: 20px 0;
+  padding: 20px 0 60px;
   box-sizing: border-box;
   font-family: $task-font;
-  position: relative;
-  right: 0;
+  min-height: 100vh;
 
   .title {
     font-family: $main-font !important;
-    font-size: 5rem;
-    line-height: 7rem;
+    font-size: 7rem;
+    line-height: 6rem;
     text-align: left;
     color: $side-color;
     margin: 0 20px;
-    font-weight: 200;
+    font-weight: 500;
     text-transform: uppercase;
   }
   hr {
@@ -70,10 +76,7 @@ div {
   }
 
   .no-task-items {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 250px auto;
     h2 {
       font-weight: bold;
       font-size: 2.5rem;
@@ -105,12 +108,10 @@ div {
       }
     }
   }
-  .todos-cont {
-    font-family: $task-font;
+  .add-item {
     @include flex(center, center);
-    flex-direction: column;
-    min-height: 81px;
-    margin-top: 30px;
+    width: 100%;
+    margin: auto;
     .add-item-cont {
       width: $todo-width;
       background: $bar;
@@ -119,7 +120,7 @@ div {
       color: $todo;
       margin-top: 20px;
       position: relative;
-
+      box-sizing: border-box;
       @include flex(center, space-around);
       input[type="text"] {
         font-family: inherit;
@@ -130,9 +131,15 @@ div {
         flex-grow: 12;
       }
     }
+  }
+  .todos-cont {
+    font-family: $task-font;
+    @include flex(center, center);
+    flex-direction: column;
+    height: auto;
+    margin-top: 30px;
     .item-cont {
       width: $todo-width;
-
       &:hover .top,
       &:hover .expanded-cont {
         box-shadow: 5px 5px 0 rgba(63, 63, 68, 0.3);
@@ -140,9 +147,13 @@ div {
         transition: 0.5s ease;
       }
       .top {
-        @extend .add-item-cont;
+        background: $bar;
+        padding: 15px;
+        color: $todo;
+        margin-top: 20px;
+        @include flex(center, space-around);
         box-shadow: none;
-        width: 100% !important;
+        width: 100%;
         height: 60px;
         justify-content: space-between;
         margin-bottom: 0;
@@ -254,12 +265,11 @@ div {
             .date {
               width: 100%;
               height: 30px;
-              border: 1px solid $side-color;
+              border: 1px solid;
+              border-color: transparent transparent $side-color transparent;
               border-radius: 3px;
               background: none;
               outline: none;
-              padding: 10px;
-              box-sizing: border-box;
               font-size: 1.3rem;
               color: $side-color;
               margin-bottom: 20px;
@@ -271,7 +281,6 @@ div {
             select {
               @extend .date;
               height: auto !important;
-              padding: 1.5px 10px !important;
             }
           }
         }
@@ -364,7 +373,7 @@ div {
       &:hover {
         background: $clear;
         color: $main-color;
-        transform: scale(1.1);
+        transform: scale(1.05);
         transition: transform 0.5s ease;
         & .tooltip-text {
           visibility: visible;
@@ -390,9 +399,8 @@ div {
   padding: 20px 0;
   color: $main-color;
   font-family: $time-font;
-  box-sizing: border-box;
-  position: relative;
   width: $side-width;
+
   .time-container {
     padding: 0 10px;
     @include flex(flex-end, flex-end);
@@ -539,8 +547,11 @@ div {
 .notes {
   @extend .main;
   position: absolute;
+  padding: 20px 0 0 0;
   top: 0;
-  z-index: 15;
+  right: 0;
+  z-index: 2;
+  height: 100%;
   .create-note {
     @include flex(center, center);
     margin-top: 50px;
@@ -548,23 +559,106 @@ div {
       @include flex(center, center);
       padding: 7px 15px;
       border-radius: 100px;
-      border: 1px solid $add;
-      background: none;
-      color: $add;
+      border: 1px solid $clear;
+      background: $clear;
+      color: $light-color;
       outline: none;
-      transform: scale(1);
-      transition: transform 0.5s ease;
       font-size: 1.2rem;
       cursor: pointer;
       &:hover {
-        background: $add;
-        color: $main-color;
-        transform: scale(1.1);
-        transition: transform 0.5s ease;
+        background: #065380;
+      }
+    }
+  }
+  .main-container {
+    .grid-container {
+      height: 70vh;
+      display: grid;
+      grid-template-columns: 30% 30% 30%;
+      justify-content: space-evenly;
+      margin: 40px;
+      overflow-y: scroll;
+      .col-0 {
+        grid-column: 1/2;
+        grid-row: 1/1;
+        @include flex(flex-start, flex-start);
+        flex-flow: column wrap;
+      }
+      .col-1 {
+        grid-column: 2/3;
+        grid-row: 1/1;
+        @include flex(flex-start, flex-start);
+        flex-flow: column wrap;
+      }
+      .col-2 {
+        grid-column: 3/4;
+        grid-row: 1/1;
+        @include flex(flex-start, flex-start);
+        flex-flow: column wrap;
       }
     }
   }
 }
+//separated so that it can be applied
+.note-cont {
+  width: 100%;
+  word-wrap: break-word;
+  position: relative;
+  background: $notepad;
+  padding: 25px 20px 20px;
+  margin-top: 30px;
+  font-size: 1.3rem;
+  color: $side-color;
+  transition: 0.5s ease;
+
+  &:hover {
+    box-shadow: 7px 7px 4px rgba(63, 63, 68, 0.4);
+    transform: scale(1.05);
+    transition: 0.5s ease;
+  }
+  .delete-note {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 24px;
+    span {
+      transform: rotate(-35deg) translate(5px, -10px);
+      font-size: 40px !important;
+      color: $danger;
+      cursor: pointer;
+      &:hover {
+        transform: rotate(-35deg) translate(5px, -20px);
+        transition: 0.5s ease;
+      }
+    }
+  }
+  .note-title {
+    text-align: left;
+    outline: none;
+    min-height: 28px;
+  }
+  .note-details {
+    @extend .note-title;
+    margin-top: 20px;
+  }
+}
+
+//scrollbar
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $light-color;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $side-color;
+}
+
 // modal
 .bg-modal {
   position: absolute;
@@ -585,6 +679,7 @@ div {
     margin: auto;
     padding: 45px 45px 20px 45px;
     position: relative;
+    box-shadow: 10px 10px 4px rgba(63, 63, 68, 0.6);
     .exit {
       position: absolute;
       top: 0;
@@ -607,28 +702,31 @@ div {
     .save {
       width: 100%;
       margin-top: 10px;
-      @extend .create-note;
+
       button {
         margin: auto;
         background: none;
-        border: 1px solid $clear;
-        color: $clear;
+        border: 1px solid $add;
+        color: $add;
         border-radius: 100px;
         padding: 5px 10px;
+        outline: none;
+        font-size: 1rem;
+        cursor: pointer;
+        @include flex(center, center);
         &:hover {
-          background: $clear;
+          background: $add;
           color: $light-color;
           transform: scale(1.05);
         }
       }
     }
-    .note-title {
+    .modal-note-title {
       width: 100%;
       text-align: left;
       margin-bottom: 20px;
       @include flex(flex-start, space-between);
-      background: $main-color;
-      border-radius: 100px;
+      border-bottom: 1px solid $main-color;
 
       input[type="text"] {
         width: 100%;
@@ -637,13 +735,11 @@ div {
         background: none;
         font-family: $task-font;
         font-size: 1.2rem;
-        padding: 5px 15px;
+        padding: 5px 0;
       }
     }
-    .note-details {
+    .modal-note-details {
       width: 100%;
-      background: $main-color;
-      border-radius: 5px;
       textarea {
         width: 100%;
         resize: none;
@@ -653,7 +749,7 @@ div {
         font-family: $task-font;
         font-size: 1.2rem;
         border: none;
-        padding: 5px 10px;
+        padding: 5px 0;
       }
     }
   }
@@ -714,7 +810,33 @@ div {
   display: none !important;
 }
 
+.show-note {
+  animation: show 0.5s $timing forwards;
+}
+
+.hide-note {
+  animation: hide 0.3s $timing forwards;
+}
+
 // keyframes
+@keyframes show {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes hide {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+}
+
 @keyframes shrink {
   from {
     height: 347px;
@@ -755,23 +877,15 @@ div {
 
 // media queries
 @media (max-width: 1330px) {
-  .main {
-    .todos-cont {
-      .item-cont,
-      .add-item-cont {
-        width: 70%;
-      }
-    }
+  .item-cont,
+  .add-item-cont {
+    width: 70%;
   }
 }
 
 @media (max-width: 1145px) {
-  .main {
-    .todos-cont {
-      .item-cont,
-      .add-item-cont {
-        width: 80%;
-      }
-    }
+  .item-cont,
+  .add-item-cont {
+    width: 80%;
   }
 }

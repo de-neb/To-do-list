@@ -75,177 +75,231 @@
         </nav>
       </div>
 
-      <div>
-        <div class="main" :id="'#list'+taskListId">
-          <h1 class="title" id="title">
-            {{taskList.length > 0?taskList[taskListId]:title}}
-          </h1>
-          <hr />
+      <div class="main" :id="'#list'+taskListId">
+        <h1 class="title" id="title">
+          {{taskList.length > 0?taskList[taskListId]:title}}
+        </h1>
+        <hr />
 
-          <div class="todos-cont">
+        <div class="todos-cont">
+          <div
+            v-for="todoItem,itemIndex in activeTaskTodos"
+            :key="todoItem"
+            class="item-cont"
+            :id="'item-cont-'+todoItem.title"
+          >
+            <div class="top" :id="'todo-'+todoItem.title">
+              <div class="priority-flag" :class="todoItem.priority"></div>
+              <label :for="'check-'+todoItem.title"></label>
+              <input
+                type="checkbox"
+                :id="'check-'+todoItem.title"
+                class="checkbox"
+                v-model="todoItem.isDone"
+              />
+              <span :class="{check:todoItem.isDone}" class="no-check"></span>
+              <h3 class="item">{{todoItem.title}}</h3>
+              <button class="expand" @click="expandItem(todoItem.title)">
+                <div :class="{rotating:todoItem.isExpandItem}">
+                  <span class="material-icons material-icons-outlined">
+                    expand_more
+                  </span>
+                </div>
+              </button>
+            </div>
             <div
-              v-for="todoItem,itemIndex in activeTaskTodos"
-              :key="todoItem"
-              class="item-cont"
-              :id="'item-cont-'+todoItem.title"
+              class="expanded-cont"
+              :id="'expanded-cont-'+todoItem.title"
+              :class="{expanding:todoItem.isExpandItem}"
             >
-              <div class="top" :id="'todo-'+todoItem.title">
-                <div class="priority-flag" :class="todoItem.priority"></div>
-                <label :for="'check-'+todoItem.title"></label>
-                <input
-                  type="checkbox"
-                  :id="'check-'+todoItem.title"
-                  class="checkbox"
-                  v-model="todoItem.isDone"
-                />
-                <span :class="{check:todoItem.isDone}" class="no-check"></span>
-                <h3 class="item">{{todoItem.title}}</h3>
-                <button class="expand" @click="expandItem(todoItem.title)">
-                  <div :class="{rotating:todoItem.isExpandItem}">
-                    <span class="material-icons material-icons-outlined">
-                      expand_more
-                    </span>
-                  </div>
+              <div class="date-priority-cont">
+                <div class="date-cont">
+                  <label :for="'date-'+todoItem.title"> Due Date </label>
+                  <input
+                    type="date"
+                    class=".date"
+                    :id="'date-'+todoItem.title"
+                    v-model="todoItem.date"
+                  />
+                </div>
+                <div class="priority-cont">
+                  <label :for="'priority-'+todoItem.title">Priority</label>
+                  <select
+                    name="priority"
+                    :id="'priority-'+todoItem.title"
+                    v-model="todoItem.priority"
+                  >
+                    <option value="Low" selected="selected">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                  </select>
+                </div>
+              </div>
+              <div class="details-cont">
+                <label :for="'details-'+todoItem.title">Details</label>
+                <textarea
+                  name="details"
+                  :id="'details-'+todoItem.title"
+                  v-model="todoItem.details"
+                ></textarea>
+              </div>
+
+              <div class="btn-save-del">
+                <button class="del" @click="deleteTodoItem(todoItem.title)">
+                  <span class="material-icons material-icons-outlined">
+                    delete
+                  </span>
+                  &nbsp; Delete
                 </button>
               </div>
-              <div
-                class="expanded-cont"
-                :id="'expanded-cont-'+todoItem.title"
-                :class="{expanding:todoItem.isExpandItem}"
-              >
-                <div class="date-priority-cont">
-                  <div class="date-cont">
-                    <label :for="'date-'+todoItem.title"> Due Date </label>
-                    <input
-                      type="date"
-                      class=".date"
-                      :id="'date-'+todoItem.title"
-                      v-model="todoItem.date"
-                    />
-                  </div>
-                  <div class="priority-cont">
-                    <label :for="'priority-'+todoItem.title">Priority</label>
-                    <select
-                      name="priority"
-                      :id="'priority-'+todoItem.title"
-                      v-model="todoItem.priority"
-                    >
-                      <option value="Low" selected="selected">Low</option>
-                      <option value="Medium">Medium</option>
-                      <option value="High">High</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="details-cont">
-                  <label :for="'details-'+todoItem.title">Details</label>
-                  <textarea
-                    name="details"
-                    :id="'details-'+todoItem.title"
-                    v-model="todoItem.details"
-                  ></textarea>
-                </div>
+            </div>
+          </div>
+        </div>
+        <div class="add-item">
+          <div class="add-item-cont">
+            <span class="material-icons material-icons-outlined">add</span>
+            <input
+              type="text"
+              name="todo-item"
+              :id="'todo-'+taskList[taskListId]"
+              maxlength="55"
+              v-model="itemName"
+              @keydown.enter="addTodoItem(); appearItem()"
+              placeholder="Type your 'to-do' here"
+            />
+          </div>
+        </div>
 
-                <div class="btn-save-del">
-                  <button class="del" @click="deleteTodoItem(todoItem.title)">
-                    <span class="material-icons material-icons-outlined">
-                      delete
-                    </span>
-                    &nbsp; Delete
-                  </button>
+        <div class="clear" v-if="todoTitles.length">
+          <button class="clear-done" @click="clearDoneItems">
+            <span class="material-icons material-icons-outlined">
+              cleaning_services
+            </span>
+            <span class="tooltip-text">Clear finished items</span>
+          </button>
+          <button class="delete-all" @click="deleteAllItems">
+            <span class="material-icons material-icons-outlined">
+              delete_sweep
+            </span>
+            <span class="tooltip-text">Delete all items</span>
+          </button>
+        </div>
+
+        <div v-if="!taskList.length" class="no-task-item">
+          <h2>:(</h2>
+          <h2>
+            You don't have any tasks added to your {{taskListName}}, click to
+            create one!
+          </h2>
+        </div>
+        <div v-else-if="!todoTitles.length" class="no-todo-item">
+          <h2>This task list seems to be empty :(</h2>
+          <h4>To add an item, type a to-do then hit enter!</h4>
+        </div>
+      </div>
+      <div class="notes hidden" id="notes">
+        <h1 class="title">NOTES</h1>
+        <hr />
+        <div class="create-note">
+          <button @click="createNote">
+            <span class="material-icons material-icons-outlined"> create </span>
+            &nbsp;Create note
+          </button>
+        </div>
+        <div class="main-container">
+          <div v-if="notes.every(group=>!group.length)" class="no-todo-item">
+            <h2>You don't have any notes added yet :(</h2>
+            <h4>Click button above to create one!</h4>
+          </div>
+          <div v-else class="grid-container">
+            <div class="col-0">
+              <div
+                class="note-cont"
+                v-for="note0,index in notes[0]"
+                :key="note0"
+                :id="'group0-note'+index"
+              >
+                <div class="delete-note">
+                  <span
+                    class="material-icons md-25 material-icons-outlined"
+                    @click="deleteNote(index, 0)"
+                  >
+                    push_pin
+                  </span>
+                </div>
+                <div
+                  class="note-title"
+                  v-html="note0.title"
+                  contenteditable="true"
+                  @focusout="handleInput($event,index,0,'title')"
+                ></div>
+                <div
+                  class="note-details"
+                  v-html="note0.details"
+                  contenteditable="true"
+                  @focusout="handleInput($event,index,0,'details')"
+                ></div>
+              </div>
+            </div>
+            <div class="col-1">
+              <div
+                class="note-cont"
+                v-for="note1,index in notes[1]"
+                :key="note1"
+                :id="'group1-note'+index"
+              >
+                <div class="delete-note">
+                  <span
+                    class="material-icons md-25 material-icons-outlined"
+                    @click="deleteNote(index, 1)"
+                  >
+                    push_pin
+                  </span>
+                </div>
+                <div
+                  class="note-title"
+                  contenteditable="true"
+                  v-html="note1.title"
+                  @focusout="handleInput($event,index,1,'title')"
+                ></div>
+                <div
+                  class="note-details"
+                  contenteditable="true"
+                  @focusout="handleInput($event,index,1,'details')"
+                >
+                  <span v-html="note1.details"></span>
                 </div>
               </div>
             </div>
-
-            <div class="add-item-cont">
-              <span class="material-icons material-icons-outlined">add</span>
-              <input
-                type="text"
-                name="todo-item"
-                :id="'todo-'+taskList[taskListId]"
-                maxlength="55"
-                v-model="itemName"
-                @keydown.enter="addTodoItem(); appearItem()"
-                placeholder="Type your 'to-do' here"
-              />
+            <div class="col-2">
+              <div
+                class="note-cont"
+                v-for="note2,index in notes[2]"
+                :key="note2"
+                :id="'group2-note'+index"
+              >
+                <div class="delete-note">
+                  <span
+                    class="material-icons md-25 material-icons-outlined"
+                    @click="deleteNote(index, 2)"
+                  >
+                    push_pin
+                  </span>
+                </div>
+                <div
+                  class="note-title"
+                  contenteditable="true"
+                  v-html="note2.title"
+                  @focusout="handleInput($event,index,2,'title')"
+                ></div>
+                <div
+                  class="note-details"
+                  contenteditable="true"
+                  v-html="note2.details"
+                  @focusout="handleInput($event,index,2,'details')"
+                ></div>
+              </div>
             </div>
-          </div>
-
-          <div class="clear" v-if="todoTitles.length">
-            <button class="clear-done" @click="clearDoneItems">
-              <span class="material-icons material-icons-outlined">
-                cleaning_services
-              </span>
-              <span class="tooltip-text">Clear finished items</span>
-            </button>
-            <button class="delete-all" @click="deleteAllItems">
-              <span class="material-icons material-icons-outlined">
-                delete_sweep
-              </span>
-              <span class="tooltip-text">Delete all items</span>
-            </button>
-          </div>
-
-          <div v-if="!taskList.length" class="no-task-item">
-            <h2>:(</h2>
-            <h2>
-              You don't have any tasks added to your {{taskListName}}, click to
-              create one!
-            </h2>
-          </div>
-          <div v-else-if="!todoTitles.length" class="no-todo-item">
-            <h2>This task list seems to be empty :(</h2>
-            <h4>To add an item, type a to-do then hit enter!</h4>
-          </div>
-        </div>
-        <div class="notes hidden" id="notes">
-          <h1 class="title">NOTES</h1>
-          <hr />
-          <div class="create-note">
-            <button @click="addNote">
-              <span class="material-icons material-icons-outlined">
-                create
-              </span>
-              &nbsp;Create note
-            </button>
-          </div>
-          <div class="container">
-            <div v-if="!notes.length" class="no-todo-item">
-              <h2>You don't have any notes added yet :(</h2>
-              <h4>Click button above to create one!</h4>
-            </div>
-            <div v-else class="notes-cont">
-              <h1>notepad</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="bg-modal hidden" id="modal-bg">
-        <div class="modal" id="modal">
-          <div class="exit">
-            <button>
-              <span class="material-icons material-icons-outlined">
-                close
-              </span>
-            </button>
-          </div>
-          <div class="note-title">
-            <input type="text" name="title" id="" placeholder="Title" />
-          </div>
-
-          <div class="note-details">
-            <textarea
-              name="note-details"
-              id=""
-              cols="30"
-              rows="15"
-              placeholder="Details"
-            ></textarea>
-          </div>
-          <div class="save">
-            <button>
-              <span class="material-icons material-icons"> check </span>
-              &nbsp;Save
-            </button>
           </div>
         </div>
       </div>

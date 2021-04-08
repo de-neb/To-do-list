@@ -1,15 +1,12 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400&family=Saira+Condensed:wght@100;200;300;400;500&family=Saira+Extra+Condensed:wght@100;200;300;400&display=swap");
-body {
+body,
+html {
   margin: 0;
   text-align: center;
   overflow-x: hidden;
   min-height: 100%;
-}
-
-html {
-  margin: 0;
-  min-height: 100%;
+  padding: 0;
 }
 
 div {
@@ -32,7 +29,7 @@ div {
 
 .main, .notes {
   background: #fdcb9e;
-  width: 80vw;
+  width: 100vw;
   padding: 20px 0 60px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -40,10 +37,14 @@ div {
   min-height: 100vh;
 }
 
-.main .title, .notes .title {
+.main .title-cont .menu, .notes .title-cont .menu {
+  display: none;
+}
+
+.main .title-cont .title, .notes .title-cont .title {
   font-family: "Saira Condensed", sans-serif !important;
-  font-size: 7rem;
-  line-height: 6rem;
+  font-size: 6vmax;
+  line-height: 5vmax;
   text-align: left;
   color: #3f3f44;
   margin: 0 20px;
@@ -57,18 +58,19 @@ div {
   margin: 3px 0 0 20px;
 }
 
-.main .no-task-items, .notes .no-task-items, .main .no-todo-item, .notes .no-todo-item {
+.main .no-task-item, .notes .no-task-item, .main .no-todo-item, .notes .no-todo-item {
   margin: 250px auto;
+  width: 60%;
 }
 
-.main .no-task-items h2, .notes .no-task-items h2, .main .no-todo-item h2, .notes .no-todo-item h2 {
+.main .no-task-item h2, .notes .no-task-item h2, .main .no-todo-item h2, .notes .no-todo-item h2 {
   font-weight: bold;
-  font-size: 2.5rem;
+  font-size: 2vmax;
   color: #3f3f44;
 }
 
-.main .no-todo-item h4, .notes .no-todo-item h4 {
-  font-size: 1.3rem;
+.main .no-task-item .sub-text, .notes .no-task-item .sub-text, .main .no-todo-item .sub-text, .notes .no-todo-item .sub-text {
+  font-size: 1.3vmax;
   margin: 0;
   opacity: 0.5;
 }
@@ -81,7 +83,7 @@ div {
   background: none;
   outline: none;
   color: #3f3f44;
-  font-size: 1.2rem;
+  font-size: 1.2vmax;
   font-family: "Nunito", sans-serif;
   text-transform: uppercase;
   cursor: pointer;
@@ -126,11 +128,22 @@ div {
       justify-content: space-around;
 }
 
+.main .add-item .add-item-cont span.material-icons, .notes .add-item .add-item-cont span.material-icons {
+  cursor: pointer;
+  margin: 0 5px 0 0;
+}
+
+.main .add-item .add-item-cont span.material-icons:hover, .notes .add-item .add-item-cont span.material-icons:hover {
+  border-radius: 50%;
+  background: #3f3f44;
+  color: #fdcb9e;
+}
+
 .main .add-item .add-item-cont input[type="text"], .notes .add-item .add-item-cont input[type="text"] {
   font-family: inherit;
   background: none;
   border: none;
-  font-size: 1.3rem;
+  font-size: 20px;
   outline: none;
   -webkit-box-flex: 12;
       -ms-flex-positive: 12;
@@ -196,6 +209,17 @@ div {
   position: relative;
 }
 
+.main .todos-cont .item-cont .top input[type="text"], .notes .todos-cont .item-cont .top input[type="text"] {
+  font-family: inherit;
+  background: none;
+  border: none;
+  font-size: 20px;
+  outline: none;
+  -webkit-box-flex: 12;
+      -ms-flex-positive: 12;
+          flex-grow: 12;
+}
+
 .main .todos-cont .item-cont .top .priority-flag, .notes .todos-cont .item-cont .top .priority-flag {
   height: 60px;
   width: 10px;
@@ -250,7 +274,7 @@ div {
 
 .main .todos-cont .item-cont .top .checkbox:checked ~ .check::after, .notes .todos-cont .item-cont .top .checkbox:checked ~ .check::after {
   content: "✔";
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: #f6f6f6;
 }
 
@@ -260,7 +284,7 @@ div {
 
 .main .todos-cont .item-cont .top .item, .notes .todos-cont .item-cont .top .item {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 20px;
   color: #3f3f44;
   font-weight: 400;
 }
@@ -362,7 +386,7 @@ div {
 }
 
 .main .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont label, .notes .todos-cont .item-cont .expanded-cont .date-priority-cont .date-cont label, .main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont label, .notes .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont label {
-  font-size: 1.2rem;
+  font-size: 1.2vmax;
   font-weight: bold;
 }
 
@@ -386,7 +410,7 @@ div {
   border-radius: 3px;
   background: none;
   outline: none;
-  font-size: 1.3rem;
+  font-size: 1.3vmax;
   color: #3f3f44;
   margin-bottom: 20px;
 }
@@ -419,7 +443,7 @@ div {
 }
 
 .main .todos-cont .item-cont .expanded-cont .details-cont label, .notes .todos-cont .item-cont .expanded-cont .details-cont label {
-  font-size: 1.2rem;
+  font-size: 1.2vmax;
   font-weight: bold;
 }
 
@@ -431,7 +455,7 @@ div {
   resize: none;
   background: #f6f6f6;
   padding: 10px;
-  font-size: 1.2rem;
+  font-size: 1.2vmax;
 }
 
 .main .todos-cont .item-cont .expanded-cont .btn-save-del, .notes .todos-cont .item-cont .expanded-cont .btn-save-del {
@@ -559,7 +583,7 @@ div {
   background: #e7305b;
 }
 
-.side-clock {
+.side-menu {
   min-height: 100vh;
   background: #3f3f44;
   padding: 20px 0;
@@ -568,7 +592,7 @@ div {
   width: 20vw;
 }
 
-.side-clock .time-container {
+.side-menu .time-container {
   padding: 0 10px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -585,7 +609,7 @@ div {
           flex-direction: column;
 }
 
-.side-clock .time-container .time {
+.side-menu .time-container .time {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -597,36 +621,36 @@ div {
           justify-content: inherit;
 }
 
-.side-clock .time-container .time h1 {
+.side-menu .time-container .time h1 {
   display: inline-block;
-  font-size: 10rem;
+  font-size: 7vmax;
   text-transform: uppercase;
   margin: 0;
-  line-height: 8rem;
+  line-height: 5vmax;
   font-weight: 300;
 }
 
-.side-clock .time-container .time span {
+.side-menu .time-container .time span {
   -ms-flex-item-align: start;
       align-self: flex-start;
   display: inline-block;
-  font-size: 5rem;
-  line-height: 5rem;
+  font-size: 4vmax;
+  line-height: 3vmax;
 }
 
-.side-clock .time-container h2 {
-  font-size: 4rem;
-  line-height: 4rem;
+.side-menu .time-container h2 {
+  font-size: 3vmax;
+  line-height: 3vmax;
   font-weight: 200;
   text-transform: uppercase;
   margin: 0;
 }
 
-.side-clock .time-container h3 {
+.side-menu .time-container h3 {
   text-transform: uppercase;
   font-weight: 200;
-  font-size: 3rem;
-  line-height: 3rem;
+  font-size: 2vmax;
+  line-height: 2vmax;
   margin: 0;
 }
 
@@ -670,8 +694,8 @@ div {
 }
 
 .side-nav ul li:first-child {
-  font-size: 3rem;
-  line-height: 3rem;
+  font-size: 2.7vmax;
+  line-height: 2.7vmax;
   font-weight: bold;
 }
 
@@ -681,14 +705,17 @@ div {
 
 .side-nav ul li a {
   text-decoration: none;
-  font-size: 3rem;
+  font-size: 2.7vmax;
   color: #fdcb9e;
   font-weight: bold;
-  line-height: 3rem;
+  line-height: 2.7vmax;
 }
 
-.side-nav ul .task-list-cont input[type="text"] {
-  font-size: 1.5rem;
+.side-nav ul .task-list-cont textarea {
+  font-size: 1.5vmax;
+  font-family: "Nunito", sans-serif;
+  overflow: hidden;
+  height: 2vmax;
   width: 100%;
   outline: none;
   border: none;
@@ -696,82 +723,113 @@ div {
   background: none;
   color: #f6f6f6;
   margin: 15px 0 20px 0;
+  resize: none;
 }
 
-.side-nav ul .task-list-cont input[type="text"]::-webkit-input-placeholder {
+.side-nav ul .task-list-cont textarea::-webkit-input-placeholder {
   color: #f6f6f6;
   opacity: 0.7;
+  font-family: inherit;
 }
 
-.side-nav ul .task-list-cont input[type="text"]:-ms-input-placeholder {
+.side-nav ul .task-list-cont textarea:-ms-input-placeholder {
   color: #f6f6f6;
   opacity: 0.7;
+  font-family: inherit;
 }
 
-.side-nav ul .task-list-cont input[type="text"]::-ms-input-placeholder {
+.side-nav ul .task-list-cont textarea::-ms-input-placeholder {
   color: #f6f6f6;
   opacity: 0.7;
+  font-family: inherit;
 }
 
-.side-nav ul .task-list-cont input[type="text"]::placeholder {
+.side-nav ul .task-list-cont textarea::placeholder {
   color: #f6f6f6;
   opacity: 0.7;
+  font-family: inherit;
 }
 
-.side-nav ul .task-list-cont .task-list p {
+.side-nav ul .task-list-cont ul.task-list {
   margin: 0;
-  font-size: 1.7rem;
+  padding: 0;
+}
+
+.side-nav ul .task-list-cont ul.task-list li.task-names {
+  padding: 0 10px 0 0;
+  list-style-type: none;
+  margin: 0;
+  font-size: 1.2vmax;
   font-family: "Nunito", sans-serif;
-  font-weight: light;
+  font-weight: 200;
   color: #f6f6f6;
   margin-bottom: 5px;
-}
-
-.side-nav ul .task-list-cont .task-list p a {
-  text-decoration: none;
-  color: #f6f6f6;
-  padding: 0 15px 0 0;
-  display: inline-block;
-  width: 95%;
   position: relative;
-  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
-.side-nav ul .task-list-cont .task-list p a:hover {
+.side-nav ul .task-list-cont ul.task-list li.task-names a.task-name-link {
+  text-decoration: none;
+  font-size: 1.5vmax;
+  font-weight: 400;
+  color: #f6f6f6;
+  display: inline-block;
+  width: 80%;
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+}
+
+.side-nav ul .task-list-cont ul.task-list li.task-names:hover {
   background: #f6f6f6;
   color: #3f3f44;
 }
 
-.side-nav ul .task-list-cont .task-list p a:hover span.x-icon, .side-nav ul .task-list-cont .task-list p a:hover span.fa-pencil-alt {
-  position: absolute;
-  top: 50%;
-  left: 5%;
-  visibility: visible;
-  -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
-  opacity: 0.5;
-  font-weight: bold;
+.side-nav ul .task-list-cont ul.task-list li.task-names:hover a {
+  color: #3f3f44;
 }
 
-.side-nav ul .task-list-cont .task-list p a:hover span.x-icon:hover, .side-nav ul .task-list-cont .task-list p a:hover span.fa-pencil-alt:hover {
+.side-nav ul .task-list-cont ul.task-list li.task-names:hover span.x-icon, .side-nav ul .task-list-cont ul.task-list li.task-names:hover span.fa-pencil-alt {
+  visibility: visible;
+  opacity: 0.5;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.side-nav ul .task-list-cont ul.task-list li.task-names:hover span.x-icon:hover, .side-nav ul .task-list-cont ul.task-list li.task-names:hover span.fa-pencil-alt:hover {
   opacity: 1;
 }
 
-.side-nav ul .task-list-cont .task-list p a:hover span.fa-pencil-alt {
-  left: 15%;
-}
-
-.side-nav ul .task-list-cont .task-list p a span.x-icon, .side-nav ul .task-list-cont .task-list p a:hover span.fa-pencil-alt {
+.side-nav ul .task-list-cont ul.task-list li.task-names span.x-icon, .side-nav ul .task-list-cont ul.task-list li.task-names:hover span.fa-pencil-alt {
   visibility: hidden;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
 }
 
 .notes {
-  position: absolute;
-  padding: 20px 0 0 0;
-  top: 0;
-  right: 0;
-  z-index: 2;
-  height: 100%;
+  padding: 20px 0;
+  height: 100vh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.notes .note-main-title {
+  font-family: "Saira Condensed", sans-serif;
+  font-size: 6vmax;
+  line-height: 5vmax;
+  text-align: left;
+  color: #3f3f44;
+  margin: 0 20px;
+  font-weight: 500;
+  text-transform: uppercase;
 }
 
 .notes .create-note {
@@ -803,7 +861,7 @@ div {
   background: #07689f;
   color: #f6f6f6;
   outline: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
 }
 
@@ -894,7 +952,7 @@ div {
   background: #ffe268;
   padding: 25px 20px 20px;
   margin-top: 30px;
-  font-size: 1.3rem;
+  font-size: 1.3vmax;
   color: #3f3f44;
   -webkit-transition: 0.5s ease;
   transition: 0.5s ease;
@@ -1033,7 +1091,7 @@ div {
   border-radius: 100px;
   padding: 5px 10px;
   outline: none;
-  font-size: 1rem;
+  font-size: 1vmax;
   cursor: pointer;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1075,7 +1133,7 @@ div {
   border: none;
   background: none;
   font-family: "Nunito", sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.2vmax;
   padding: 5px 0;
 }
 
@@ -1091,7 +1149,7 @@ div {
   background: none;
   outline: none;
   font-family: "Nunito", sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.2vmax;
   border: none;
   padding: 5px 0;
 }
@@ -1099,7 +1157,6 @@ div {
 .active {
   background: #fdcb9e;
   color: #3f3f44 !important;
-  padding: 0 15px 0 0;
 }
 
 .notes-tag {
@@ -1116,6 +1173,14 @@ div {
 
 .High {
   background: #e7305b;
+}
+
+.show-menu {
+  top: 10vh !important;
+  width: 300px !important;
+  opacity: 1 !important;
+  -webkit-transition: opacity 0.5s cubic-bezier(0.39, 0.97, 0, 0.97), width 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) !important;
+  transition: opacity 0.5s cubic-bezier(0.39, 0.97, 0, 0.97), width 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) !important;
 }
 
 .expanding {
@@ -1153,12 +1218,18 @@ div {
   display: none !important;
 }
 
+.visibility {
+  visibility: hidden;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+
 .show-note {
   -webkit-animation: show 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
           animation: show 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
 }
 
-.hide-note {
+.remove-note {
   -webkit-animation: hide 0.3s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
           animation: hide 0.3s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
 }
@@ -1287,17 +1358,347 @@ div {
   }
 }
 
-@media (max-width: 1330px) {
-  .item-cont,
-  .add-item-cont {
-    width: 70%;
+@-webkit-keyframes down {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  50% {
+    -webkit-transform: translateY(9px);
+            transform: translateY(9px);
+  }
+  100% {
+    -webkit-transform: translateY(9px) rotate(45deg);
+            transform: translateY(9px) rotate(45deg);
   }
 }
 
-@media (max-width: 1145px) {
+@keyframes down {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  50% {
+    -webkit-transform: translateY(9px);
+            transform: translateY(9px);
+  }
+  100% {
+    -webkit-transform: translateY(9px) rotate(45deg);
+            transform: translateY(9px) rotate(45deg);
+  }
+}
+
+@-webkit-keyframes up {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  50% {
+    -webkit-transform: translateY(-9px);
+            transform: translateY(-9px);
+  }
+  100% {
+    -webkit-transform: translateY(-9px) rotate(135deg);
+            transform: translateY(-9px) rotate(135deg);
+  }
+}
+
+@keyframes up {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  50% {
+    -webkit-transform: translateY(-9px);
+            transform: translateY(-9px);
+  }
+  100% {
+    -webkit-transform: translateY(-9px) rotate(135deg);
+            transform: translateY(-9px) rotate(135deg);
+  }
+}
+
+@-webkit-keyframes gone {
+  100% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+}
+
+@keyframes gone {
+  100% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+}
+
+@-webkit-keyframes rev-up {
+  0% {
+    -webkit-transform: translateY(9px) rotate(45deg);
+            transform: translateY(9px) rotate(45deg);
+  }
+  50% {
+    -webkit-transform: translateY(9px);
+            transform: translateY(9px);
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+  }
+}
+
+@keyframes rev-up {
+  0% {
+    -webkit-transform: translateY(9px) rotate(45deg);
+            transform: translateY(9px) rotate(45deg);
+  }
+  50% {
+    -webkit-transform: translateY(9px);
+            transform: translateY(9px);
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+  }
+}
+
+@-webkit-keyframes rev-down {
+  0% {
+    -webkit-transform: translateY(-9px) rotate(135deg);
+            transform: translateY(-9px) rotate(135deg);
+  }
+  50% {
+    -webkit-transform: translateY(-9px);
+            transform: translateY(-9px);
+  }
+  100% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+}
+
+@keyframes rev-down {
+  0% {
+    -webkit-transform: translateY(-9px) rotate(135deg);
+            transform: translateY(-9px) rotate(135deg);
+  }
+  50% {
+    -webkit-transform: translateY(-9px);
+            transform: translateY(-9px);
+  }
+  100% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+}
+
+@-webkit-keyframes rev-appear {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes rev-appear {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@media (min-width: 970px) and (max-width: 1330px) {
+  .main, .notes {
+    width: 77vw;
+  }
+  .main .title, .notes .title,
+  .main .note-main-title,
+  .notes .note-main-title {
+    font-size: 8vmax;
+    line-height: 6.5vmax;
+  }
+  .side-menu {
+    width: 23vw;
+  }
+  .side-menu .time-container .time h1 {
+    font-size: 8vmax;
+    line-height: 6.5vmax;
+  }
+  .side-menu .time-container .time span {
+    font-size: 5vmax;
+    line-height: 4.5vmax;
+  }
+  .side-menu .time-container h2 {
+    font-size: 4vmax;
+    line-height: 4vmax;
+  }
+  .side-menu .time-container h3 {
+    font-size: 3vmax;
+    line-height: 3vmax;
+  }
+  .side-nav ul li,
+  .side-nav ul a#notes-tag {
+    font-size: 3.3vmax !important;
+    line-height: 3.3vmax !important;
+  }
+  label {
+    font-size: 16px !important;
+  }
+  a.task-name-link {
+    font-size: 2.3vmax !important;
+  }
   .item-cont,
   .add-item-cont {
-    width: 80%;
+    width: 75% !important;
+  }
+  .grid-container {
+    margin: 40px 20px !important;
+  }
+}
+
+@media (max-width: 969px) {
+  label,
+  option,
+  select,
+  input[type="date"],
+  .details-cont textarea {
+    font-size: 18px !important;
+  }
+  h4 {
+    font-size: 1.3rem !important;
+    opacity: 1 !important;
+    color: rgba(63, 63, 68, 0.6) !important;
+  }
+  .side-nav ul li,
+  a#notes-tag {
+    font-size: 2.8rem !important;
+    line-height: 2.8rem !important;
+  }
+  .task-list-cont textarea {
+    font-size: 1.2rem !important;
+  }
+  .notes-tag,
+  .task-name-link {
+    font-size: 1.6rem !important;
+    line-height: 2rem !important;
+  }
+  .no-todo-item h2 {
+    font-size: 1.6rem !important;
+  }
+  .time-container h1 {
+    font-size: 7rem !important;
+    line-height: 5rem !important;
+  }
+  .time-container h2,
+  .time-container span {
+    font-size: 3rem !important;
+    line-height: 3rem !important;
+  }
+  .time-container h3 {
+    font-size: 2rem !important;
+    line-height: 2rem !important;
+  }
+  .side-menu {
+    opacity: 0;
+    width: 0;
+    min-height: 90vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    background: #3f3f44;
+    -webkit-transition: opacity 0.5s cubic-bezier(0.39, 0.97, 0, 0.97), width 0.5s cubic-bezier(0.39, 0.97, 0, 0.97), top 0.1s 0.4s cubic-bezier(0.39, 0.97, 0, 0.97);
+    transition: opacity 0.5s cubic-bezier(0.39, 0.97, 0, 0.97), width 0.5s cubic-bezier(0.39, 0.97, 0, 0.97), top 0.1s 0.4s cubic-bezier(0.39, 0.97, 0, 0.97);
+  }
+  .main, .notes {
+    padding-top: 0;
+  }
+  .main hr, .notes hr {
+    display: none;
+  }
+  .main .title-cont, .notes .title-cont {
+    background: #3f3f44;
+    height: 10vh;
+    width: 100%;
+    position: relative;
+    padding-left: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+  .main .title-cont .menu, .notes .title-cont .menu {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    position: relative;
+  }
+  .main .title-cont .menu .burger-check, .notes .title-cont .menu .burger-check {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: inherit;
+    margin: 0;
+    opacity: 0;
+    outline: none;
+    cursor: pointer;
+  }
+  .main .title-cont .menu .burger-check:checked ~ .burger div:nth-child(1), .notes .title-cont .menu .burger-check:checked ~ .burger div:nth-child(1) {
+    -webkit-animation: down 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
+            animation: down 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
+  }
+  .main .title-cont .menu .burger-check:checked ~ .burger div:nth-child(2), .notes .title-cont .menu .burger-check:checked ~ .burger div:nth-child(2) {
+    -webkit-animation: gone 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
+            animation: gone 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
+  }
+  .main .title-cont .menu .burger-check:checked ~ .burger div:nth-child(3), .notes .title-cont .menu .burger-check:checked ~ .burger div:nth-child(3) {
+    -webkit-animation: up 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
+            animation: up 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
+  }
+  .main .title-cont .menu .burger-check:not(:checked) ~ .burger div:nth-child(1), .notes .title-cont .menu .burger-check:not(:checked) ~ .burger div:nth-child(1) {
+    -webkit-animation: rev-up 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
+            animation: rev-up 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
+  }
+  .main .title-cont .menu .burger-check:not(:checked) ~ .burger div:nth-child(2), .notes .title-cont .menu .burger-check:not(:checked) ~ .burger div:nth-child(2) {
+    -webkit-animation: rev-appear 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
+            animation: rev-appear 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
+  }
+  .main .title-cont .menu .burger-check:not(:checked) ~ .burger div:nth-child(3), .notes .title-cont .menu .burger-check:not(:checked) ~ .burger div:nth-child(3) {
+    -webkit-animation: rev-down 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
+            animation: rev-down 0.5s cubic-bezier(0.39, 0.97, 0, 0.97) forwards;
+  }
+  .main .title-cont .menu .burger .bar, .notes .title-cont .menu .burger .bar {
+    width: 30px;
+    height: 4px;
+    position: relative;
+    margin: 5px auto 0;
+    border-radius: 50px;
+    background: #fdcb9e;
+  }
+  .main .title-cont h1.title, .notes .title-cont h1.title,
+  .main .title-cont h1.note-main-title,
+  .notes .title-cont h1.note-main-title {
+    display: inline-block;
+    color: #fdcb9e;
+    font-size: 5rem;
+  }
+  .item-cont,
+  .add-item-cont {
+    width: 80% !important;
   }
 }
 /*# sourceMappingURL=styles.css.map */

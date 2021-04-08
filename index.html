@@ -21,7 +21,7 @@
   </head>
   <body>
     <div id="app">
-      <div class="side-clock">
+      <div class="side-menu" id="side-menu" :class="{'show-menu':menuActive}">
         <div class="time-container">
           <div class="time">
             <h1>{{hours}}:{{minutes}}</h1>
@@ -34,37 +34,39 @@
           <ul>
             <li>MY TASK LISTS</li>
             <div class="task-list-cont">
-              <div
-                v-for="taskObj,index in collection"
-                :key="index"
-                class="task-list"
-              >
-                <p>
+              <ul class="task-list">
+                <li
+                  class="task-names"
+                  v-for="taskObj,index in collection"
+                  :class="{ active:taskObj.isActive}"
+                  :key="index"
+                >
                   <a
+                    class="task-name-link"
+                    :class="{'notes-tag':taskObj.isActive}"
                     :href="'#list'+taskListId"
                     @click.self="changeList(index)"
-                    :class="{ active:taskObj.isActive }"
                     :contenteditable="taskObj.isEditable"
                   >
-                    <span
-                      type="button"
-                      @click.self="deleteList(index)"
-                      class="material-icons material-icons-outlined x-icon"
-                      >clear</span
-                    >
-
-                    {{taskObj.name}}</a
+                    {{taskObj.name.toUpperCase()}}</a
                   >
-                </p>
-              </div>
-              <input
+                  <span
+                    type="button"
+                    @click.self="deleteList(index)"
+                    class="material-icons material-icons-outlined x-icon"
+                    >clear</span
+                  >
+                </li>
+              </ul>
+              <textarea
+                rows="1"
                 type="text"
                 name="list-name"
-                placeholder="Enter name for task list"
-                maxlength="17"
+                placeholder="Enter task list name"
+                maxlength="15"
                 v-model="taskListName"
-                @keydown.enter="addTask"
-              />
+                @keydown.prevent.enter="addTask"
+              ></textarea>
             </div>
             <li id="notes-list" class="">
               <a href="#NOTES" @click="showNotes" id="notes-tag" class=""
@@ -76,9 +78,25 @@
       </div>
 
       <div class="main" :id="'#list'+taskListId">
-        <h1 class="title" id="title">
-          {{taskList.length > 0?taskList[taskListId]:title}}
-        </h1>
+        <div class="title-cont">
+          <div class="menu">
+            <input
+              type="checkbox"
+              class="burger-check"
+              :id="'menu-list'+taskListId"
+              v-model="menuActive"
+            />
+            <div class="burger">
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+          </div>
+          <h1 class="title" id="title">
+            {{taskList.length?title:'TO-DO LIST'}}
+          </h1>
+        </div>
+
         <hr />
 
         <div class="todos-cont">
@@ -98,7 +116,7 @@
                 v-model="todoItem.isDone"
               />
               <span :class="{check:todoItem.isDone}" class="no-check"></span>
-              <h3 class="item">{{todoItem.title}}</h3>
+              <input type="text" class="item" v-model="todoItem.title" />
               <button class="expand" @click="expandItem(todoItem.title)">
                 <div :class="{rotating:todoItem.isExpandItem}">
                   <span class="material-icons material-icons-outlined">
@@ -155,9 +173,13 @@
             </div>
           </div>
         </div>
-        <div class="add-item">
+        <div class="add-item" v-if="taskList.length">
           <div class="add-item-cont">
-            <span class="material-icons material-icons-outlined">add</span>
+            <span
+              class="material-icons material-icons-outlined"
+              @click="addTodoItem(); appearItem()"
+              >add</span
+            >
             <input
               type="text"
               name="todo-item"
@@ -186,22 +208,34 @@
         </div>
 
         <div v-if="!taskList.length" class="no-task-item">
-          <h2>:(</h2>
-          <h2>
-            You don't have any tasks added to your {{taskListName}}, click to
-            create one!
-          </h2>
+          <h2>You don't have any list added to your task list! :(</h2>
+          <h4 class="sub-text">Enter a list name on the side to create one!</h4>
         </div>
         <div v-else-if="!todoTitles.length" class="no-todo-item">
           <h2>This task list seems to be empty :(</h2>
-          <h4>To add an item, type a to-do then hit enter!</h4>
+          <h4 class="sub-text">To add an item, type a to-do then hit enter!</h4>
         </div>
       </div>
       <div class="notes hidden" id="notes">
-        <h1 class="title">NOTES</h1>
+        <div class="title-cont">
+          <div class="menu">
+            <input
+              type="checkbox"
+              class="burger-check"
+              id="menu-notes"
+              v-model="menuActive"
+            />
+            <div class="burger">
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+          </div>
+          <h1 class="note-main-title">NOTES</h1>
+        </div>
         <hr />
         <div class="create-note">
-          <button @click="createNote">
+          <button @click="addNote">
             <span class="material-icons material-icons-outlined"> create </span>
             &nbsp;Create note
           </button>
@@ -218,6 +252,7 @@
                 v-for="note0,index in notes[0]"
                 :key="note0"
                 :id="'group0-note'+index"
+                :class="{visibility:note0.hidden}"
               >
                 <div class="delete-note">
                   <span
@@ -265,10 +300,9 @@
                 <div
                   class="note-details"
                   contenteditable="true"
+                  v-html="note1.details"
                   @focusout="handleInput($event,index,1,'details')"
-                >
-                  <span v-html="note1.details"></span>
-                </div>
+                ></div>
               </div>
             </div>
             <div class="col-2">

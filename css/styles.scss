@@ -18,7 +18,7 @@ $main-font: "Saira Condensed", sans-serif;
 $time-font: "Saira Extra Condensed", sans-serif;
 $task-font: "Nunito", sans-serif;
 $side-width: 20vw;
-$main-width: 80vw;
+$main-width: 100vw;
 $todo-width: 60%;
 $timing: cubic-bezier(0.39, 0.97, 0, 0.97);
 // variables-end
@@ -30,17 +30,13 @@ $timing: cubic-bezier(0.39, 0.97, 0, 0.97);
   justify-content: $justify;
 }
 // functions-end
-
-body {
+body,
+html {
   margin: 0;
   text-align: center;
   overflow-x: hidden;
   min-height: 100%;
-}
-
-html {
-  margin: 0;
-  min-height: 100%;
+  padding: 0;
 }
 
 div {
@@ -59,15 +55,20 @@ div {
   font-family: $task-font;
   min-height: 100vh;
 
-  .title {
-    font-family: $main-font !important;
-    font-size: 7rem;
-    line-height: 6rem;
-    text-align: left;
-    color: $side-color;
-    margin: 0 20px;
-    font-weight: 500;
-    text-transform: uppercase;
+  .title-cont {
+    .menu {
+      display: none;
+    }
+    .title {
+      font-family: $main-font !important;
+      font-size: 6vmax;
+      line-height: 5vmax;
+      text-align: left;
+      color: $side-color;
+      margin: 0 20px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
   }
   hr {
     border: none;
@@ -75,21 +76,23 @@ div {
     margin: 3px 0 0 20px;
   }
 
-  .no-task-items {
+  .no-task-item {
     margin: 250px auto;
+    width: $todo-width;
     h2 {
       font-weight: bold;
-      font-size: 2.5rem;
+      font-size: 2vmax;
       color: $side-color;
     }
-  }
-  .no-todo-item {
-    @extend .no-task-items;
-    h4 {
-      font-size: 1.3rem;
+    .sub-text {
+      font-size: 1.3vmax;
       margin: 0;
       opacity: 0.5;
     }
+  }
+  .no-todo-item {
+    @extend .no-task-item;
+
     .create-todo {
       padding: 15px 20px;
       border-width: 2px;
@@ -98,7 +101,7 @@ div {
       background: none;
       outline: none;
       color: $side-color;
-      font-size: 1.2rem;
+      font-size: 1.2vmax;
       font-family: $task-font;
       text-transform: uppercase;
       cursor: pointer;
@@ -122,11 +125,23 @@ div {
       position: relative;
       box-sizing: border-box;
       @include flex(center, space-around);
+
+      span.material-icons {
+        cursor: pointer;
+
+        margin: 0 5px 0 0;
+        &:hover {
+          border-radius: 50%;
+          background: $side-color;
+          color: $main-color;
+        }
+      }
+
       input[type="text"] {
         font-family: inherit;
         background: none;
         border: none;
-        font-size: 1.3rem;
+        font-size: 20px;
         outline: none;
         flex-grow: 12;
       }
@@ -159,6 +174,14 @@ div {
         margin-bottom: 0;
         border-radius: 3px 3px 0 0;
         position: relative;
+        input[type="text"] {
+          font-family: inherit;
+          background: none;
+          border: none;
+          font-size: 20px;
+          outline: none;
+          flex-grow: 12;
+        }
         .priority-flag {
           height: 60px;
           width: 10px;
@@ -196,7 +219,7 @@ div {
             @include flex(center, center);
             &::after {
               content: "✔";
-              font-size: 1.5rem;
+              font-size: 1.3rem;
               color: $light-color;
             }
           }
@@ -206,7 +229,7 @@ div {
         }
         .item {
           margin: 0;
-          font-size: 1.3rem;
+          font-size: 20px;
           color: $todo;
           font-weight: 400;
         }
@@ -258,7 +281,7 @@ div {
             @include flex(flex-start, flex-start);
             flex-direction: column;
             label {
-              font-size: 1.2rem;
+              font-size: 1.2vmax;
               font-weight: bold;
             }
             input[type="date"],
@@ -270,7 +293,7 @@ div {
               border-radius: 3px;
               background: none;
               outline: none;
-              font-size: 1.3rem;
+              font-size: 1.3vmax;
               color: $side-color;
               margin-bottom: 20px;
             }
@@ -292,7 +315,7 @@ div {
           flex-direction: column;
 
           label {
-            font-size: 1.2rem;
+            font-size: 1.2vmax;
             font-weight: bold;
           }
           textarea {
@@ -302,7 +325,7 @@ div {
             resize: none;
             background: $bar;
             padding: 10px;
-            font-size: 1.2rem;
+            font-size: 1.2vmax;
           }
         }
         .btn-save-del {
@@ -393,7 +416,7 @@ div {
   }
 }
 // side clock
-.side-clock {
+.side-menu {
   min-height: 100vh;
   background: $side-color;
   padding: 20px 0;
@@ -409,22 +432,22 @@ div {
       @include flex(inherit, inherit);
       h1 {
         display: inline-block;
-        font-size: 10rem;
+        font-size: 7vmax;
         text-transform: uppercase;
         margin: 0;
-        line-height: 8rem;
+        line-height: 5vmax;
         font-weight: 300;
       }
       span {
         align-self: flex-start;
         display: inline-block;
-        font-size: 5rem;
-        line-height: 5rem;
+        font-size: 4vmax;
+        line-height: 3vmax;
       }
     }
     h2 {
-      font-size: 4rem;
-      line-height: 4rem;
+      font-size: 3vmax;
+      line-height: 3vmax;
       font-weight: 200;
       text-transform: uppercase;
       margin: 0;
@@ -432,8 +455,8 @@ div {
     h3 {
       text-transform: uppercase;
       font-weight: 200;
-      font-size: 3rem;
-      line-height: 3rem;
+      font-size: 2vmax;
+      line-height: 2vmax;
       margin: 0;
     }
   }
@@ -463,8 +486,8 @@ div {
       }
 
       &:first-child {
-        font-size: 3rem;
-        line-height: 3rem;
+        font-size: 2.7vmax;
+        line-height: 2.7vmax;
         font-weight: bold;
 
         &:hover {
@@ -474,16 +497,19 @@ div {
 
       a {
         text-decoration: none;
-        font-size: 3rem;
+        font-size: 2.7vmax;
         color: $main-color;
         font-weight: bold;
-        line-height: 3rem;
+        line-height: 2.7vmax;
       }
     }
 
     .task-list-cont {
-      input[type="text"] {
-        font-size: 1.5rem;
+      textarea {
+        font-size: 1.5vmax;
+        font-family: $task-font;
+        overflow: hidden;
+        height: 2vmax;
         width: 100%;
         outline: none;
         border: none;
@@ -491,52 +517,64 @@ div {
         background: none;
         color: $task-name-color;
         margin: 15px 0 20px 0;
-
+        resize: none;
         &::placeholder {
           color: $light-color;
           opacity: 0.7;
+          font-family: inherit;
         }
       }
-      .task-list {
-        p {
+      ul.task-list {
+        margin: 0;
+        padding: 0;
+        li.task-names {
+          padding: 0 10px 0 0;
+          list-style-type: none;
           margin: 0;
-          font-size: 1.7rem;
+          font-size: 1.2vmax;
           font-family: $task-font;
-          font-weight: light;
+          font-weight: 200;
           color: $task-name-color;
           margin-bottom: 5px;
-          a {
+          position: relative;
+          @include flex(center, space-around);
+          a.task-name-link {
             text-decoration: none;
+            font-size: 1.5vmax;
+            font-weight: 400;
             color: $task-name-color;
-            padding: 0 15px 0 0;
             display: inline-block;
-            width: 95%;
-            position: relative;
-            left: 0;
-            &:hover {
-              background: $task-name-color;
-              color: $side-color;
+            width: 80%;
+            order: 2;
+          }
+          &:hover {
+            background: $task-name-color;
+            color: $side-color;
 
-              span.x-icon {
-                position: absolute;
-                top: 50%;
-                left: 5%;
-                visibility: visible;
-                transform: translate(0, -50%);
-                opacity: 0.5;
-                font-weight: bold;
-                &:hover {
-                  opacity: 1;
-                }
-              }
-              span.fa-pencil-alt {
-                @extend span.x-icon;
-                left: 15%;
-              }
+            a {
+              color: $side-color;
             }
+
             span.x-icon {
-              visibility: hidden;
+              // position: absolute;
+              // top: 50%;
+              // left: 5%;
+              visibility: visible;
+              opacity: 0.5;
+              font-weight: bold;
+              cursor: pointer;
+              &:hover {
+                opacity: 1;
+              }
             }
+            span.fa-pencil-alt {
+              @extend span.x-icon;
+              // left: 15%;
+            }
+          }
+          span.x-icon {
+            visibility: hidden;
+            order: 1;
           }
         }
       }
@@ -546,12 +584,20 @@ div {
 
 .notes {
   @extend .main;
-  position: absolute;
-  padding: 20px 0 0 0;
-  top: 0;
-  right: 0;
-  z-index: 2;
-  height: 100%;
+  padding: 20px 0;
+  height: 100vh;
+  min-height: 0;
+  overflow: hidden;
+  .note-main-title {
+    font-family: $main-font;
+    font-size: 6vmax;
+    line-height: 5vmax;
+    text-align: left;
+    color: $side-color;
+    margin: 0 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
   .create-note {
     @include flex(center, center);
     margin-top: 50px;
@@ -563,7 +609,7 @@ div {
       background: $clear;
       color: $light-color;
       outline: none;
-      font-size: 1.2rem;
+      font-size: 1rem;
       cursor: pointer;
       &:hover {
         background: #065380;
@@ -607,7 +653,7 @@ div {
   background: $notepad;
   padding: 25px 20px 20px;
   margin-top: 30px;
-  font-size: 1.3rem;
+  font-size: 1.3vmax;
   color: $side-color;
   transition: 0.5s ease;
 
@@ -711,7 +757,7 @@ div {
         border-radius: 100px;
         padding: 5px 10px;
         outline: none;
-        font-size: 1rem;
+        font-size: 1vmax;
         cursor: pointer;
         @include flex(center, center);
         &:hover {
@@ -734,7 +780,7 @@ div {
         border: none;
         background: none;
         font-family: $task-font;
-        font-size: 1.2rem;
+        font-size: 1.2vmax;
         padding: 5px 0;
       }
     }
@@ -747,7 +793,7 @@ div {
         background: none;
         outline: none;
         font-family: $task-font;
-        font-size: 1.2rem;
+        font-size: 1.2vmax;
         border: none;
         padding: 5px 0;
       }
@@ -759,7 +805,6 @@ div {
 .active {
   background: $main-color;
   color: $side-color !important;
-  padding: 0 15px 0 0;
 }
 
 .notes-tag {
@@ -779,6 +824,12 @@ div {
 }
 
 //animation classes
+.show-menu {
+  top: 10vh !important;
+  width: 300px !important;
+  opacity: 1 !important;
+  transition: opacity 0.5s $timing, width 0.5s $timing !important;
+}
 
 .expanding {
   opacity: 1 !important;
@@ -810,15 +861,21 @@ div {
   display: none !important;
 }
 
+.visibility {
+  visibility: hidden;
+  transform: scale(0);
+}
+
 .show-note {
   animation: show 0.5s $timing forwards;
 }
 
-.hide-note {
+.remove-note {
   animation: hide 0.3s $timing forwards;
 }
 
 // keyframes
+
 @keyframes show {
   from {
     transform: scale(0);
@@ -875,17 +932,273 @@ div {
   }
 }
 
-// media queries
-@media (max-width: 1330px) {
-  .item-cont,
-  .add-item-cont {
-    width: 70%;
+@keyframes down {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(9px);
+  }
+  100% {
+    transform: translateY(9px) rotate(45deg);
   }
 }
 
-@media (max-width: 1145px) {
+@keyframes up {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+  100% {
+    transform: translateY(-9px) rotate(135deg);
+  }
+}
+
+@keyframes gone {
+  100% {
+    transform: scale(0);
+  }
+}
+
+// unchecked
+@keyframes rev-up {
+  0% {
+    transform: translateY(9px) rotate(45deg);
+  }
+  50% {
+    transform: translateY(9px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes rev-down {
+  0% {
+    transform: translateY(-9px) rotate(135deg);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes rev-appear {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// media queries
+@media (min-width: 970px) and (max-width: 1330px) {
+  .main {
+    width: 77vw;
+
+    .title,
+    .note-main-title {
+      font-size: 8vmax;
+      line-height: 6.5vmax;
+    }
+  }
+
+  .side-menu {
+    width: 23vw;
+    .time-container {
+      .time {
+        h1 {
+          font-size: 8vmax;
+          line-height: 6.5vmax;
+        }
+        span {
+          font-size: 5vmax;
+          line-height: 4.5vmax;
+        }
+      }
+      h2 {
+        font-size: 4vmax;
+        line-height: 4vmax;
+      }
+      h3 {
+        font-size: 3vmax;
+        line-height: 3vmax;
+      }
+    }
+  }
+
+  .side-nav {
+    ul {
+      li,
+      a#notes-tag {
+        font-size: 3.3vmax !important;
+        line-height: 3.3vmax !important;
+      }
+    }
+  }
+
+  label {
+    font-size: 16px !important;
+  }
+
+  a.task-name-link {
+    font-size: 2.3vmax !important;
+  }
+
   .item-cont,
   .add-item-cont {
-    width: 80%;
+    width: 75% !important;
+  }
+
+  .grid-container {
+    margin: 40px 20px !important;
+  }
+}
+
+@media (max-width: 969px) {
+  label,
+  option,
+  select,
+  input[type="date"],
+  .details-cont textarea {
+    font-size: 18px !important;
+  }
+
+  h4 {
+    font-size: 1.3rem !important;
+    opacity: 1 !important;
+    color: rgba(63, 63, 68, 0.6) !important;
+  }
+  .side-nav ul li,
+  a#notes-tag {
+    font-size: 2.8rem !important;
+    line-height: 2.8rem !important;
+  }
+
+  .task-list-cont textarea {
+    font-size: 1.2rem !important;
+  }
+
+  .notes-tag,
+  .task-name-link {
+    font-size: 1.6rem !important;
+    line-height: 2rem !important;
+  }
+
+  .no-todo-item h2 {
+    font-size: 1.6rem !important  ;
+  }
+
+  .time-container {
+    h1 {
+      font-size: 7rem !important;
+      line-height: 5rem !important;
+    }
+    h2,
+    span {
+      font-size: 3rem !important;
+      line-height: 3rem !important;
+    }
+
+    h3 {
+      font-size: 2rem !important;
+      line-height: 2rem !important;
+    }
+  }
+
+  .side-menu {
+    opacity: 0;
+    width: 0;
+    min-height: 90vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    background: $side-color;
+    transition: opacity 0.5s $timing, width 0.5s $timing, top 0.1s 0.4s $timing;
+  }
+  .main {
+    padding-top: 0;
+    hr {
+      display: none;
+    }
+    .title-cont {
+      background: $side-color;
+      height: 10vh;
+      width: 100%;
+      position: relative;
+      padding-left: 20px;
+      @include flex(center, flex-start);
+      .menu {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        position: relative;
+        .burger-check {
+          position: absolute;
+          z-index: 2;
+          top: 0;
+          left: 0;
+          width: inherit;
+          height: inherit;
+          margin: 0;
+          opacity: 0;
+          outline: none;
+          cursor: pointer;
+          &:checked {
+            & ~ .burger div:nth-child(1) {
+              animation: down 0.5s $timing forwards;
+            }
+            & ~ .burger div:nth-child(2) {
+              animation: gone 0.5s $timing forwards;
+            }
+            & ~ .burger div:nth-child(3) {
+              animation: up 0.5s $timing forwards;
+            }
+          }
+
+          &:not(:checked) {
+            & ~ .burger div:nth-child(1) {
+              animation: rev-up 0.5s $timing forwards;
+            }
+            & ~ .burger div:nth-child(2) {
+              animation: rev-appear 0.5s $timing forwards;
+            }
+            & ~ .burger div:nth-child(3) {
+              animation: rev-down 0.5s $timing forwards;
+            }
+          }
+        }
+        .burger {
+          .bar {
+            width: 30px;
+            height: 4px;
+            position: relative;
+            margin: 5px auto 0;
+            border-radius: 50px;
+            background: $main-color;
+          }
+        }
+      }
+      h1.title,
+      h1.note-main-title {
+        display: inline-block;
+        color: $main-color;
+        font-size: 5rem;
+      }
+    }
+  }
+
+  .notes {
+  }
+
+  .item-cont,
+  .add-item-cont {
+    width: 80% !important;
   }
 }

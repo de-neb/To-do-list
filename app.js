@@ -54,13 +54,12 @@ const app = Vue.createApp({
       noteTitle: "",
       noteDetails: "",
       notes: [
-        [{ title: "1st note", details: "" }],
-        [{ title: "2nd note", details: "" }],
-        [{ title: "3rd note", details: "" }],
+        [{ title: "1st note", details: "", hidden: false }],
+        [{ title: "2nd note", details: "", hidden: false }],
+        [{ title: "3rd note", details: "", hidden: false }],
       ],
       temp: [],
-      noteTitleEdit: "",
-      noteDetailsEdit: "",
+      menuActive: false,
     };
   },
   methods: {
@@ -86,6 +85,7 @@ const app = Vue.createApp({
             obj.isActive = false;
           }
         });
+        this.title = this.taskListName;
         this.taskListName = "";
       }
     },
@@ -95,6 +95,7 @@ const app = Vue.createApp({
       this.collection.forEach((obj) => {
         let isActive = false;
         if (obj.id === id) {
+          this.title = obj.name;
           isActive = true;
         } else {
           isActive = false;
@@ -124,8 +125,10 @@ const app = Vue.createApp({
       //if list is deleted set the previous or next item as active
       if (id === 0) {
         this.taskListId = 0;
+        this.title = this.collection[0].title;
       } else {
         this.taskListId = id - 1;
+        this.title = this.taskList[id - 1];
       }
       this.collection.forEach((obj) => {
         if (this.taskListId == obj.id) {
@@ -202,8 +205,7 @@ const app = Vue.createApp({
           const addedItem = this.todoList[this.todoList.length - 1];
           const itemCont = document.getElementById("item-cont-" + addedItem);
           itemCont.classList.add("appear");
-          console.log(addedItem);
-        }, 10);
+        }, 20);
     },
 
     clearDoneItems() {
@@ -253,17 +255,11 @@ const app = Vue.createApp({
       list.classList.add("active");
       tag.classList.add("notes-tag");
       main.classList.add("hidden");
-      this.collection.forEach((task) => {
-        if (task.isActive) task.isActive = false;
-      });
-    },
-    createNote() {
-      // const noteId = document.querySelector(".note-cont");
-      // noteId.classList.add("show-note");
-      // setTimeout(() => {
-      //   note.classList.remove("show-note");
-      // }, 505);
-      this.addNote();
+
+      if (this.collection.length)
+        this.collection.forEach((task) => {
+          if (task.isActive) task.isActive = false;
+        });
     },
 
     addNote() {
@@ -272,32 +268,48 @@ const app = Vue.createApp({
         title: this.noteTitle,
         details: this.noteDetails,
         group: colNum,
+        hidden: true,
       };
       this.temp.push(note);
 
       if (colNum === 0) {
-        this.notes[0].push(note);
+        this.notes[0].unshift(note);
       } else if (colNum === 1) {
-        this.notes[1].push(note);
+        this.notes[1].unshift(note);
       } else if (colNum === 2) {
-        this.notes[2].push(note);
+        this.notes[2].unshift(note);
       }
+
+      this.notes[colNum][0].hidden = false;
+      setTimeout(() => {
+        this.addNoteAnimation(colNum);
+      }, 10);
 
       this.noteTitle = "";
       this.noteDetails = "";
     },
 
+    addNoteAnimation(group) {
+      const newNote = document.getElementById(`group${group}-note0`);
+      newNote.classList.add("show-note");
+    },
+
     deleteNote(index, group) {
-      this.notes[group].splice(index, 1);
-      console.log(
-        `index ${index} deleted at notes group ${JSON.stringify(
-          this.notes[group]
-        )}`
-      );
+      const note = document.getElementById(`group${group}-note${index}`);
+      note.classList.add("remove-note");
+      setTimeout(() => {
+        this.notes[group].splice(index, 1);
+      }, 300);
     },
 
     handleInput(event, index, group, prop) {
       this.notes[group][index][prop] = event.target.innerHTML;
+    },
+
+    toggleMenu() {
+      console.log(this.menuActive);
+      const menu = document.getElementById("side-menu");
+      menu.classList.add("show-menu");
     },
 
     saveLocally() {
@@ -350,16 +362,16 @@ const app = Vue.createApp({
           localStorage.getItem("todoCollection")
         );
         this.todoList = this.todoCollection.map((item) => item.title);
-
         let [{ isActive: active, name: list }] = this.collection.filter(
           (obj) => obj.isActive
         );
-        console.log("list: " + list + " active:" + active);
+        this.title = list;
       } catch (error) {
-        localStorage.removeItem("collection");
-        localStorage.removeItem("todoCollection");
+        // localStorage.removeItem("collection");
+        // localStorage.removeItem("todoCollection");
+        this.collection[0].isActive = true;
+        this.title = this.collection[0].name;
         console.log("errorblock:" + error);
-        console.log(JSON.stringify(this.todoCollection));
       }
     }
 

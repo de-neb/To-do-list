@@ -374,8 +374,9 @@ const app = Vue.createApp({
         );
         this.title = list;
       } catch (error) {
-        // localStorage.removeItem("collection");
-        // localStorage.removeItem("todoCollection");
+        localStorage.removeItem("collection");
+        localStorage.removeItem("todoCollection");
+        location.reload();
         this.collection[0].isActive = true;
         this.title = this.collection[0].name;
         console.log("errorblock:" + error);

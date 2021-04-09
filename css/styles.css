@@ -25,6 +25,8 @@ div {
       -ms-flex-pack: stretch;
           justify-content: stretch;
   height: 100%;
+  position: relative !important;
+  overflow-y: hidden;
 }
 
 .main, .notes {
@@ -871,32 +873,39 @@ div {
 
 .notes .main-container .grid-container {
   height: 70vh;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 30% 30% 30%;
-      grid-template-columns: 30% 30% 30%;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
   margin: 40px;
   overflow-y: scroll;
-}
-
-.notes .main-container .grid-container .col-0 {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 1;
-  grid-column: 1/2;
-  -ms-grid-row: 1;
-  grid-row: 1/1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+}
+
+.notes .main-container .grid-container .col {
+  min-width: 30%;
+  -ms-flex-negative: 1;
+      flex-shrink: 1;
+}
+
+.notes .main-container .grid-container .col-0 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: stretch;
+      -ms-flex-pack: stretch;
+          justify-content: stretch;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-flow: column wrap;
@@ -904,20 +913,15 @@ div {
 }
 
 .notes .main-container .grid-container .col-1 {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 1;
-  grid-column: 2/3;
-  -ms-grid-row: 1;
-  grid-row: 1/1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: stretch;
+      -ms-flex-pack: stretch;
+          justify-content: stretch;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-flow: column wrap;
@@ -925,20 +929,15 @@ div {
 }
 
 .notes .main-container .grid-container .col-2 {
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 1;
-  grid-column: 3/4;
-  -ms-grid-row: 1;
-  grid-row: 1/1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: stretch;
+      -ms-flex-pack: stretch;
+          justify-content: stretch;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-flow: column wrap;
@@ -1568,7 +1567,10 @@ div {
   option,
   select,
   input[type="date"],
-  .details-cont textarea {
+  .details-cont textarea,
+  .note-title,
+  .note-cont .note-details,
+  .note-details {
     font-size: 18px !important;
   }
   h4 {
@@ -1608,7 +1610,7 @@ div {
   .side-menu {
     opacity: 0;
     width: 0;
-    min-height: 90vh;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -1695,6 +1697,15 @@ div {
     display: inline-block;
     color: #fdcb9e;
     font-size: 5rem;
+  }
+  .grid-container {
+    -webkit-box-pack: justify !important;
+        -ms-flex-pack: justify !important;
+            justify-content: space-between !important;
+    padding-right: 20px;
+  }
+  .grid-container .col {
+    width: 47%;
   }
   .item-cont,
   .add-item-cont {

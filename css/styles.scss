@@ -46,6 +46,8 @@ div {
 #app {
   @include flex(stretch, stretch);
   height: 100%;
+  position: relative !important;
+  overflow-y: hidden;
 }
 .main {
   background: $main-color;
@@ -619,27 +621,26 @@ div {
   .main-container {
     .grid-container {
       height: 70vh;
-      display: grid;
-      grid-template-columns: 30% 30% 30%;
-      justify-content: space-evenly;
       margin: 40px;
       overflow-y: scroll;
+      @include flex(flex-start, space-evenly);
+      flex-wrap: wrap;
+      align-content: flex-start;
+      .col {
+        min-width: 30%;
+        flex-shrink: 1;
+      }
+
       .col-0 {
-        grid-column: 1/2;
-        grid-row: 1/1;
-        @include flex(flex-start, flex-start);
+        @include flex(center, stretch);
         flex-flow: column wrap;
       }
       .col-1 {
-        grid-column: 2/3;
-        grid-row: 1/1;
-        @include flex(flex-start, flex-start);
+        @include flex(center, stretch);
         flex-flow: column wrap;
       }
       .col-2 {
-        grid-column: 3/4;
-        grid-row: 1/1;
-        @include flex(flex-start, flex-start);
+        @include flex(center, stretch);
         flex-flow: column wrap;
       }
     }
@@ -656,7 +657,6 @@ div {
   font-size: 1.3vmax;
   color: $side-color;
   transition: 0.5s ease;
-
   &:hover {
     box-shadow: 7px 7px 4px rgba(63, 63, 68, 0.4);
     transform: scale(1.05);
@@ -843,6 +843,7 @@ div {
 
 .deleting {
   animation: deleting 0.3s $timing forwards !important;
+  // -moz-animation: deleting 0.1s $timing forwards;
 }
 
 .appear {
@@ -1065,7 +1066,9 @@ div {
   option,
   select,
   input[type="date"],
-  .details-cont textarea {
+  .details-cont textarea,
+  .note-title,
+  .note-details {
     font-size: 18px !important;
   }
 
@@ -1114,7 +1117,7 @@ div {
   .side-menu {
     opacity: 0;
     width: 0;
-    min-height: 90vh;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -1194,7 +1197,14 @@ div {
     }
   }
 
-  .notes {
+  .grid-container {
+    justify-content: space-between !important;
+    padding-right: 20px;
+    .col {
+      width: 47%;
+    }
+    .col-2 {
+    }
   }
 
   .item-cont,
@@ -1202,3 +1212,13 @@ div {
     width: 80% !important;
   }
 }
+
+// @media (max-width: 1365) {
+//   .grid-container {
+//     align-items: flex-start;
+//     flex-direction: column;
+
+//     div.col-2 {
+//     }
+//   }
+// }

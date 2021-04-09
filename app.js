@@ -54,11 +54,10 @@ const app = Vue.createApp({
       noteTitle: "",
       noteDetails: "",
       notes: [
-        [{ title: "1st note", details: "", hidden: false }],
-        [{ title: "2nd note", details: "", hidden: false }],
-        [{ title: "3rd note", details: "", hidden: false }],
+        { title: "3rd note", details: "", hidden: false, notesIndex: 0 },
+        { title: "2nd note", details: "", hidden: false, notesIndex: 1 },
+        { title: "1st note", details: "", hidden: false, notesIndex: 2 },
       ],
-      temp: [],
       menuActive: false,
     };
   },
@@ -125,7 +124,7 @@ const app = Vue.createApp({
       //if list is deleted set the previous or next item as active
       if (id === 0) {
         this.taskListId = 0;
-        this.title = this.collection[0].title;
+        this.title = this.taskList[0];
       } else {
         this.taskListId = id - 1;
         this.title = this.taskList[id - 1];
@@ -263,34 +262,27 @@ const app = Vue.createApp({
     },
 
     addNote() {
-      const colNum = this.temp.length % 3;
+      const colNum = 0;
       const note = {
         title: this.noteTitle,
         details: this.noteDetails,
         group: colNum,
         hidden: true,
       };
-      this.temp.push(note);
+      this.notes.unshift(note);
 
-      if (colNum === 0) {
-        this.notes[0].unshift(note);
-      } else if (colNum === 1) {
-        this.notes[1].unshift(note);
-      } else if (colNum === 2) {
-        this.notes[2].unshift(note);
-      }
-
-      this.notes[colNum][0].hidden = false;
+      this.notes[0].hidden = false;
       setTimeout(() => {
-        this.addNoteAnimation(colNum);
+        //always index 0 at column 0
+        this.addNoteAnimation(colNum, note.notesIndex);
       }, 10);
 
       this.noteTitle = "";
       this.noteDetails = "";
     },
 
-    addNoteAnimation(group) {
-      const newNote = document.getElementById(`group${group}-note0`);
+    addNoteAnimation(group, index) {
+      const newNote = document.getElementById(`group${group}-note${index}`);
       newNote.classList.add("show-note");
     },
 
@@ -298,27 +290,28 @@ const app = Vue.createApp({
       const note = document.getElementById(`group${group}-note${index}`);
       note.classList.add("remove-note");
       setTimeout(() => {
-        this.notes[group].splice(index, 1);
+        this.notes.splice(index, 1);
+        console.log(this.notes);
+        // this.notes[group].splice(index, 1);
       }, 300);
     },
 
     handleInput(event, index, group, prop) {
-      this.notes[group][index][prop] = event.target.innerHTML;
+      this.notes.forEach((note) => {
+        if (note.notesIndex === index)
+          note[prop] = event.target.innerHTML.replace(/<\/*div>/g, "");
+      });
     },
 
-    toggleMenu() {
-      console.log(this.menuActive);
-      const menu = document.getElementById("side-menu");
-      menu.classList.add("show-menu");
+    setItem(obj, name) {
+      const parsed = JSON.stringify(obj);
+      localStorage.setItem(name, parsed);
     },
 
     saveLocally() {
-      const parsedCollection = JSON.stringify(this.collection);
-      const parsedTodoCollection = JSON.stringify(this.todoCollection);
-      const parsedNotes = JSON.stringify(this.notes);
-      localStorage.setItem("collection", parsedCollection);
-      localStorage.setItem("todoCollection", parsedTodoCollection);
-      localStorage.setItem("notes", parsedNotes);
+      this.setItem(this.collection, "collection");
+      this.setItem(this.todoCollection, "todoCollection");
+      this.setItem(this.notes, "notes");
     },
   },
   computed: {
@@ -335,9 +328,25 @@ const app = Vue.createApp({
     todoTitles: function () {
       return this.activeTaskTodos.map((todo) => todo.title);
     },
+
+    notes0: function () {
+      return this.notes.filter((el, i) => i % 3 === 0);
+    },
+
+    notes1: function () {
+      return this.notes.filter((el, i) => i % 3 === 1);
+    },
+
+    notes2: function () {
+      return this.notes.filter((el, i) => i % 3 === 2);
+    },
   },
   updated() {
     this.saveLocally();
+
+    this.notes.forEach((note, i) => {
+      note.notesIndex = i;
+    });
   },
   mounted() {
     setInterval(() => {
@@ -380,7 +389,7 @@ const app = Vue.createApp({
         this.notes = JSON.parse(localStorage.getItem("notes"));
       } catch (error) {
         localStorage.removeItem("notes");
-        console.log("problem in getting notes from localStorage");
+        console.log("problem in getting 'notes' from localStorage");
       }
     }
   },

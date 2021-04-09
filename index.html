@@ -241,23 +241,23 @@
           </button>
         </div>
         <div class="main-container">
-          <div v-if="notes.every(group=>!group.length)" class="no-todo-item">
+          <div v-if="!notes.length" class="no-todo-item">
             <h2>You don't have any notes added yet :(</h2>
             <h4>Click button above to create one!</h4>
           </div>
           <div v-else class="grid-container">
-            <div class="col-0">
+            <div class="col col-0">
               <div
                 class="note-cont"
-                v-for="note0,index in notes[0]"
+                v-for="note0,index in notes0"
                 :key="note0"
-                :id="'group0-note'+index"
+                :id="'group0-note'+note0.notesIndex"
                 :class="{visibility:note0.hidden}"
               >
                 <div class="delete-note">
                   <span
                     class="material-icons md-25 material-icons-outlined"
-                    @click="deleteNote(index, 0)"
+                    @click="deleteNote(note0.notesIndex, 0)"
                   >
                     push_pin
                   </span>
@@ -266,27 +266,27 @@
                   class="note-title"
                   v-html="note0.title"
                   contenteditable="true"
-                  @focusout="handleInput($event,index,0,'title')"
+                  @focusout="handleInput($event,note0.notesIndex,0,'title')"
                 ></div>
                 <div
                   class="note-details"
                   v-html="note0.details"
                   contenteditable="true"
-                  @focusout="handleInput($event,index,0,'details')"
+                  @focusout="handleInput($event,note0.notesIndex,0,'details')"
                 ></div>
               </div>
             </div>
-            <div class="col-1">
+            <div class="col col-1">
               <div
                 class="note-cont"
-                v-for="note1,index in notes[1]"
+                v-for="note1,index in notes1"
                 :key="note1"
-                :id="'group1-note'+index"
+                :id="'group1-note'+note1.notesIndex"
               >
                 <div class="delete-note">
                   <span
                     class="material-icons md-25 material-icons-outlined"
-                    @click="deleteNote(index, 1)"
+                    @click="deleteNote(note1.notesIndex, 1)"
                   >
                     push_pin
                   </span>
@@ -295,27 +295,27 @@
                   class="note-title"
                   contenteditable="true"
                   v-html="note1.title"
-                  @focusout="handleInput($event,index,1,'title')"
+                  @focusout="handleInput($event,note1.notesIndex,1,'title')"
                 ></div>
                 <div
                   class="note-details"
                   contenteditable="true"
                   v-html="note1.details"
-                  @focusout="handleInput($event,index,1,'details')"
+                  @focusout="handleInput($event,note1.notesIndex,1,'details')"
                 ></div>
               </div>
             </div>
-            <div class="col-2">
+            <div class="col col-2">
               <div
                 class="note-cont"
-                v-for="note2,index in notes[2]"
+                v-for="note2,index in notes2"
                 :key="note2"
-                :id="'group2-note'+index"
+                :id="'group2-note'+note2.notesIndex"
               >
                 <div class="delete-note">
                   <span
                     class="material-icons md-25 material-icons-outlined"
-                    @click="deleteNote(index, 2)"
+                    @click="deleteNote(note2.notesIndex, 2)"
                   >
                     push_pin
                   </span>
@@ -324,13 +324,13 @@
                   class="note-title"
                   contenteditable="true"
                   v-html="note2.title"
-                  @focusout="handleInput($event,index,2,'title')"
+                  @focusout="handleInput($event,note2.notesIndex,2,'title')"
                 ></div>
                 <div
                   class="note-details"
                   contenteditable="true"
                   v-html="note2.details"
-                  @focusout="handleInput($event,index,2,'details')"
+                  @focusout="handleInput($event,note2.notesIndex,2,'details')"
                 ></div>
               </div>
             </div>

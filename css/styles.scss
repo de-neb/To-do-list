@@ -182,7 +182,7 @@ div {
           border: none;
           font-size: 20px;
           outline: none;
-          flex-grow: 12;
+          width: 100%;
         }
         .priority-flag {
           height: 60px;
@@ -1085,6 +1085,7 @@ div {
 
   .task-list-cont textarea {
     font-size: 1.2rem !important;
+    padding: 10px;
   }
 
   .notes-tag,
@@ -1099,8 +1100,8 @@ div {
 
   .time-container {
     h1 {
-      font-size: 7rem !important;
-      line-height: 5rem !important;
+      font-size: 6rem !important;
+      line-height: 4rem !important;
     }
     h2,
     span {
@@ -1192,7 +1193,7 @@ div {
       h1.note-main-title {
         display: inline-block;
         color: $main-color;
-        font-size: 5rem;
+        font-size: 4.5rem;
       }
     }
   }
@@ -1209,16 +1210,6 @@ div {
 
   .item-cont,
   .add-item-cont {
-    width: 80% !important;
+    width: 85% !important;
   }
 }
-
-// @media (max-width: 1365) {
-//   .grid-container {
-//     align-items: flex-start;
-//     flex-direction: column;
-
-//     div.col-2 {
-//     }
-//   }
-// }

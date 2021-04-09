@@ -217,9 +217,7 @@ div {
   border: none;
   font-size: 20px;
   outline: none;
-  -webkit-box-flex: 12;
-      -ms-flex-positive: 12;
-          flex-grow: 12;
+  width: 100%;
 }
 
 .main .todos-cont .item-cont .top .priority-flag, .notes .todos-cont .item-cont .top .priority-flag {
@@ -1585,6 +1583,7 @@ div {
   }
   .task-list-cont textarea {
     font-size: 1.2rem !important;
+    padding: 10px;
   }
   .notes-tag,
   .task-name-link {
@@ -1595,8 +1594,8 @@ div {
     font-size: 1.6rem !important;
   }
   .time-container h1 {
-    font-size: 7rem !important;
-    line-height: 5rem !important;
+    font-size: 6rem !important;
+    line-height: 4rem !important;
   }
   .time-container h2,
   .time-container span {
@@ -1696,7 +1695,7 @@ div {
   .notes .title-cont h1.note-main-title {
     display: inline-block;
     color: #fdcb9e;
-    font-size: 5rem;
+    font-size: 4.5rem;
   }
   .grid-container {
     -webkit-box-pack: justify !important;
@@ -1709,7 +1708,7 @@ div {
   }
   .item-cont,
   .add-item-cont {
-    width: 80% !important;
+    width: 85% !important;
   }
 }
 /*# sourceMappingURL=styles.css.map */

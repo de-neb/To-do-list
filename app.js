@@ -54,9 +54,9 @@ const app = Vue.createApp({
       noteTitle: "",
       noteDetails: "",
       notes: [
-        { title: "3rd note", details: "", hidden: false, notesIndex: 0 },
+        { title: "1st note", details: "", hidden: false, notesIndex: 0 },
         { title: "2nd note", details: "", hidden: false, notesIndex: 1 },
-        { title: "1st note", details: "", hidden: false, notesIndex: 2 },
+        { title: "3rd note", details: "", hidden: false, notesIndex: 2 },
       ],
       menuActive: false,
     };
@@ -291,8 +291,6 @@ const app = Vue.createApp({
       note.classList.add("remove-note");
       setTimeout(() => {
         this.notes.splice(index, 1);
-        console.log(this.notes);
-        // this.notes[group].splice(index, 1);
       }, 300);
     },
 

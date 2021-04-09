@@ -683,6 +683,8 @@ div {
     text-align: left;
     outline: none;
     min-height: 28px;
+    display: inline-block;
+    width: 100%;
   }
   .note-details {
     @extend .note-title;

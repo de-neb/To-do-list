@@ -296,8 +296,7 @@ const app = Vue.createApp({
 
     handleInput(event, index, group, prop) {
       this.notes.forEach((note) => {
-        if (note.notesIndex === index)
-          note[prop] = event.target.innerHTML.replace(/<\/*div>/g, "");
+        if (note.notesIndex === index) note[prop] = event.target.innerHTML;
       });
     },
 

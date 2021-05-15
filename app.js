@@ -112,6 +112,8 @@ const app = Vue.createApp({
       list.classList.remove("active");
       tag.classList.remove("notes-tag");
       main.classList.remove("hidden");
+
+      this.menuActive = false;
     },
 
     deleteList(id) {
@@ -259,6 +261,8 @@ const app = Vue.createApp({
         this.collection.forEach((task) => {
           if (task.isActive) task.isActive = false;
         });
+
+      this.menuActive = false;
     },
 
     addNote() {

@@ -92,7 +92,7 @@
           </h1>
         </div>
 
-        <hr />
+        <!-- <hr /> -->
 
         <div class="todos-cont">
           <div
@@ -130,7 +130,7 @@
                   <label :for="'date-'+todoItem.title"> Due Date </label>
                   <input
                     type="date"
-                    class=".date"
+                    class="date"
                     :id="'date-'+todoItem.title"
                     v-model="todoItem.date"
                   />
@@ -228,7 +228,7 @@
           </div>
           <h1 class="note-main-title">NOTES</h1>
         </div>
-        <hr />
+        <!-- <hr /> -->
         <div class="create-note">
           <button @click="addNote">
             <span class="material-icons material-icons-outlined"> create </span>

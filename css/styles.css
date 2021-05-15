@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400&family=Saira+Condensed:wght@100;200;300;400;500&family=Saira+Extra+Condensed:wght@100;200;300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400&family=Saira+Condensed:wght@300&family=Rajdhani:wght@300&display=swap");
 body,
 html {
   margin: 0;
@@ -30,8 +30,8 @@ div {
 }
 
 .main, .notes {
-  background: #fdcb9e;
-  width: 100vw;
+  background: #edeef7;
+  width: 100%;
   padding: 20px 0 60px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -45,10 +45,10 @@ div {
 
 .main .title-cont .title, .notes .title-cont .title {
   font-family: "Saira Condensed", sans-serif !important;
-  font-size: 6vmax;
-  line-height: 5vmax;
+  font-size: 70px;
+  line-height: 60px;
   text-align: left;
-  color: #3f3f44;
+  color: #7868e6;
   margin: 0 20px;
   font-weight: 500;
   text-transform: uppercase;
@@ -56,23 +56,23 @@ div {
 
 .main hr, .notes hr {
   border: none;
-  border-bottom: 1px solid #3f3f44;
+  border-bottom: 1px solid #7868e6;
   margin: 3px 0 0 20px;
 }
 
 .main .no-task-item, .notes .no-task-item, .main .no-todo-item, .notes .no-todo-item {
   margin: 250px auto;
-  width: 60%;
+  width: 80%;
 }
 
 .main .no-task-item h2, .notes .no-task-item h2, .main .no-todo-item h2, .notes .no-todo-item h2 {
   font-weight: bold;
-  font-size: 2vmax;
-  color: #3f3f44;
+  font-size: 1.8rem;
+  color: #7868e6;
 }
 
 .main .no-task-item .sub-text, .notes .no-task-item .sub-text, .main .no-todo-item .sub-text, .notes .no-todo-item .sub-text {
-  font-size: 1.3vmax;
+  font-size: 1.3rem;
   margin: 0;
   opacity: 0.5;
 }
@@ -80,19 +80,19 @@ div {
 .main .no-todo-item .create-todo, .notes .no-todo-item .create-todo {
   padding: 15px 20px;
   border-width: 2px;
-  border-color: #3f3f44;
+  border-color: #7868e6;
   border-radius: 2px;
   background: none;
   outline: none;
-  color: #3f3f44;
-  font-size: 1.2vmax;
+  color: #7868e6;
+  font-size: 2rem;
   font-family: "Nunito", sans-serif;
   text-transform: uppercase;
   cursor: pointer;
 }
 
 .main .no-todo-item .create-todo:hover, .notes .no-todo-item .create-todo:hover {
-  background: #3f3f44;
+  background: #7868e6;
   color: #f6f6f6;
 }
 
@@ -112,10 +112,10 @@ div {
 
 .main .add-item .add-item-cont, .notes .add-item .add-item-cont {
   width: 60%;
-  background: #f6f6f6;
+  background: #ffff;
   padding: 15px;
   border-radius: 5px;
-  color: #3f3f44;
+  color: #7868e6;
   margin-top: 20px;
   position: relative;
   -webkit-box-sizing: border-box;
@@ -137,8 +137,8 @@ div {
 
 .main .add-item .add-item-cont span.material-icons:hover, .notes .add-item .add-item-cont span.material-icons:hover {
   border-radius: 50%;
-  background: #3f3f44;
-  color: #fdcb9e;
+  background: #7868e6;
+  color: #edeef7;
 }
 
 .main .add-item .add-item-cont input[type="text"], .notes .add-item .add-item-cont input[type="text"] {
@@ -187,9 +187,9 @@ div {
 }
 
 .main .todos-cont .item-cont .top, .notes .todos-cont .item-cont .top {
-  background: #f6f6f6;
+  background: #ffff;
   padding: 15px;
-  color: #3f3f44;
+  color: #7868e6;
   margin-top: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -275,7 +275,7 @@ div {
 .main .todos-cont .item-cont .top .checkbox:checked ~ .check::after, .notes .todos-cont .item-cont .top .checkbox:checked ~ .check::after {
   content: "✔";
   font-size: 1.3rem;
-  color: #f6f6f6;
+  color: #ffff;
 }
 
 .main .todos-cont .item-cont .top .checkbox:checked ~ .check ~ .item, .notes .todos-cont .item-cont .top .checkbox:checked ~ .check ~ .item {
@@ -285,7 +285,7 @@ div {
 .main .todos-cont .item-cont .top .item, .notes .todos-cont .item-cont .top .item {
   margin: 0;
   font-size: 20px;
-  color: #3f3f44;
+  color: #7868e6;
   font-weight: 400;
 }
 
@@ -308,7 +308,7 @@ div {
 }
 
 .main .todos-cont .item-cont .top button.expand:hover, .notes .todos-cont .item-cont .top button.expand:hover {
-  background: #fdcb9e;
+  background: #edeef7;
 }
 
 .main .todos-cont .item-cont .top button.expand div, .notes .todos-cont .item-cont .top button.expand div {
@@ -331,8 +331,8 @@ div {
   -ms-grid-columns: 2.5% 30% 5% 60% 2.5%;
       grid-template-columns: 2.5% 30% 5% 60% 2.5%;
   position: relative;
-  background: #f6f6f6;
-  color: #3f3f44;
+  background: #ffff;
+  color: #7868e6;
   border-radius: 0 0 3px 3px;
   border-top: 1px solid #bbbb;
   opacity: 0;
@@ -405,18 +405,13 @@ div {
 .notes .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont select {
   width: 100%;
   height: 30px;
-  border: 1px solid;
-  border-color: transparent transparent #3f3f44 transparent;
-  border-radius: 3px;
-  background: none;
+  border: none;
+  border-radius: 5px;
+  background: #edeef7;
   outline: none;
   font-size: 16px;
-  color: #3f3f44;
+  color: #7868e6;
   margin-bottom: 20px;
-}
-
-.main .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont select, .notes .todos-cont .item-cont .expanded-cont .date-priority-cont .priority-cont select {
-  height: auto !important;
 }
 
 .main .todos-cont .item-cont .expanded-cont .details-cont, .notes .todos-cont .item-cont .expanded-cont .details-cont {
@@ -453,7 +448,9 @@ div {
   width: 100%;
   height: 100%;
   resize: none;
-  background: #f6f6f6;
+  background: #edeef7;
+  border: none;
+  border-radius: 5px;
   padding: 10px;
   font-size: 16px;
 }
@@ -536,7 +533,7 @@ div {
 
 .main .clear .clear-done .tooltip-text, .notes .clear .clear-done .tooltip-text, .main .clear .delete-all .tooltip-text, .notes .clear .delete-all .tooltip-text {
   visibility: hidden;
-  background: #3f3f44;
+  background: #7868e6;
   padding: 5px;
   border-radius: 3px;
   width: 100%;
@@ -555,12 +552,12 @@ div {
   margin-left: -6px;
   border-width: 6px;
   border-style: solid;
-  border-color: transparent transparent #3f3f44 transparent;
+  border-color: transparent transparent #7868e6 transparent;
 }
 
 .main .clear .clear-done:hover, .notes .clear .clear-done:hover, .main .clear .delete-all:hover, .notes .clear .delete-all:hover {
   background: #07689f;
-  color: #fdcb9e;
+  color: #edeef7;
   -webkit-transform: scale(1.05);
           transform: scale(1.05);
   -webkit-transition: -webkit-transform 0.5s ease;
@@ -585,11 +582,11 @@ div {
 
 .side-menu {
   min-height: 100vh;
-  background: #3f3f44;
+  background: #7868e6;
   padding: 20px 0;
-  color: #fdcb9e;
-  font-family: "Saira Extra Condensed", sans-serif;
-  width: 20vw;
+  color: #edeef7;
+  font-family: "Rajdhani", sans-serif;
+  width: 23%;
 }
 
 .side-menu .time-container {
@@ -597,9 +594,9 @@ div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
@@ -623,10 +620,10 @@ div {
 
 .side-menu .time-container .time h1 {
   display: inline-block;
-  font-size: 7vmax;
+  font-size: 80px;
   text-transform: uppercase;
   margin: 0;
-  line-height: 5vmax;
+  line-height: 70px;
   font-weight: 300;
 }
 
@@ -634,23 +631,21 @@ div {
   -ms-flex-item-align: start;
       align-self: flex-start;
   display: inline-block;
-  font-size: 4vmax;
-  line-height: 3vmax;
+  font-size: 40px;
+  line-height: 40px;
 }
 
 .side-menu .time-container h2 {
-  font-size: 3vmax;
-  line-height: 3vmax;
-  font-weight: 200;
+  font-size: 35px;
+  font-weight: bold;
   text-transform: uppercase;
   margin: 0;
 }
 
 .side-menu .time-container h3 {
   text-transform: uppercase;
-  font-weight: 200;
-  font-size: 2vmax;
-  line-height: 2vmax;
+  font-weight: bold;
+  font-size: 30px;
   margin: 0;
 }
 
@@ -661,65 +656,70 @@ div {
 }
 
 .side-nav ul {
-  text-align: right;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  -webkit-box-pack: initial;
-      -ms-flex-pack: initial;
-          justify-content: initial;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  padding: 0;
 }
 
 .side-nav ul li {
   list-style-type: none;
   width: 100%;
   margin: 0 0 20px 0;
-  text-align: right;
-  padding: 3px 10px 0 20px;
+  text-align: left;
+  padding: 5px 0 5px 10px;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
 }
 
 .side-nav ul li:hover {
-  background: #fdcb9e;
+  background: #edeef7;
 }
 
 .side-nav ul li:hover a {
-  color: #3f3f44;
+  color: #7868e6;
 }
 
-.side-nav ul li:first-child {
-  font-size: 2.7vmax;
-  line-height: 2.7vmax;
+.side-nav ul li:first-child, .side-nav ul li:nth-child(3) {
+  font-size: 30px;
+  line-height: 30px;
   font-weight: bold;
 }
 
-.side-nav ul li:first-child:hover {
-  color: #3f3f44;
+.side-nav ul li:first-child:hover, .side-nav ul li:nth-child(3):hover {
+  color: #7868e6;
+  background: #b8b5ff;
 }
 
 .side-nav ul li a {
   text-decoration: none;
-  font-size: 2.7vmax;
-  color: #fdcb9e;
+  display: inline-block;
+  font-size: 30px;
+  color: #edeef7;
   font-weight: bold;
-  line-height: 2.7vmax;
+  line-height: 30px;
+  width: 100%;
 }
 
 .side-nav ul .task-list-cont textarea {
-  font-size: 1.5vmax;
+  font-size: 23px;
   font-family: "Nunito", sans-serif;
   overflow: hidden;
-  height: 2vmax;
-  width: 100%;
+  height: 25px;
+  width: 85%;
   outline: none;
   border: none;
-  border-bottom: 2px solid #fdcb9e;
+  border-bottom: 2px solid #edeef7;
   background: none;
   color: #f6f6f6;
   margin: 15px 0 20px 0;
@@ -727,25 +727,25 @@ div {
 }
 
 .side-nav ul .task-list-cont textarea::-webkit-input-placeholder {
-  color: #f6f6f6;
+  color: #ffff;
   opacity: 0.7;
   font-family: inherit;
 }
 
 .side-nav ul .task-list-cont textarea:-ms-input-placeholder {
-  color: #f6f6f6;
+  color: #ffff;
   opacity: 0.7;
   font-family: inherit;
 }
 
 .side-nav ul .task-list-cont textarea::-ms-input-placeholder {
-  color: #f6f6f6;
+  color: #ffff;
   opacity: 0.7;
   font-family: inherit;
 }
 
 .side-nav ul .task-list-cont textarea::placeholder {
-  color: #f6f6f6;
+  color: #ffff;
   opacity: 0.7;
   font-family: inherit;
 }
@@ -757,6 +757,8 @@ div {
 
 .side-nav ul .task-list-cont ul.task-list li.task-names {
   padding: 0 10px 0 0;
+  width: 90%;
+  border-radius: 5px;
   list-style-type: none;
   margin: 0;
   font-size: 1.2vmax;
@@ -777,7 +779,7 @@ div {
 
 .side-nav ul .task-list-cont ul.task-list li.task-names a.task-name-link {
   text-decoration: none;
-  font-size: 1.5vmax;
+  font-size: 23px;
   font-weight: 400;
   color: #f6f6f6;
   display: inline-block;
@@ -789,11 +791,12 @@ div {
 
 .side-nav ul .task-list-cont ul.task-list li.task-names:hover {
   background: #f6f6f6;
-  color: #3f3f44;
+  color: #7868e6;
+  width: 90%;
 }
 
 .side-nav ul .task-list-cont ul.task-list li.task-names:hover a {
-  color: #3f3f44;
+  color: #7868e6;
 }
 
 .side-nav ul .task-list-cont ul.task-list li.task-names:hover span.x-icon, .side-nav ul .task-list-cont ul.task-list li.task-names:hover span.fa-pencil-alt {
@@ -823,10 +826,10 @@ div {
 
 .notes .note-main-title {
   font-family: "Saira Condensed", sans-serif;
-  font-size: 6vmax;
-  line-height: 5vmax;
+  font-size: 80px;
+  line-height: 70px;
   text-align: left;
-  color: #3f3f44;
+  color: #7868e6;
   margin: 0 20px;
   font-weight: 500;
   text-transform: uppercase;
@@ -859,7 +862,7 @@ div {
   border-radius: 100px;
   border: 1px solid #07689f;
   background: #07689f;
-  color: #f6f6f6;
+  color: #ffff;
   outline: none;
   font-size: 1rem;
   cursor: pointer;
@@ -950,7 +953,7 @@ div {
   padding: 25px 20px 20px;
   margin-top: 30px;
   font-size: 1.3vmax;
-  color: #3f3f44;
+  color: #7868e6;
   -webkit-transition: 0.5s ease;
   transition: 0.5s ease;
 }
@@ -1000,17 +1003,18 @@ div {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f6f6f6;
+  background: none;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #3f3f44;
+  background: #7868e6;
+  border-radius: 100px;
 }
 
 .bg-modal {
@@ -1042,7 +1046,7 @@ div {
           flex-direction: column;
   width: 50%;
   border-radius: 5px;
-  background: #f6f6f6;
+  background: #ffff;
   margin: auto;
   padding: 45px 45px 20px 45px;
   position: relative;
@@ -1105,7 +1109,7 @@ div {
 
 .bg-modal .modal .save button:hover {
   background: #428b46;
-  color: #f6f6f6;
+  color: #ffff;
   -webkit-transform: scale(1.05);
           transform: scale(1.05);
 }
@@ -1123,7 +1127,7 @@ div {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  border-bottom: 1px solid #fdcb9e;
+  border-bottom: 1px solid #edeef7;
 }
 
 .bg-modal .modal .modal-note-title input[type="text"] {
@@ -1154,12 +1158,12 @@ div {
 }
 
 .active {
-  background: #fdcb9e;
-  color: #3f3f44 !important;
+  background: #b8b5ff;
+  color: #7868e6 !important;
 }
 
 .notes-tag {
-  color: #3f3f44 !important;
+  color: #7868e6 !important;
 }
 
 .Low {
@@ -1513,56 +1517,23 @@ div {
   }
 }
 
-@media (min-width: 970px) and (max-width: 1330px) {
+@media (max-width: 1200px) {
   .main, .notes {
-    width: 77vw;
-  }
-  .main .title, .notes .title,
-  .main .note-main-title,
-  .notes .note-main-title {
-    font-size: 8vmax;
-    line-height: 6.5vmax;
+    width: 74%;
   }
   .side-menu {
-    width: 23vw;
-  }
-  .side-menu .time-container .time h1 {
-    font-size: 8vmax;
-    line-height: 6.5vmax;
-  }
-  .side-menu .time-container .time span {
-    font-size: 5vmax;
-    line-height: 4.5vmax;
-  }
-  .side-menu .time-container h2 {
-    font-size: 4vmax;
-    line-height: 4vmax;
-  }
-  .side-menu .time-container h3 {
-    font-size: 3vmax;
-    line-height: 3vmax;
-  }
-  .side-nav ul li,
-  .side-nav ul a#notes-tag {
-    font-size: 3.3vmax !important;
-    line-height: 3.3vmax !important;
-  }
-  label {
-    font-size: 16px !important;
-  }
-  a.task-name-link {
-    font-size: 2.3vmax !important;
+    width: 26%;
   }
   .item-cont,
   .add-item-cont {
-    width: 75% !important;
-  }
-  .grid-container {
-    margin: 40px 20px !important;
+    width: 80% !important;
   }
 }
 
-@media (max-width: 969px) {
+@media (max-width: 800px) {
+  .main, .notes {
+    width: 100%;
+  }
   label,
   option,
   select,
@@ -1574,14 +1545,8 @@ div {
     font-size: 18px !important;
   }
   h4 {
-    font-size: 1.3rem !important;
     opacity: 1 !important;
     color: rgba(63, 63, 68, 0.6) !important;
-  }
-  .side-nav ul li,
-  a#notes-tag {
-    font-size: 2.8rem !important;
-    line-height: 2.8rem !important;
   }
   .task-list-cont textarea {
     font-size: 1.2rem !important;
@@ -1592,22 +1557,6 @@ div {
     font-size: 1.6rem !important;
     line-height: 2rem !important;
   }
-  .no-todo-item h2 {
-    font-size: 1.6rem !important;
-  }
-  .time-container h1 {
-    font-size: 6rem !important;
-    line-height: 4rem !important;
-  }
-  .time-container h2,
-  .time-container span {
-    font-size: 3rem !important;
-    line-height: 3rem !important;
-  }
-  .time-container h3 {
-    font-size: 2rem !important;
-    line-height: 2rem !important;
-  }
   .side-menu {
     opacity: 0;
     width: 0;
@@ -1616,7 +1565,7 @@ div {
     top: 0;
     left: 0;
     z-index: 3;
-    background: #3f3f44;
+    background: #7868e6;
     -webkit-transition: opacity 0.5s cubic-bezier(0.39, 0.97, 0, 0.97), width 0.5s cubic-bezier(0.39, 0.97, 0, 0.97), top 0.1s 0.4s cubic-bezier(0.39, 0.97, 0, 0.97);
     transition: opacity 0.5s cubic-bezier(0.39, 0.97, 0, 0.97), width 0.5s cubic-bezier(0.39, 0.97, 0, 0.97), top 0.1s 0.4s cubic-bezier(0.39, 0.97, 0, 0.97);
   }
@@ -1627,7 +1576,7 @@ div {
     display: none;
   }
   .main .title-cont, .notes .title-cont {
-    background: #3f3f44;
+    background: #7868e6;
     height: 10vh;
     width: 100%;
     position: relative;
@@ -1647,6 +1596,7 @@ div {
     width: 30px;
     height: 30px;
     position: relative;
+    z-index: 100;
   }
   .main .title-cont .menu .burger-check, .notes .title-cont .menu .burger-check {
     position: absolute;
@@ -1690,14 +1640,14 @@ div {
     position: relative;
     margin: 5px auto 0;
     border-radius: 50px;
-    background: #fdcb9e;
+    background: #edeef7;
   }
   .main .title-cont h1.title, .notes .title-cont h1.title,
   .main .title-cont h1.note-main-title,
   .notes .title-cont h1.note-main-title {
     display: inline-block;
-    color: #fdcb9e;
-    font-size: 4.5rem;
+    color: #edeef7;
+    font-size: 4rem;
   }
   .grid-container {
     -webkit-box-pack: justify !important;

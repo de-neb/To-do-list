@@ -43,7 +43,10 @@
                     @click.self="changeList(index)"
                     :contenteditable="taskObj.isEditable"
                   >
-                    {{taskObj.name.toUpperCase()}}</a
+                    {{taskObj.name.toUpperCase()}}
+                  </a>
+                  <span class="todo-num"
+                    >{{taskObj.todos.filter(el=>!el.deleted).length}}</span
                   >
                   <span
                     type="button"
@@ -64,9 +67,7 @@
               ></textarea>
             </div>
             <li id="notes-list" class="">
-              <a href="#NOTES" @click="showNotes" id="notes-tag" class=""
-                >NOTES</a
-              >
+              <a href="#NOTES" @click="showNotes" id="notes-tag">NOTES</a>
             </li>
           </ul>
         </nav>
@@ -91,8 +92,6 @@
             {{taskList.length?title:'TO-DO LIST'}}
           </h1>
         </div>
-
-        <!-- <hr /> -->
 
         <div class="todos-cont">
           <div

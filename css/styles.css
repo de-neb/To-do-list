@@ -152,6 +152,39 @@ div {
           flex-grow: 12;
 }
 
+.main .sort, .notes .sort {
+  width: 60%;
+  height: 40px;
+  text-align: center;
+  margin: auto;
+  color: #7868e6;
+  font-size: 1.3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.main .sort select, .notes .sort select {
+  margin-left: 5px;
+  background: #b8b5ff;
+  border: none;
+  height: 24px;
+  padding: 3px 5px;
+  border-radius: 3px;
+  font-size: 16px;
+  color: #edeef7;
+}
+
+.main .sort select option, .notes .sort select option {
+  font-size: 16px;
+}
+
 .main .todos-cont, .notes .todos-cont {
   font-family: "Nunito", sans-serif;
   display: -webkit-box;
@@ -168,7 +201,7 @@ div {
       -ms-flex-direction: column;
           flex-direction: column;
   height: auto;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .main .todos-cont .item-cont, .notes .todos-cont .item-cont {
@@ -222,7 +255,7 @@ div {
 
 .main .todos-cont .item-cont .top .priority-flag, .notes .todos-cont .item-cont .top .priority-flag {
   height: 60px;
-  width: 10px;
+  width: 7px;
   position: absolute;
   left: 0;
   top: 0;
@@ -515,7 +548,7 @@ div {
 }
 
 .main .clear .clear-done, .notes .clear .clear-done, .main .clear .delete-all, .notes .clear .delete-all {
-  padding: 7px 50px;
+  padding: 7px 30px;
   border-radius: 100px;
   border: 1px solid #07689f;
   background: none;
@@ -815,6 +848,14 @@ div {
   -webkit-box-ordinal-group: 2;
       -ms-flex-order: 1;
           order: 1;
+}
+
+.side-nav ul .task-list-cont ul.task-list li.task-names .todo-num {
+  font-size: 13px;
+  -webkit-box-ordinal-group: 4;
+      -ms-flex-order: 3;
+          order: 3;
+  font-weight: bold;
 }
 
 .notes {
@@ -1167,7 +1208,7 @@ div {
 }
 
 .Low {
-  background: #ffcc00;
+  background: #2978b5;
 }
 
 .Medium {

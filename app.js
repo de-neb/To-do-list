@@ -303,7 +303,6 @@ const app = Vue.createApp({
         if (note.notesIndex === index) note[prop] = event.target.innerHTML;
       });
     },
-
     setItem(obj, name) {
       const parsed = JSON.stringify(obj);
       localStorage.setItem(name, parsed);

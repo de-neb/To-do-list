@@ -9,7 +9,7 @@ $bar: $light-color;
 $todo: $side-color;
 $danger: #e7305b;
 $success: #61b15a;
-$low: #ffcc00;
+$low: #2978b5;
 $warning: #f57b51;
 $clear: #07689f;
 $add: #428b46;
@@ -149,12 +149,36 @@ div {
       }
     }
   }
+
+  .sort {
+    width: 60%;
+    height: 40px;
+    text-align: center;
+    margin: auto;
+    color: $side-color;
+    font-size: 1.3rem;
+    @include flex(center, flex-end);
+    select {
+      margin-left: 5px;
+      background: #b8b5ff;
+      border: none;
+      height: 24px;
+      padding: 3px 5px;
+      border-radius: 3px;
+      font-size: 16px;
+      color: $main-color;
+      option {
+        font-size: 16px;
+      }
+    }
+  }
+
   .todos-cont {
     font-family: $task-font;
     @include flex(center, center);
     flex-direction: column;
     height: auto;
-    margin-top: 30px;
+    margin-top: 10px;
     .item-cont {
       width: $todo-width;
       &:hover .top,
@@ -186,7 +210,7 @@ div {
         }
         .priority-flag {
           height: 60px;
-          width: 10px;
+          width: 7px;
           position: absolute;
           left: 0;
           top: 0;
@@ -365,7 +389,7 @@ div {
   .clear {
     margin: 30px 0 0 0;
     .clear-done {
-      padding: 7px 50px;
+      padding: 7px 30px;
       border-radius: 100px;
       border: 1px solid $clear;
       background: none;
@@ -580,6 +604,11 @@ div {
           span.x-icon {
             visibility: hidden;
             order: 1;
+          }
+          .todo-num {
+            font-size: 13px;
+            order: 3;
+            font-weight: bold;
           }
         }
       }
